@@ -2,7 +2,7 @@
 <img width="2000" height="1333" alt="image" src="https://github.com/user-attachments/assets/95ba2599-7690-4a35-981e-99dc9704ee40" />
 
 
-Access our Dashboard: [Global Airlines Dashboard]([https://global-airlines-dashboard.vercel.app/](https://british-airways-dashboard-website.vercel.app/))
+Access our Dashboard: [Global Airlines Dashboard](https://british-airways-dashboard-website.vercel.app/)
 
 ---
 
