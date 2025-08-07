@@ -10,11 +10,10 @@ Access our Dashboard: [Global Airlines Dashboard](https://global-airlines-da
 
 | Repository                                                                                               | Owner         | Purpose                                                                                                                                |
 | -------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **[skytrax\_data\_cleaning](https://github.com/DucLe-2005/all_airlines_data_cleaning)**            | DucLe‑2005    | Cleans raw scraped data and standardizes formats using modular Python functions.                                                       |
-| **[skytrax\_extract\_load](https://github.com/vietlam2002/all_airlines_extract_load)**             | vietlam2002   | Scrapes customer reviews for *all* airlines on Skytrax, stages them in S3, then loads to Snowflake via Airflow‑compatible ETL scripts. |
-| **[skytrax\_transformation](https://github.com/MarkPhamm/all_airlines_transformation)**            | MarkPhamm     | Handles dbt‑based data transformation on Snowflake with CI/CD workflows via GitHub Actions.                                            |
+| **[skytrax\_data\_cleaning](https://github.com/DucLe-2005/british_airways_data_cleaning)**            | DucLe‑2005    | Cleans raw scraped data and standardizes formats using modular Python functions.                                                       |
+| **[skytrax\_extract\_load](https://github.com/MarkPhamm/skytrax_reviews_extract_load)**             | MarkPhamm   | Scrapes customer reviews for *all* airlines on Skytrax, stages them in S3, then loads to Snowflake via Airflow‑compatible ETL scripts. |
+| **[skytrax\_transformation](https://github.com/MarkPhamm/skytrax_reviews_extract_load)**            | MarkPhamm     | Handles dbt‑based data transformation on Snowflake with CI/CD workflows via GitHub Actions.                                            |
 | **[skytrax\_dashboard\_website](https://github.com/nguyentienTCU/all_airlines_dashboard_website)** | nguyentienTCU | A dashboard website for visualising insights from processed airline reviews.                                                           |
-| **[skytrax\_analysis](https://github.com/trungdam512/all_airlines_analysis)**                      | trungdam512   | Focuses on EDA, ML models, and sentiment analysis across carriers.                                                                     |
 
 ---
 
