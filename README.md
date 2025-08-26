@@ -22,13 +22,14 @@ Access our Dashboard: [Global Airlines Dashboard](https://british-airways-da
 ### Project Leadership
 
 * **Mentor – Stakeholder:** [Nhan Tran](https://www.linkedin.com/in/panicpotatoe/)
-* **Analytics Engineer – Team Lead:** [Mark Pham](https://www.linkedin.com/in/minhbphamm/)
+* **Analytics Engineers – Team Lead:** [Mark Pham](https://www.linkedin.com/in/minhbphamm/)
 
 ### Engineering Teams
 
-* **Data Engineering:** [Leonard Dau](https://www.linkedin.com/in/leonard-dau-722399238/), [Thieu Nguyen](https://www.linkedin.com/in/thieunguyen1402/), [Viet Lam Nguyen](https://www.linkedin.com/in/lam-nguyen-viet-051a57305)
-* **Software Engineering:** [Tien Nguyen](https://www.linkedin.com/in/tien-nguyen-598758329), [Anh Duc Le](https://www.linkedin.com/in/duc-le-517420205/)
-* **Data Science:** [Robin Tran](https://www.linkedin.com/in/robin-tran/), [Trung Dam](https://www.linkedin.com/in/trung-dam-86962a235/)
+* **Data Engineers:** [Leonard Dau](https://www.linkedin.com/in/leonard-dau-722399238/), [Thieu Nguyen](https://www.linkedin.com/in/thieunguyen1402/), [Viet Lam Nguyen](https://www.linkedin.com/in/lam-nguyen-viet-051a57305)
+* **Software Engineers:** [Tien Nguyen](https://www.linkedin.com/in/tien-nguyen-598758329), [Anh Duc Le](https://www.linkedin.com/in/duc-le-517420205/)
+* **Data Scientist:** [Robin Tran](https://www.linkedin.com/in/robin-tran/), [Trung Dam](https://www.linkedin.com/in/trung-dam-86962a235/)
+* **Data Analyst:** [Trang Dam](https://www.linkedin.com/in/thuytrangdam/)
 * **Scrum Master:** [Hien Dinh](https://www.linkedin.com/in/hiendinhq)
 
 ---
