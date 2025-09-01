@@ -13,7 +13,7 @@ Access our Dashboard: [Global Airlines Dashboard](https://british-airways-da
 | **[skytrax\_data\_cleaning](https://github.com/DucLe-2005/british_airways_data_cleaning)**            | DucLe‑2005    | Cleans raw scraped data and standardizes formats using modular Python functions.                                                       |
 | **[skytrax\_extract\_load](https://github.com/MarkPhamm/skytrax_reviews_extract_load)**             | MarkPhamm   | Scrapes customer reviews for *all* airlines on Skytrax, stages them in S3, then loads to Snowflake via Airflow‑compatible ETL scripts. |
 | **[skytrax\_transformation](https://github.com/MarkPhamm/skytrax_reviews_extract_load)**            | MarkPhamm     | Handles dbt‑based data transformation on Snowflake with CI/CD workflows via GitHub Actions.                                            |
-| **[skytrax\_dashboard\_website](https://github.com/nguyentienTCU/all_airlines_dashboard_website)** | nguyentienTCU | A dashboard website for visualising insights from processed airline reviews.                                                           |
+| **[skytrax\_dashboard\_website](https://github.com/nguyentienTCU/Skytrax_Reviews_Dashboard)** | nguyentienTCU | A dashboard website for visualising insights from processed airline reviews.                                                           |
 
 ---
 
@@ -25,11 +25,10 @@ Access our Dashboard: [Global Airlines Dashboard](https://british-airways-da
 * **Analytics Engineers – Team Lead:** [Mark Pham](https://www.linkedin.com/in/minhbphamm/)
 
 ### Engineering Teams
-
+* **Data Analyst:** [Trang Dam](https://www.linkedin.com/in/thuytrangdam/), [Gwennie Nguyen](https://www.linkedin.com/in/gwennienguyen/), [Jenny Tran](https://www.linkedin.com/in/jennytranuyen/), [Mia Tran](https://www.linkedin.com/in/miatran1207/), [Alyssa Le](https://www.linkedin.com/in/alyssaqle/)
 * **Data Engineers:** [Leonard Dau](https://www.linkedin.com/in/leonard-dau-722399238/), [Thieu Nguyen](https://www.linkedin.com/in/thieunguyen1402/), [Viet Lam Nguyen](https://www.linkedin.com/in/lam-nguyen-viet-051a57305)
 * **Software Engineers:** [Tien Nguyen](https://www.linkedin.com/in/tien-nguyen-598758329), [Anh Duc Le](https://www.linkedin.com/in/duc-le-517420205/)
 * **Data Scientist:** [Robin Tran](https://www.linkedin.com/in/robin-tran/), [Trung Dam](https://www.linkedin.com/in/trung-dam-86962a235/)
-* **Data Analyst:** [Trang Dam](https://www.linkedin.com/in/thuytrangdam/)
 * **Scrum Master:** [Hien Dinh](https://www.linkedin.com/in/hiendinhq)
 
 ---
