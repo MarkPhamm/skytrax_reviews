@@ -14,7 +14,7 @@ Access our Dashboard: [Global Airlines Dashboard](https://british-airways-da
 | **[skytrax\_extract\_load](https://github.com/MarkPhamm/skytrax_reviews_extract_load)**             | MarkPhamm   | Scrapes customer reviews for *all* airlines on Skytrax, stages them in S3, then loads to Snowflake via Airflow‑compatible ETL scripts. |
 | **[skytrax\_transformation](https://github.com/MarkPhamm/skytrax_reviews_extract_load)**            | MarkPhamm     | Handles dbt‑based data transformation on Snowflake with CI/CD workflows via GitHub Actions.                                            |
 | **[skytrax\_dashboard\_website](https://github.com/nguyentienTCU/Skytrax_Reviews_Dashboard)** | nguyentienTCU | A dashboard website for visualising insights from processed airline reviews.    
-| **[spirit\_airlines\_dashboard](https://github.com/MiaTran1112/spirit_airlines_dashboard)** | MiaTran1112 | A A Mode dashboard analyzing Spirit Airlines customer satisfaction.                                                        |
+| **[spirit\_airlines\_dashboard](https://github.com/MiaTran1112/spirit_airlines_dashboard)** | MiaTran1112 | A Mode dashboard analyzing Spirit Airlines customer satisfaction.                                                        |
 
 ---
 
