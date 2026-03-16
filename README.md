@@ -2,8 +2,6 @@
 
 <img width="2000" height="1333" alt="image" src="https://github.com/user-attachments/assets/95ba2599-7690-4a35-981e-99dc9704ee40" />
 
-Access our Dashboard: [Global Airlines Dashboard](https://british-airways-dashboard-website.vercel.app/)
-
 ---
 
 ## Repositories
@@ -44,8 +42,6 @@ An end-to-end analytics pipeline that ingests, transforms, and visualises **cust
 ---
 
 ## Architecture
-
-![Architecture](https://github.com/user-attachments/assets/2a9d45e6-be1b-4582-a9a0-3b7fb7536d9f)
 
 ```text
 airlinequality.com
