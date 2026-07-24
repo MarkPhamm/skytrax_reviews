@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Skytrax AE-TPF — Interview Walkthrough</title>
+  <title>Skytrax Reviews Analytics Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet" />
@@ -881,11 +881,11 @@
     <section class="slide active" data-title="Title">
       <div class="hero">
         <div>
-          <p class="eyebrow">AE-TPF Technical Interview</p>
+          <p class="eyebrow">End-to-End Analytics Platform</p>
           <h1>Skytrax Reviews Analytics Platform</h1>
           <p class="lead">
             End-to-end airline review analytics: scrape → S3 → Snowflake → dbt star schema → Mode dashboard.
-            One north-star metric, five evaluation areas, Show → Why → What-if.
+            One north-star metric, five pillars, Show → Why → What-if.
           </p>
           <p class="tagline"><span class="dot"></span> Mark Pham · Analytics Engineering ownership across EL + Transform + DataOps</p>
           <div class="repo-links">
@@ -925,7 +925,7 @@
         <div class="t">65–80</div><div class="d">5. DataOps (git, slim CI, defer/favor-state CD)</div>
         <div class="t">80–90</div><div class="d">Q&A</div>
       </div>
-      <p class="small">Format for every area: <strong style="color:var(--show)">Show</strong> → <strong style="color:var(--why)">Why</strong> → <strong style="color:var(--whatif)">What-if</strong>. ~5 min per sub-topic.</p>
+      <p class="small">Format for every area: <strong style="color:var(--show)">Show</strong> → <strong style="color:var(--why)">Why</strong> → <strong style="color:var(--whatif)">What-if</strong>.</p>
       <div class="toc">
         <a href="#"><span class="num">01</span> Business problem & metric</a>
         <a href="#"><span class="num">02</span> Repos as pipeline stages</a>
@@ -1218,6 +1218,7 @@
     <section class="slide" data-title="Tech stack">
       <p class="eyebrow">Required stack + extras</p>
       <h2>Tech stack — and why I chose each</h2>
+      <!-- IMAGE SLOT: tech-stack — swap or extend these figures with your own tech-stack images -->
       <div class="stack-shots">
         <figure>
           <img src="assets/el/airflow/skytrax_crawl_dag.png" alt="Airflow skytrax_crawl DAG graph" />
@@ -1244,7 +1245,7 @@
           <tr>
             <td>Warehouse</td>
             <td><strong>Snowflake</strong></td>
-            <td>Cloud DWH required by TPF. <span class="inline-code">COPY INTO</span>, RBAC, tag-based masking, separate compute.</td>
+            <td>Managed cloud DWH — <span class="inline-code">COPY INTO</span> bulk loads, RBAC, tag-based masking, compute decoupled from storage.</td>
           </tr>
           <tr>
             <td>Transform</td>
@@ -1254,7 +1255,7 @@
           <tr>
             <td>BI</td>
             <td><strong>Mode Analytics</strong></td>
-            <td>Warehouse-direct (TPF). SQL-first to defend joins/aggs; Spirit dashboard from analyst partner.</td>
+            <td>Warehouse-direct, SQL-first — every chart is a defensible query; Spirit dashboard from analyst partner.</td>
           </tr>
           <tr>
             <td>Orchestration</td>
@@ -1282,7 +1283,7 @@
 
     <!-- 6 -->
     <section class="slide" data-title="Modeling overview">
-      <p class="eyebrow">Area 1 · Data Modeling & Architecture</p>
+      <p class="eyebrow">Pillar 1 · Data Modeling & Architecture</p>
       <h2>Kimball star + Medallion layers</h2>
       <div class="shot-row">
         <div>
@@ -1333,7 +1334,7 @@
 
     <!-- 7 -->
     <section class="slide" data-title="Modeling SWY">
-      <p class="eyebrow">Area 1 · Show → Why → What-if</p>
+      <p class="eyebrow">Pillar 1 · Show → Why → What-if</p>
       <h2>Data Modeling & Architecture</h2>
       <div class="swy">
         <div class="card show">
@@ -1374,7 +1375,7 @@
 
     <!-- 8 -->
     <section class="slide" data-title="Transformation overview">
-      <p class="eyebrow">Area 2 · Data Transformation</p>
+      <p class="eyebrow">Pillar 2 · Data Transformation</p>
       <h2>ELT practices + incremental fact</h2>
       <div class="two-col">
         <div>
@@ -1411,7 +1412,7 @@
 
     <!-- 9 -->
     <section class="slide" data-title="Transformation SWY">
-      <p class="eyebrow">Area 2 · Show → Why → What-if</p>
+      <p class="eyebrow">Pillar 2 · Show → Why → What-if</p>
       <h2>Data Transformation</h2>
       <div class="swy">
         <div class="card show">
@@ -1449,7 +1450,7 @@
 
     <!-- 10 -->
     <section class="slide" data-title="Governance overview">
-      <p class="eyebrow">Area 3 · Data Governance</p>
+      <p class="eyebrow">Pillar 3 · Data Governance</p>
       <h2>Quality checks + sensitive data handling</h2>
       <div class="shot-row">
         <div class="grid-2" style="margin-top:0;">
@@ -1482,7 +1483,7 @@
 
     <!-- 11 -->
     <section class="slide" data-title="Governance SWY">
-      <p class="eyebrow">Area 3 · Show → Why → What-if</p>
+      <p class="eyebrow">Pillar 3 · Show → Why → What-if</p>
       <h2>Data Governance</h2>
       <div class="swy">
         <div class="card show">
@@ -1526,7 +1527,7 @@
 
     <!-- 12 -->
     <section class="slide" data-title="Insight overview">
-      <p class="eyebrow">Area 4 · Data Insight</p>
+      <p class="eyebrow">Pillar 4 · Data Insight</p>
       <h2>Mode dashboard — metric to business impact</h2>
       <div class="kpi-row">
         <div class="kpi"><div class="n">4,510</div><div class="l">Spirit reviews (2015–2025)</div></div>
@@ -1548,7 +1549,7 @@
 
     <!-- 13 -->
     <section class="slide" data-title="Insight SWY">
-      <p class="eyebrow">Area 4 · Show → Why → What-if</p>
+      <p class="eyebrow">Pillar 4 · Show → Why → What-if</p>
       <h2>Data Insight</h2>
       <div class="swy">
         <div class="card show">
@@ -1599,7 +1600,7 @@
 
     <!-- 14 -->
     <section class="slide" data-title="DataOps overview">
-      <p class="eyebrow">Area 5 · DataOps</p>
+      <p class="eyebrow">Pillar 5 · DataOps</p>
       <h2>Branching, CI/CD, release</h2>
       <div class="shot-row">
         <div>
@@ -1632,7 +1633,7 @@
 
     <!-- 15 -->
     <section class="slide" data-title="DataOps SWY">
-      <p class="eyebrow">Area 5 · Show → Why → What-if</p>
+      <p class="eyebrow">Pillar 5 · Show → Why → What-if</p>
       <h2>DataOps</h2>
       <div class="swy">
         <div class="card show">
@@ -1670,7 +1671,7 @@
 
     <!-- 16 -->
     <section class="slide" data-title="Ownership">
-      <p class="eyebrow">Narrative tip</p>
+      <p class="eyebrow">Team & ownership</p>
       <h2>What I own vs partner work</h2>
       <div class="grid-3">
         <div class="card">
@@ -1701,13 +1702,13 @@
           </ul>
         </div>
       </div>
-      <p class="small">Be explicit: TPF accepts team work, but ownership depth scores higher on EL + Transform + DataOps — lean there; use Insight for business storytelling.</p>
+      <p class="small">Team project, honestly framed: I led extract–load, transformation, and DataOps end-to-end; analyst partners own the Mode insight layer — and every metric's SQL and grain is mine to defend.</p>
     </section>
 
     <!-- 17 -->
     <section class="slide" data-title="Demo checklist">
       <p class="eyebrow">Practical checklist</p>
-      <h2>Live demo — have these ready</h2>
+      <h2>Live demo menu — pick any box, we open it now</h2>
       <ul class="checklist">
         <li>Repos tree navigable (EL + transformation + dashboard README)</li>
         <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review</span> / <span class="inline-code">dbt test --select fct_review</span></li>
@@ -1722,8 +1723,8 @@
 
     <!-- 18 -->
     <section class="slide" data-title="What-if bank">
-      <p class="eyebrow">Prep bank</p>
-      <h2>Fast What-if answers (keep handy)</h2>
+      <p class="eyebrow">Design extensions</p>
+      <h2>What-if scenarios — already thought through</h2>
       <div class="grid-2">
         <div class="card">
           <h3>Modeling / Transform</h3>
@@ -1742,7 +1743,6 @@
           </ul>
         </div>
       </div>
-      <p class="small">Remember: AI tools are banned in the live interview. This deck is prep only.</p>
     </section>
 
     <!-- 19 -->
@@ -1758,7 +1758,7 @@
           <p class="tagline"><span class="dot"></span> Questions welcome — pick an area and we’ll go deeper.</p>
         </div>
         <div class="metric-card">
-          <div class="label">Remember the spine</div>
+          <div class="label">The spine</div>
           <p class="sub" style="margin-top:0;">
             <strong style="color:var(--text)">EL repo</strong> → land & load<br />
             <strong style="color:var(--text)">Transform repo</strong> → dims/facts + CI/CD<br />
