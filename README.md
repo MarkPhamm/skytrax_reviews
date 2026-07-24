@@ -6,6 +6,8 @@ This repo is the **umbrella** — project narrative, architecture, and links int
 
 **[Platform walkthrough](https://markphamm.github.io/skytrax_reviews/)** — Show → Why → What-if deck (`index.html`) covering modeling, transformation, governance, insight, and DataOps.
 
+**[Demo runbook](docs/demo-runbook.md)** — live commands per pillar (including break-it-live branches `demo/contract-break` and `demo/bad-data` on the transformation repo).
+
 > **Self-selection bias:** Skytrax reviews are self-reported. Passengers with extreme experiences are more likely to post, so KPIs are *directional*, not population-level.
 
 ---
@@ -147,7 +149,7 @@ Queries live warehouse marts (`FCT_REVIEW_ENRICHED`), declared as a dbt exposure
 
 | Signal | Value |
 | --- | --- |
-| Reviews (Spirit, 2015–2025) | 4,510 |
+| Reviews (Spirit, 2015–2025) | 4,671 |
 | Average rating | **1.59 / 5** |
 | Not recommended | **~87.9%** |
 | Weakest services | IFE ~1.11, Wi‑Fi ~1.13 |
@@ -164,7 +166,7 @@ Queries live warehouse marts (`FCT_REVIEW_ENRICHED`), declared as a dbt exposure
 | File quality gates | EL — validate after upload; quarantine bad dates |
 | Load reconciliation | EL — `RAW.LOAD_AUDIT` |
 | dbt tests | unique / not_null / relationships / accepted_values / expectations + unit + singular |
-| Source freshness | warn 12h / error 1d on `updated_at` |
+| Source freshness | warn 3d / error 7d on `updated_at` (laptop-paced loads) |
 | PII | Snowflake masking (RAW tags + marts `PII_HASH_MASK` on `dim_customer`) |
 | Access | Terraform RBAC: ADMIN > TRANSFORMER + ANALYST; service users `PROD_DBT`, `DBT_CICD` |
 

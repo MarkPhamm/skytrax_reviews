@@ -1440,8 +1440,8 @@
           <span class="pill whatif">What-if</span>
           <h3>Live adaptations</h3>
           <ul>
-            <li>“New service score column” → append via <span class="inline-code">on_schema_change='append_new_columns'</span>, extend average formula + unit test.</li>
-            <li>“Delete / GDPR erase a reviewer” → show merge can’t delete; need soft-delete flag or periodic full-refresh strategy.</li>
+            <li>“New service score column” → contract + <span class="inline-code">on_schema_change='fail'</span> blocks drift; extend average formula + unit test, then full-refresh.</li>
+            <li>“Delete / GDPR erase a reviewer” → <span class="inline-code">dbt run-operation gdpr_erase</span> deletes fact/snapshot rows + logs exclusion seed (merge alone can’t delete).</li>
             <li>“Lookback too small” → bump <span class="inline-code">incremental_lookback_days</span> var or full-refresh once.</li>
           </ul>
         </div>
@@ -1460,8 +1460,10 @@
               <li>EL: schema / null-rate / rating-range; reject by date</li>
               <li>EL: <span class="inline-code">COPY INTO</span> → <span class="inline-code">LOAD_AUDIT</span></li>
               <li>dbt: unique / not_null / relationships / accepted_values</li>
-              <li>dbt_expectations + unit + singular tests</li>
-              <li>Freshness: warn 12h / error 1d</li>
+              <li>dbt_expectations + unit + singular + Spirit fleet plausibility (warn)</li>
+              <li>Freshness: warn 3d / error 7d (daily-when-laptop-runs loads)</li>
+              <li>Elementary volume anomaly on <span class="inline-code">fct_review</span> (warn)</li>
+              <li>Resource monitors + query tags + statement timeouts</li>
             </ul>
           </div>
           <div class="card">
@@ -1470,7 +1472,8 @@
               <li>Tag masking on name / nationality (RAW)</li>
               <li><span class="inline-code">PII_HASH_MASK</span> on <span class="inline-code">dim_customer</span></li>
               <li>ANALYST sees hash; TRANSFORMER sees clear</li>
-              <li>RBAC + DEV_* schemas (Terraform)</li>
+              <li>RBAC + DEV_* schemas; key-pair path for service users</li>
+              <li>Failure alerting on EL + cosmos DAGs</li>
             </ul>
           </div>
         </div>
@@ -1508,8 +1511,9 @@
           <span class="pill whatif">What-if</span>
           <h3>Live adaptations</h3>
           <ul>
-            <li>Mask review text · fail if &gt;5% rejects</li>
+            <li>Fail the DAG if &gt;5% of dates quarantine</li>
             <li>Row access policy by airline partner</li>
+            <li>Time-travel / zero-copy clone rollback after a bad load</li>
           </ul>
         </div>
       </div>
@@ -1530,7 +1534,7 @@
       <p class="eyebrow">Pillar 4 · Data Insight</p>
       <h2>Mode dashboard — metric to business impact</h2>
       <div class="kpi-row">
-        <div class="kpi"><div class="n">4,510</div><div class="l">Spirit reviews (2015–2025)</div></div>
+        <div class="kpi"><div class="n">4,671</div><div class="l">Spirit reviews (2015–2025)</div></div>
         <div class="kpi"><div class="n">1.59</div><div class="l">Average rating</div></div>
         <div class="kpi"><div class="n">80.6%</div><div class="l">Bad rating band</div></div>
         <div class="kpi"><div class="n">12.1%</div><div class="l">Would recommend</div></div>
@@ -1559,6 +1563,7 @@
             <li><span class="inline-code">spirit_airlines_dashboard</span> + Mode</li>
             <li><span class="inline-code">MARTS.FCT_REVIEW_ENRICHED</span></li>
             <li>dbt exposure in <span class="inline-code">exposures.yml</span></li>
+            <li>Semantic layer: <span class="inline-code">avg_rating</span> / <span class="inline-code">pct_recommended</span></li>
             <li>Defend: filter Spirit → AVG / recommended share</li>
           </ul>
         </div>
@@ -1578,7 +1583,7 @@
           <ul>
             <li>Benchmark Frontier — same metric, multi-airline</li>
             <li>NPS-like from <span class="inline-code">recommended</span></li>
-            <li>Add dbt/MetricFlow semantic metrics</li>
+            <li><span class="inline-code">mf query --metrics avg_rating --group-by rating_band</span></li>
           </ul>
         </div>
       </div>
@@ -1669,6 +1674,55 @@
       </div>
     </section>
 
+    <!-- 15b -->
+    <section class="slide" data-title="Governance matrix">
+      <p class="eyebrow">Pillar 3 · Control matrix</p>
+      <h2>Control → tool → evidence → live verify</h2>
+      <table class="stack-table">
+        <thead>
+          <tr><th>Control</th><th>Tool</th><th>Evidence path</th><th>Live verify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>File quality gate</td>
+            <td>Airflow + <span class="inline-code">quality.py</span></td>
+            <td><span class="inline-code">quarantine/&lt;type&gt;/</span> + Airflow Variable</td>
+            <td>Reject a fixture file → lands in quarantine, skipped by COPY</td>
+          </tr>
+          <tr>
+            <td>Load reconciliation</td>
+            <td>Snowflake <span class="inline-code">LOAD_AUDIT</span></td>
+            <td>EL <span class="inline-code">snowflake_load.py</span></td>
+            <td><span class="inline-code">select * from raw.load_audit order by loaded_at desc limit 5</span></td>
+          </tr>
+          <tr>
+            <td>Model tests + contracts</td>
+            <td>dbt</td>
+            <td><span class="inline-code">marts_schema.yml</span>, slim CI</td>
+            <td><span class="inline-code">dbt test -s fct_review</span> · branch <span class="inline-code">demo/contract-break</span></td>
+          </tr>
+          <tr>
+            <td>PII masking</td>
+            <td>Snowflake tags + <span class="inline-code">PII_HASH_MASK</span></td>
+            <td>EL <span class="inline-code">masking.tf</span> · TF <span class="inline-code">apply_pii_mask</span></td>
+            <td>ANALYST vs TRANSFORMER on <span class="inline-code">dim_customer</span></td>
+          </tr>
+          <tr>
+            <td>Freshness + anomalies</td>
+            <td>dbt freshness · Elementary</td>
+            <td><span class="inline-code">stg__skytrax_source.yml</span> · edr schema</td>
+            <td><span class="inline-code">dbt source freshness</span> · <span class="inline-code">edr report</span></td>
+          </tr>
+          <tr>
+            <td>GDPR erase</td>
+            <td>dbt macro</td>
+            <td><span class="inline-code">macros/gdpr_erase.sql</span></td>
+            <td><span class="inline-code">dbt run-operation gdpr_erase --args '{review_id: …}'</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- 16 -->
     <section class="slide" data-title="Ownership">
       <p class="eyebrow">Team & ownership</p>
@@ -1731,14 +1785,14 @@
           <ul>
             <li>New review type → new RAW table + staging + optional fact; share dims</li>
             <li>Change grain to “per leg” → explode routes; new surrogate; full-refresh fact</li>
-            <li>dbt Cloud instead of Core → same project; CI becomes native jobs — trade cost vs DIY OIDC/docs</li>
+            <li>Shipped: <span class="inline-code">gdpr_erase</span> run-operation + exclusion seed</li>
           </ul>
         </div>
         <div class="card">
           <h3>Governance / Insight / Ops</h3>
           <ul>
-            <li>PII in review text → tokenize / redact in intermediate; mask in marts</li>
-            <li>Metric “cost per complaint” → needs cost seed/source; keep rating as leading indicator until then</li>
+            <li>Shipped: Spirit fleet plausibility test (warn)</li>
+            <li>Shipped: MetricFlow <span class="inline-code">avg_rating</span> / <span class="inline-code">pct_recommended</span></li>
             <li>CI too slow → tighten selector, warehouse XS, parallel jobs, clone over rebuild</li>
           </ul>
         </div>
