@@ -825,6 +825,53 @@
 
     .arch-legend i.dash { border-top-style: dashed; border-color: var(--whatif); }
     .arch-legend i.dot { border-top-style: dotted; border-color: var(--accent-2); }
+
+    a.repo-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    a.repo-link:hover {
+      border-bottom-color: currentColor;
+      color: var(--accent);
+    }
+
+    a.repo-link.el { color: var(--repo-el); }
+    a.repo-link.tf { color: var(--repo-tf); }
+    a.repo-link.bi { color: var(--repo-bi); }
+    a.repo-link.hub { color: var(--accent); }
+
+    .repo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+
+    .repo-links a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--bg-elev);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .repo-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .footer-bar a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-bar a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -841,6 +888,12 @@
             One north-star metric, five evaluation areas, Show → Why → What-if.
           </p>
           <p class="tagline"><span class="dot"></span> Mark Pham · Analytics Engineering ownership across EL + Transform + DataOps</p>
+          <div class="repo-links">
+            <a href="https://github.com/MarkPhamm/skytrax_reviews" target="_blank" rel="noopener noreferrer">skytrax_reviews</a>
+            <a href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a>
+            <a href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a>
+            <a href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit dashboard</a>
+          </div>
           <div class="metric-card" style="margin-top:1.25rem;">
             <div class="label">North-star metric</div>
             <div class="value">1.59 / 5</div>
@@ -925,31 +978,35 @@
           <div class="n">01</div>
           <h3>Extract</h3>
           <p>Scrape AirlineQuality.com (4 types × entity parallelism). Land date-partitioned CSVs.</p>
-          <div class="repo el">skytrax_reviews_extract_load</div>
+          <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
         </div>
         <div class="flow-step">
           <div class="n">02</div>
           <h3>Stage + Load</h3>
           <p>Clean → S3 <span class="inline-code">processed/</span> → quality gates → <span class="inline-code">COPY INTO</span> Snowflake RAW + LOAD_AUDIT.</p>
-          <div class="repo el">skytrax_reviews_extract_load</div>
+          <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
         </div>
         <div class="flow-step">
           <div class="n">03</div>
           <h3>Transform</h3>
           <p>Medallion layers → Kimball star: staging → intermediate → marts (dims + incremental fact).</p>
-          <div class="repo tf">skytrax_reviews_transformation</div>
+          <a class="repo tf repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">skytrax_reviews_transformation</a>
         </div>
         <div class="flow-step">
           <div class="n">04</div>
           <h3>Orchestrate / Ops</h3>
           <p>Airflow Datasets + cosmos DbtDag; slim CI + defer/favor-state CD; Terraform IaC.</p>
-          <div class="repo tf">extract_load + transformation</div>
+          <span class="repo tf">
+            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a>
+            +
+            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a>
+          </span>
         </div>
         <div class="flow-step">
           <div class="n">05</div>
           <h3>Insight</h3>
           <p>Mode dashboard on Spirit satisfaction — KPIs, segments, airports — from warehouse marts.</p>
-          <div class="repo bi">spirit_airlines_dashboard</div>
+          <a class="repo bi repo-link" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit_airlines_dashboard</a>
         </div>
       </div>
       <div class="img-grid-2">
@@ -1095,7 +1152,13 @@
           <span><i></i> primary data flow (left → right)</span>
           <span><i class="dash"></i> orchestration spans extract → load → dbt</span>
           <span><i class="dot"></i> control plane provisions + deploys (Terraform / GHA / OIDC)</span>
-          <span>Repos: extract_load · transformation · spirit_airlines_dashboard</span>
+          <span>
+            Repos:
+            <a class="repo-link hub" href="https://github.com/MarkPhamm/skytrax_reviews" target="_blank" rel="noopener noreferrer">umbrella</a> ·
+            <a class="repo-link el" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a> ·
+            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a> ·
+            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit dashboard</a>
+          </span>
         </div>
       </div>
     </section>
@@ -1612,7 +1675,7 @@
       <div class="grid-3">
         <div class="card">
           <h3 style="color:var(--repo-el)">I built — EL</h3>
-          <p><span class="inline-code">skytrax_reviews_extract_load</span></p>
+          <p><a class="repo-link el" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a></p>
           <ul>
             <li>Airflow DAGs, scraper, S3 layout</li>
             <li>Quality gates + LOAD_AUDIT</li>
@@ -1621,7 +1684,7 @@
         </div>
         <div class="card">
           <h3 style="color:var(--repo-tf)">I built — Transform / Ops</h3>
-          <p><span class="inline-code">skytrax_reviews_transformation</span></p>
+          <p><a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">skytrax_reviews_transformation</a></p>
           <ul>
             <li>Star schema, incremental fact</li>
             <li>Slim CI / defer CD / OIDC</li>
@@ -1630,7 +1693,7 @@
         </div>
         <div class="card">
           <h3 style="color:var(--repo-bi)">Partner — Insight</h3>
-          <p><span class="inline-code">spirit_airlines_dashboard</span> (Mia Tran)</p>
+          <p><a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit_airlines_dashboard</a> (Mia Tran)</p>
           <ul>
             <li>Mode dashboard & analysis</li>
             <li>I expose marts + document exposure</li>
@@ -1711,7 +1774,10 @@
   </div>
 
   <div class="footer-bar">
-    <div class="nav-hint"><kbd>←</kbd> <kbd>→</kbd> or click · <span id="slideLabel">1 / 1</span></div>
+    <div class="nav-hint">
+      <a href="https://github.com/MarkPhamm/skytrax_reviews" target="_blank" rel="noopener noreferrer">github.com/MarkPhamm/skytrax_reviews</a>
+      · <kbd>←</kbd> <kbd>→</kbd> · <span id="slideLabel">1 / 1</span>
+    </div>
     <div class="progress"><span id="progressBar"></span></div>
     <div class="nav-btns">
       <button type="button" id="prevBtn">Prev</button>
