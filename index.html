@@ -398,6 +398,85 @@
 
     .timing .d { color: var(--muted); }
 
+    /* Agenda slide — single timed spine */
+    .agenda {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      margin-top: 1.5rem;
+      max-width: 52rem;
+      border-left: 1px solid var(--line);
+      padding-left: 0;
+    }
+
+    .agenda-row {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 1.25rem;
+      align-items: baseline;
+      padding: 0.7rem 0 0.7rem 1.35rem;
+      margin-left: -1px;
+      border-left: 2px solid transparent;
+      background: transparent;
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      width: 100%;
+    }
+
+    .agenda-row:hover,
+    .agenda-row:focus-visible {
+      border-left-color: var(--accent);
+      background: linear-gradient(90deg, rgba(61, 184, 168, 0.08), transparent 70%);
+      outline: none;
+    }
+
+    .agenda-row .t {
+      color: var(--accent);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .agenda-row .pillar {
+      display: block;
+      color: var(--text);
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .agenda-row .hint {
+      display: block;
+      margin-top: 0.2rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .agenda-row.qa .pillar { color: var(--muted); font-size: 1.05rem; }
+
+    .swy-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.55rem 0.75rem;
+      margin-top: auto;
+      padding-top: 1.5rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .swy-line .pill { margin: 0; }
+
     .checklist {
       list-style: none;
       margin-top: 1rem;
@@ -894,14 +973,6 @@
             <a href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a>
             <a href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit dashboard</a>
           </div>
-          <div class="metric-card" style="margin-top:1.25rem;">
-            <div class="label">North-star metric</div>
-            <div class="value">1.59 / 5</div>
-            <p class="sub">
-              Spirit Airlines average review rating (2015–2025).
-              Coupled with <strong style="color:var(--text)">87.86% not recommending</strong>.
-            </p>
-          </div>
         </div>
         <div class="hero-media">
           <figure class="cover light">
@@ -915,61 +986,68 @@
     <!-- 1 -->
     <section class="slide" data-title="Agenda">
       <p class="eyebrow">Agenda · ≤ 1.5h</p>
-      <h2>Walkthrough plan</h2>
-      <div class="timing">
-        <div class="t">0–5</div><div class="d">Overview — business problem, metric, architecture, stack</div>
-        <div class="t">5–20</div><div class="d">1. Data Modeling & Architecture</div>
-        <div class="t">20–35</div><div class="d">2. Data Transformation (incremental + ELT practices)</div>
-        <div class="t">35–50</div><div class="d">3. Data Governance (quality + security)</div>
-        <div class="t">50–65</div><div class="d">4. Data Insight (Mode dashboard + SQL)</div>
-        <div class="t">65–80</div><div class="d">5. DataOps (git, slim CI, defer/favor-state CD)</div>
-        <div class="t">80–90</div><div class="d">Q&A</div>
+      <h2>Five pillars. One rhythm.</h2>
+      <p class="lead" style="margin-top:0.5rem;">Click a block to jump — every pillar runs Show → Why → What-if.</p>
+      <div class="agenda">
+        <button type="button" class="agenda-row" data-go="2">
+          <span class="t">0–5</span>
+          <span>
+            <span class="pillar">Open</span>
+            <span class="hint">Repos, architecture, stack</span>
+          </span>
+        </button>
+        <button type="button" class="agenda-row" data-go="5">
+          <span class="t">5–20</span>
+          <span>
+            <span class="pillar">1 · Modeling</span>
+            <span class="hint">Kimball star + medallion layers</span>
+          </span>
+        </button>
+        <button type="button" class="agenda-row" data-go="7">
+          <span class="t">20–35</span>
+          <span>
+            <span class="pillar">2 · Transformation</span>
+            <span class="hint">Incremental fact, contracts, ELT practices</span>
+          </span>
+        </button>
+        <button type="button" class="agenda-row" data-go="9">
+          <span class="t">35–50</span>
+          <span>
+            <span class="pillar">3 · Governance</span>
+            <span class="hint">Quality gates, PII masking, control matrix</span>
+          </span>
+        </button>
+        <button type="button" class="agenda-row" data-go="11">
+          <span class="t">50–65</span>
+          <span>
+            <span class="pillar">4 · Insight</span>
+            <span class="hint">Mode dashboard, Spirit metric, SQL grain</span>
+          </span>
+        </button>
+        <button type="button" class="agenda-row" data-go="14">
+          <span class="t">65–80</span>
+          <span>
+            <span class="pillar">5 · DataOps</span>
+            <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
+          </span>
+        </button>
+        <button type="button" class="agenda-row qa" data-go="19">
+          <span class="t">80–90</span>
+          <span>
+            <span class="pillar">Live demo · Q&amp;A</span>
+            <span class="hint">Pick any box from the demo menu</span>
+          </span>
+        </button>
       </div>
-      <p class="small">Format for every area: <strong style="color:var(--show)">Show</strong> → <strong style="color:var(--why)">Why</strong> → <strong style="color:var(--whatif)">What-if</strong>.</p>
-      <div class="toc">
-        <a href="#"><span class="num">01</span> Business problem & metric</a>
-        <a href="#"><span class="num">02</span> Repos as pipeline stages</a>
-        <a href="#"><span class="num">03</span> Architecture (data + control plane)</a>
-        <a href="#"><span class="num">04</span> Tech stack & why</a>
-        <a href="#"><span class="num">05</span> Modeling</a>
-        <a href="#"><span class="num">06</span> Transformation</a>
-        <a href="#"><span class="num">07</span> Governance</a>
-        <a href="#"><span class="num">08</span> Insight</a>
-        <a href="#"><span class="num">09</span> DataOps</a>
-        <a href="#"><span class="num">10</span> Live demo checklist</a>
+      <div class="swy-line">
+        <span>Every pillar:</span>
+        <span class="pill show">Show</span>
+        <span class="pill why">Why</span>
+        <span class="pill whatif">What-if</span>
       </div>
     </section>
 
     <!-- 2 -->
-    <section class="slide" data-title="Business problem">
-      <p class="eyebrow">Project scope</p>
-      <h2>One business problem, one metric</h2>
-      <div class="shot-row">
-        <div class="card">
-          <h3>Problem → metric</h3>
-          <p>
-            Skytrax feedback is messy HTML — not warehouse-ready or decision-ready.
-            We turn it into a repeatable ELT + star schema so analysts can track satisfaction.
-          </p>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.85rem;">
-            <div class="kpi"><div class="n">1.59</div><div class="l">Avg rating / 5</div></div>
-            <div class="kpi"><div class="n">87.9%</div><div class="l">Not recommended</div></div>
-            <div class="kpi"><div class="n">1.11</div><div class="l">IFE (weakest)</div></div>
-            <div class="kpi"><div class="n">1.13</div><div class="l">Wi‑Fi (weakest)</div></div>
-          </div>
-          <p style="margin-top:0.85rem;">
-            Logic in dbt (<span class="inline-code">average_rating</span>, <span class="inline-code">rating_band</span>,
-            <span class="inline-code">recommended</span>) → Mode on <span class="inline-code">FCT_REVIEW_ENRICHED</span>.
-          </p>
-        </div>
-        <figure class="light">
-          <img src="assets/spirit/traveller_type.png" alt="Satisfaction by traveller type" />
-          <figcaption>Spirit deep-dive — traveller segments (Business travellers lowest)</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- 3 -->
     <section class="slide" data-title="Repos = stages">
       <p class="eyebrow">System map</p>
       <h2>Each repo is one part of the pipeline</h2>
@@ -1163,58 +1241,7 @@
       </div>
     </section>
 
-    <!-- 4b -->
-    <section class="slide" data-title="Control plane">
-      <p class="eyebrow">End-to-end · control plane detail</p>
-      <h2>Terraform · OIDC · CI/CD — how the platform is run</h2>
-      <div class="grid-3" style="flex:1;">
-        <div class="card">
-          <h3 style="color:var(--accent-2)">Terraform (IaC)</h3>
-          <p style="margin-bottom:0.55rem;">Nothing important is click-ops.</p>
-          <ul>
-            <li><strong style="color:var(--text)">EL repo:</strong> S3 landing, IAM, Snowflake RAW tables, stage, <span class="inline-code">LOAD_AUDIT</span>, PII tags/masking</li>
-            <li><strong style="color:var(--text)">Transform repo:</strong> warehouses, RBAC, SOURCE/INTERMEDIATE/MARTS/DEV_*, artifact bucket, CloudFront, OIDC provider + IAM role</li>
-            <li><span class="inline-code">terraform apply</span> stays manual on purpose (infra blast radius)</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3 style="color:var(--accent-2)">OIDC auth</h3>
-          <p style="margin-bottom:0.55rem;">GitHub Actions never stores static AWS keys.</p>
-          <ul>
-            <li>Terraform creates GitHub OIDC provider + deploy role</li>
-            <li>CD job: <span class="inline-code">aws-actions/configure-aws-credentials</span> → short-lived creds</li>
-            <li>Role can: read/write dbt artifacts S3, invalidate CloudFront</li>
-            <li>Snowflake still uses service users (<span class="inline-code">DBT_CICD</span> / <span class="inline-code">PROD_DBT</span>) via GitHub secrets</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3 style="color:var(--accent-2)">CI / CD release</h3>
-          <p style="margin-bottom:0.55rem;">Ship only what changed.</p>
-          <ul>
-            <li><strong style="color:var(--text)">CI (PR):</strong> merge-base → lint → clone prod → build/test <span class="inline-code">state:modified+</span></li>
-            <li><strong style="color:var(--text)">CD (main):</strong> download prod manifest → <span class="inline-code">dbt build --defer --favor-state</span></li>
-            <li>Publish docs → S3 → CloudFront invalidate</li>
-            <li>Airflow/cosmos schedules ongoing prod dbt; GHA ships code</li>
-          </ul>
-        </div>
-      </div>
-      <div class="img-grid-3" style="margin-top:0.85rem;">
-        <figure>
-          <img src="assets/tf/cicd/ci.png" alt="GitHub Actions CI" />
-          <figcaption>CI — slim PR checks</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/tf/aws/s3_dbt_aritfacts_bucket.png" alt="S3 artifacts" />
-          <figcaption>Artifacts bucket (Terraform)</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/tf/aws/cloudfont_dbt_docs.png" alt="CloudFront" />
-          <figcaption>CloudFront docs (Terraform + OIDC invalidate)</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- 5 -->
+    <!-- 4 -->
     <section class="slide" data-title="Tech stack">
       <p class="eyebrow">Required stack + extras</p>
       <h2>Tech stack — and why I chose each</h2>
@@ -1263,6 +1290,11 @@
             <td>Event-driven crawl→process→load; cosmos makes dbt graph first-class tasks.</td>
           </tr>
           <tr>
+            <td>Ingestion</td>
+            <td><strong>Custom Python scraper</strong></td>
+            <td>Skytrax has no public API — Fivetran/Airbyte can’t land HTML reviews; polite crawl + parse into replayable files instead.</td>
+          </tr>
+          <tr>
             <td>Landing</td>
             <td><strong>AWS S3</strong></td>
             <td>Replayable raw archive; decouple scrape from load; cheaper than warehouse history.</td>
@@ -1275,7 +1307,7 @@
           <tr>
             <td>CI/CD + Auth</td>
             <td><strong>GitHub Actions</strong> + <strong>OIDC</strong></td>
-            <td>Slim CI / defer-favor-state CD; GHA assumes AWS IAM via OIDC — no static cloud keys for artifacts.</td>
+            <td>PR: SQLFluff + slim <span class="inline-code">state:modified+</span> build; CD: defer/favor-state; GHA assumes AWS IAM via OIDC — no static cloud keys.</td>
           </tr>
         </tbody>
       </table>
@@ -1368,8 +1400,14 @@
         </div>
       </div>
       <figure style="margin-top:1rem;">
-        <img src="assets/tf/dbt/dbt_docs_lineage.png" alt="dbt lineage graph" />
-        <figcaption>Show — hosted dbt docs lineage (CloudFront)</figcaption>
+        <a href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">
+          <img src="assets/tf/dbt/dbt_docs_lineage.png" alt="dbt lineage graph" />
+        </a>
+        <figcaption>
+          Show —
+          <a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">live dbt docs lineage</a>
+          (CloudFront)
+        </figcaption>
       </figure>
     </section>
 
@@ -1552,6 +1590,35 @@
     </section>
 
     <!-- 13 -->
+    <section class="slide" data-title="Spirit metric">
+      <p class="eyebrow">Pillar 4 · Data Insight</p>
+      <h2>One business problem, one metric</h2>
+      <div class="shot-row">
+        <div class="card">
+          <h3>Problem → metric</h3>
+          <p>
+            Skytrax feedback is messy HTML — not warehouse-ready or decision-ready.
+            We turn it into a repeatable ELT + star schema so analysts can track satisfaction.
+          </p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.85rem;">
+            <div class="kpi"><div class="n">1.59</div><div class="l">Avg rating / 5</div></div>
+            <div class="kpi"><div class="n">87.9%</div><div class="l">Not recommended</div></div>
+            <div class="kpi"><div class="n">1.11</div><div class="l">IFE (weakest)</div></div>
+            <div class="kpi"><div class="n">1.13</div><div class="l">Wi‑Fi (weakest)</div></div>
+          </div>
+          <p style="margin-top:0.85rem;">
+            Logic in dbt (<span class="inline-code">average_rating</span>, <span class="inline-code">rating_band</span>,
+            <span class="inline-code">recommended</span>) → Mode on <span class="inline-code">FCT_REVIEW_ENRICHED</span>.
+          </p>
+        </div>
+        <figure class="light">
+          <img src="assets/spirit/traveller_type.png" alt="Satisfaction by traveller type" />
+          <figcaption>Spirit deep-dive — traveller segments (Business travellers lowest)</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 14 -->
     <section class="slide" data-title="Insight SWY">
       <p class="eyebrow">Pillar 4 · Show → Why → What-if</p>
       <h2>Data Insight</h2>
@@ -1637,6 +1704,57 @@
     </section>
 
     <!-- 15 -->
+    <section class="slide" data-title="Control plane">
+      <p class="eyebrow">Pillar 5 · DataOps</p>
+      <h2>Terraform · OIDC · CI/CD — how the platform is run</h2>
+      <div class="grid-3" style="flex:1;">
+        <div class="card">
+          <h3 style="color:var(--accent-2)">Terraform (IaC)</h3>
+          <p style="margin-bottom:0.55rem;">Nothing important is click-ops.</p>
+          <ul>
+            <li><strong style="color:var(--text)">EL repo:</strong> S3 landing, IAM, Snowflake RAW tables, stage, <span class="inline-code">LOAD_AUDIT</span>, PII tags/masking</li>
+            <li><strong style="color:var(--text)">Transform repo:</strong> warehouses, RBAC, SOURCE/INTERMEDIATE/MARTS/DEV_*, artifact bucket, CloudFront, OIDC provider + IAM role</li>
+            <li><span class="inline-code">terraform apply</span> stays manual on purpose (infra blast radius)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--accent-2)">OIDC auth</h3>
+          <p style="margin-bottom:0.55rem;">GitHub Actions never stores static AWS keys.</p>
+          <ul>
+            <li>Terraform creates GitHub OIDC provider + deploy role</li>
+            <li>CD job: <span class="inline-code">aws-actions/configure-aws-credentials</span> → short-lived creds</li>
+            <li>Role can: read/write dbt artifacts S3, invalidate CloudFront</li>
+            <li>Snowflake still uses service users (<span class="inline-code">DBT_CICD</span> / <span class="inline-code">PROD_DBT</span>) via GitHub secrets</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--accent-2)">CI / CD release</h3>
+          <p style="margin-bottom:0.55rem;">Ship only what changed.</p>
+          <ul>
+            <li><strong style="color:var(--text)">CI (PR):</strong> merge-base → <strong style="color:var(--text)">SQLFluff</strong> → clone prod → build/test <span class="inline-code">state:modified+</span></li>
+            <li><strong style="color:var(--text)">CD (main):</strong> download prod manifest → <span class="inline-code">dbt build --defer --favor-state</span></li>
+            <li>Publish docs → S3 → CloudFront invalidate</li>
+            <li>Airflow/cosmos schedules ongoing prod dbt; GHA ships code</li>
+          </ul>
+        </div>
+      </div>
+      <div class="img-grid-3" style="margin-top:0.85rem;">
+        <figure>
+          <img src="assets/tf/cicd/ci.png" alt="GitHub Actions CI" />
+          <figcaption>CI — slim PR checks</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/tf/aws/s3_dbt_aritfacts_bucket.png" alt="S3 artifacts" />
+          <figcaption>Artifacts bucket (Terraform)</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/tf/aws/cloudfont_dbt_docs.png" alt="CloudFront" />
+          <figcaption>CloudFront docs (Terraform + OIDC invalidate)</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 16 -->
     <section class="slide" data-title="DataOps SWY">
       <p class="eyebrow">Pillar 5 · Show → Why → What-if</p>
       <h2>DataOps</h2>
@@ -1656,6 +1774,7 @@
           <span class="pill why">Why</span>
           <h3>Trade-offs</h3>
           <ul>
+            <li><strong>SQLFluff in CI</strong> — style/syntax gate before warehouse compute.</li>
             <li><strong>Slim CI</strong> — full project build on every PR is slow/expensive.</li>
             <li><strong>Trailing <span class="inline-code">+</span></strong> — rebuild downstream after <span class="inline-code">dbt clone</span> so types don’t silently stale.</li>
             <li><strong>Defer/favor-state</strong> — prod only rebuilds blast radius.</li>
@@ -1769,7 +1888,7 @@
         <li>Snowflake: ANALYST vs TRANSFORMER on masked <span class="inline-code">dim_customer</span></li>
         <li>Mode Spirit dashboard open (or PDF backup)</li>
         <li>GitHub Actions recent CI/CD run + <span class="inline-code">docs/cicd.md</span></li>
-        <li>dbt docs lineage tab (CloudFront)</li>
+        <li><a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">dbt docs lineage</a> (CloudFront)</li>
         <li>ERD image + architecture diagram from READMEs</li>
         <li>Sanitized profiles — no passwords/tokens on screen</li>
       </ul>
@@ -1872,12 +1991,11 @@
       }
     });
 
-    // TOC jump: map numbered links in agenda to approximate slides
-    document.querySelectorAll(".toc a").forEach((a, i) => {
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        const map = [2, 3, 4, 6, 7, 9, 11, 13, 15, 18];
-        show(map[i] ?? 0);
+    // Agenda spine: jump to the matching pillar slide
+    document.querySelectorAll(".agenda-row[data-go]").forEach((row) => {
+      row.addEventListener("click", () => {
+        const n = parseInt(row.getAttribute("data-go"), 10);
+        if (Number.isFinite(n)) show(n);
       });
     });
 

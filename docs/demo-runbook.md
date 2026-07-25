@@ -21,7 +21,7 @@ open skytrax_reviews_transformation/data_model/   # or assets in READMEs
 # Grain: one row per review_id in fct_review; dims conformed
 ```
 
-Live verify: walk `stg → int → dims + fct` in dbt docs lineage (CloudFront).
+Live verify: walk `stg → int → dims + fct` in [dbt docs lineage](https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1).
 
 ---
 
@@ -120,7 +120,7 @@ select count(*) from marts.fct_review_enriched where airline = 'Spirit Airlines'
 #   schedule → freshness + snapshot + full dbt build
 #   push    → state:modified+ --defer --favor-state
 # Docs: only index.html / manifest.json / catalog.json → CloudFront
-open https://d38l3fc9bckvbz.cloudfront.net
+open 'https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1'
 ```
 
 Cost attribution:
