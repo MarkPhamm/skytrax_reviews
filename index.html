@@ -338,6 +338,249 @@
       line-height: 1.45;
     }
 
+    /* Kimball 4-step modeling */
+    .kimball {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.35rem;
+    }
+
+    @media (max-width: 1100px) {
+      .kimball { grid-template-columns: 1fr 1fr; }
+    }
+
+    .kimball-step {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.55rem 0.65rem;
+      min-height: 0;
+    }
+
+    .kimball-step .n {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .kimball-step h3 {
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+      letter-spacing: 0;
+      line-height: 1.25;
+    }
+
+    .kimball-step .prompt {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-style: italic;
+      line-height: 1.3;
+      margin-bottom: 0.25rem;
+    }
+
+    .kimball-step .answer {
+      color: var(--text);
+      font-size: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .kimball-step.critical {
+      border-color: rgba(240, 180, 41, 0.45);
+      background: linear-gradient(160deg, rgba(240, 180, 41, 0.12), var(--panel));
+    }
+
+    .kimball-step.critical .n { color: var(--accent-2); }
+
+    .kimball-step .badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+
+    .fact-callout {
+      margin-top: 0.65rem;
+      border: 1px solid rgba(61, 184, 168, 0.4);
+      border-radius: 12px;
+      padding: 0.55rem 0.75rem;
+      background: linear-gradient(160deg, rgba(61, 184, 168, 0.12), var(--panel));
+    }
+
+    .fact-callout h3 {
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin: 0 0 0.15rem;
+      color: var(--accent);
+    }
+
+    .fact-callout p {
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .slide[data-title="Modeling overview"] {
+      padding-left: clamp(0.85rem, 2vw, 1.75rem);
+      padding-right: clamp(0.85rem, 2vw, 1.75rem);
+      padding-top: 0.85rem;
+      padding-bottom: 3.75rem;
+    }
+
+    .slide[data-title="Modeling overview"] h2 {
+      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+      margin-bottom: 0.3rem;
+    }
+
+    .slide[data-title="Modeling overview"] .shot-row {
+      margin-top: 0.5rem;
+      flex: 1;
+      min-height: 0;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 0.75rem;
+      align-items: stretch;
+    }
+
+    .slide[data-title="Modeling overview"] .shot-row > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .slide[data-title="Modeling overview"] .layers {
+      margin-top: 0;
+      flex: 1;
+      gap: 0.55rem;
+      align-items: stretch;
+    }
+
+    .slide[data-title="Modeling overview"] .layer {
+      padding: 0.7rem 0.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide[data-title="Modeling overview"] .layer h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .slide[data-title="Modeling overview"] .layer ul {
+      font-size: 0.8rem;
+      margin-top: 0.35rem;
+    }
+
+    .slide[data-title="Modeling overview"] .grid-2 {
+      margin-top: 0;
+      gap: 0.55rem;
+    }
+
+    .slide[data-title="Modeling overview"] .fact-callout {
+      margin-top: auto;
+    }
+
+    .slide[data-title="Modeling overview"] .shot-row figure {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .slide[data-title="Modeling overview"] .shot-row figure img {
+      flex: 1;
+      width: 100%;
+      max-height: none;
+      height: 100%;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .slide[data-title="Modeling SWY"] {
+      padding-left: clamp(0.85rem, 2vw, 1.75rem);
+      padding-right: clamp(0.85rem, 2vw, 1.75rem);
+      padding-top: 0.85rem;
+      padding-bottom: 3.75rem;
+    }
+
+    .slide[data-title="Modeling SWY"] h2 {
+      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+      margin-bottom: 0.35rem;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row {
+      display: grid;
+      grid-template-columns: 0.9fr 1.3fr;
+      gap: 0.75rem;
+      margin-top: 0.4rem;
+      flex: 1;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 1000px) {
+      .slide[data-title="Modeling SWY"] .lineage-row { grid-template-columns: 1fr; }
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row .swy {
+      display: flex;
+      flex-direction: column;
+      grid-template-columns: none;
+      margin-top: 0;
+      gap: 0.55rem;
+      height: 100%;
+      flex: 1;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row .swy .card {
+      flex: 1;
+      padding: 0.75rem 0.9rem;
+      min-height: 0;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row .swy .card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row .swy .card li {
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row figure {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row figure a {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-row figure img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: contain;
+      object-position: left center;
+    }
+
     .code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 0.8rem;
@@ -1242,6 +1485,35 @@
     <section class="slide" data-title="Modeling overview">
       <p class="eyebrow">Pillar 1 · Data Modeling & Architecture</p>
       <h2>Kimball star + Medallion layers</h2>
+
+      <div class="kimball">
+        <div class="kimball-step">
+          <div class="n">1</div>
+          <h3>Choose the business process</h3>
+          <p class="prompt">What business event are we modeling?</p>
+          <p class="answer">Airline customer review submissions on AirlineQuality.com.</p>
+        </div>
+        <div class="kimball-step critical">
+          <div class="n">2</div>
+          <h3>Declare the grain</h3>
+          <p class="badge">Most important</p>
+          <p class="prompt">What does one row represent?</p>
+          <p class="answer">One row per review submission in <span class="inline-code">fct_review</span>.</p>
+        </div>
+        <div class="kimball-step">
+          <div class="n">3</div>
+          <h3>Identify the key dimensions</h3>
+          <p class="prompt">What does the user want to slice by?</p>
+          <p class="answer">Customer · Airline · Aircraft · Location · Date.</p>
+        </div>
+        <div class="kimball-step">
+          <div class="n">4</div>
+          <h3>Identify the facts</h3>
+          <p class="prompt">What numbers are we measuring?</p>
+          <p class="answer">Service ratings + overall — derived <span class="inline-code">average_rating</span> / <span class="inline-code">recommended</span>.</p>
+        </div>
+      </div>
+
       <div class="shot-row">
         <div>
           <div class="layers">
@@ -1271,15 +1543,22 @@
               </ul>
             </div>
           </div>
-          <div class="grid-2" style="margin-top:0.85rem;">
-            <div class="card">
-              <h3>Grain</h3>
-              <p>One row per review submission in <span class="inline-code">fct_review</span>.</p>
+          <div class="grid-2">
+            <div class="card" style="padding:0.75rem 0.9rem;">
+              <h3 style="font-size:0.95rem;">Grain</h3>
+              <p style="font-size:0.82rem;">One row per review submission in <span class="inline-code">fct_review</span>.</p>
             </div>
-            <div class="card">
-              <h3>Keys</h3>
-              <p>Deterministic surrogates; role-playing date + location.</p>
+            <div class="card" style="padding:0.75rem 0.9rem;">
+              <h3 style="font-size:0.95rem;">Keys</h3>
+              <p style="font-size:0.82rem;">Deterministic surrogates; role-playing date + location.</p>
             </div>
+          </div>
+          <div class="fact-callout">
+            <h3>Transaction fact table</h3>
+            <p>
+              Each business event is a customer review — one grain row per event in
+              <span class="inline-code">fct_review</span> (not periodic snapshot / accumulating).
+            </p>
           </div>
         </div>
         <figure class="light">
@@ -1293,47 +1572,49 @@
     <section class="slide" data-title="Modeling SWY">
       <p class="eyebrow">Pillar 1 · Show → Why → What-if</p>
       <h2>Data Modeling & Architecture</h2>
-      <div class="swy">
-        <div class="card show">
-          <span class="pill show">Show</span>
-          <h3>Where it lives</h3>
-          <ul>
-            <li>ERD + CloudFront dbt docs lineage</li>
-            <li><span class="inline-code">dbt/models/{staging,intermediate,marts}</span></li>
-            <li>Schemas: SOURCE / INTERMEDIATE / MARTS</li>
-            <li>Dims: customer, airline, aircraft, location, date</li>
-          </ul>
+      <div class="lineage-row">
+        <div class="swy">
+          <div class="card show">
+            <span class="pill show">Show</span>
+            <h3>Where it lives</h3>
+            <ul>
+              <li>ERD + CloudFront dbt docs lineage</li>
+              <li><span class="inline-code">dbt/models/{staging,intermediate,marts}</span></li>
+              <li>Schemas: SOURCE / INTERMEDIATE / MARTS</li>
+              <li>Dims: customer, airline, aircraft, location, date</li>
+            </ul>
+          </div>
+          <div class="card why">
+            <span class="pill why">Why</span>
+            <h3>Trade-offs</h3>
+            <ul>
+              <li><strong>Kimball &gt; Data Vault</strong> — analyst-friendly for Mode</li>
+              <li><strong>Medallion + star</strong> — replay / clean / consume</li>
+              <li><strong>Views early, tables in marts</strong></li>
+              <li><strong>Conformed + role-playing dims</strong></li>
+            </ul>
+          </div>
+          <div class="card whatif">
+            <span class="pill whatif">What-if</span>
+            <h3>Live adaptations</h3>
+            <ul>
+              <li>Second fact for seat reviews — share dims</li>
+              <li>SCD2 aircraft → snapshot / type-2</li>
+              <li>3NF reshape only marts — layers protect</li>
+            </ul>
+          </div>
         </div>
-        <div class="card why">
-          <span class="pill why">Why</span>
-          <h3>Trade-offs</h3>
-          <ul>
-            <li><strong>Kimball &gt; Data Vault</strong> — analyst-friendly for Mode</li>
-            <li><strong>Medallion + star</strong> — replay / clean / consume</li>
-            <li><strong>Views early, tables in marts</strong></li>
-            <li><strong>Conformed + role-playing dims</strong></li>
-          </ul>
-        </div>
-        <div class="card whatif">
-          <span class="pill whatif">What-if</span>
-          <h3>Live adaptations</h3>
-          <ul>
-            <li>Second fact for seat reviews — share dims</li>
-            <li>SCD2 aircraft → snapshot / type-2</li>
-            <li>3NF reshape only marts — layers protect</li>
-          </ul>
-        </div>
+        <figure>
+          <a href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">
+            <img src="assets/tf/dbt/dbt_docs_lineage.png" alt="dbt lineage graph" />
+          </a>
+          <figcaption>
+            Show —
+            <a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">live dbt docs lineage</a>
+            · exposure: airline dashboard
+          </figcaption>
+        </figure>
       </div>
-      <figure style="margin-top:1rem;">
-        <a href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">
-          <img src="assets/tf/dbt/dbt_docs_lineage.png" alt="dbt lineage graph" />
-        </a>
-        <figcaption>
-          Show —
-          <a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">live dbt docs lineage</a>
-          (CloudFront)
-        </figcaption>
-      </figure>
     </section>
 
     <!-- 8 -->
