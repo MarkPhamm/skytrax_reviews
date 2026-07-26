@@ -709,201 +709,63 @@
 
     .stack-shots figure img { max-height: 140px; }
 
-    /* End-to-end architecture diagram (reference-style) */
-    .arch {
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-      margin-top: 0.5rem;
+    /* Portfolio-style end-to-end pipeline diagram */
+    .slide[data-title="Architecture"] {
+      padding-top: 0.85rem;
+      padding-bottom: 3.75rem;
+    }
+
+    .slide[data-title="Architecture"] .eyebrow {
+      margin-bottom: 0.25rem;
+      font-size: 0.7rem;
+    }
+
+    .slide[data-title="Architecture"] h2 {
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+      margin-bottom: 0.25rem;
+    }
+
+    .pipeline-wrap {
       flex: 1;
       min-height: 0;
-    }
-
-    .arch-flow {
-      display: grid;
-      grid-template-columns: 0.9fr 1fr 1fr 1fr 1.35fr 1fr;
-      gap: 0.45rem;
-      align-items: stretch;
-      flex: 1;
-    }
-
-    @media (max-width: 1100px) {
-      .arch-flow { grid-template-columns: 1fr 1fr; }
-    }
-
-    .arch-col {
-      background: rgba(10, 18, 27, 0.65);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 0.65rem 0.7rem;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      position: relative;
+      gap: 0.2rem;
+      margin-top: 0;
     }
 
-    .arch-col::after {
-      content: "→";
-      position: absolute;
-      right: -0.42rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--accent);
-      font-size: 0.95rem;
-      font-weight: 700;
-      z-index: 2;
-      text-shadow: 0 0 8px rgba(61, 184, 168, 0.4);
-    }
-
-    .arch-col:last-child::after { content: none; }
-
-    @media (max-width: 1100px) {
-      .arch-col::after { content: none; }
-    }
-
-    .arch-col h3 {
-      font-family: "Instrument Sans", system-ui, sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin: 0 0 0.15rem;
-      font-weight: 700;
-    }
-
-    .arch-box {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 0.45rem 0.55rem;
-      font-size: 0.78rem;
-      line-height: 1.35;
-      color: var(--text);
-    }
-
-    .arch-box strong {
+    .pipeline-svg {
+      width: 100%;
+      height: 100%;
+      flex: 1;
+      min-height: 0;
       display: block;
-      font-size: 0.82rem;
-      margin-bottom: 0.12rem;
-      color: #fff;
+      user-select: none;
     }
 
-    .arch-box span, .arch-box em {
-      display: block;
+    .pipeline-svg .pl-root { opacity: 0; }
+    .pipeline-svg.is-ready .pl-root { opacity: 1; transition: opacity 0.35s ease; }
+
+    .pipeline-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem 0.9rem;
+      font-size: 0.68rem;
       color: var(--muted);
-      font-style: normal;
-      font-size: 0.72rem;
-    }
-
-    .arch-box.accent {
-      border-color: rgba(61, 184, 168, 0.45);
-      background: linear-gradient(160deg, rgba(61, 184, 168, 0.14), var(--panel));
-    }
-
-    .arch-box.gold {
-      border-color: rgba(240, 180, 41, 0.4);
-      background: linear-gradient(160deg, rgba(240, 180, 41, 0.12), var(--panel));
-    }
-
-    .arch-box.blue {
-      border-color: rgba(126, 182, 255, 0.4);
-      background: linear-gradient(160deg, rgba(126, 182, 255, 0.12), var(--panel));
-    }
-
-    .arch-rail {
-      border: 1px dashed rgba(61, 184, 168, 0.45);
-      border-radius: 12px;
-      padding: 0.55rem 0.75rem;
-      background: rgba(61, 184, 168, 0.06);
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.75rem;
       align-items: center;
+      flex-shrink: 0;
     }
 
-    .arch-rail .label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
-    .arch-rail .items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .arch-chip {
-      font-size: 0.72rem;
-      padding: 0.28rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--bg-elev);
-      color: var(--text);
-    }
-
-    .arch-control {
-      border: 1px solid rgba(240, 180, 41, 0.35);
-      border-radius: 12px;
-      padding: 0.65rem 0.75rem;
-      background: linear-gradient(160deg, rgba(240, 180, 41, 0.1), rgba(22, 42, 61, 0.85));
-    }
-
-    .arch-control .head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .arch-control .head h3 {
-      font-family: "Instrument Sans", system-ui, sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent-2);
-      margin: 0;
-    }
-
-    .arch-control .head p {
-      color: var(--muted);
-      font-size: 0.75rem;
-    }
-
-    .arch-control-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.45rem;
-    }
-
-    @media (max-width: 900px) {
-      .arch-control-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    .arch-control-grid .arch-box strong { color: var(--accent-2); }
-
-    .arch-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .arch-legend i {
+    .pipeline-legend i {
       display: inline-block;
-      width: 1.4rem;
+      width: 1.35rem;
       border-top: 2px solid var(--accent);
       margin-right: 0.35rem;
       vertical-align: middle;
     }
 
-    .arch-legend i.dash { border-top-style: dashed; border-color: var(--whatif); }
-    .arch-legend i.dot { border-top-style: dotted; border-color: var(--accent-2); }
+    .pipeline-legend i.dash { border-top-style: dashed; border-color: var(--whatif); }
+    .pipeline-legend i.dot { border-top-style: dotted; border-color: var(--accent-2); }
 
     a.repo-link {
       color: inherit;
@@ -1101,135 +963,198 @@
 
     <!-- 4 -->
     <section class="slide" data-title="Architecture">
-      <p class="eyebrow">End-to-end · data plane</p>
+      <p class="eyebrow">End-to-end · how the data flows</p>
       <h2>Architecture at a glance</h2>
-      <div class="arch">
-        <div class="arch-flow">
-          <div class="arch-col">
-            <h3>Source</h3>
-            <div class="arch-box">
-              <strong>AirlineQuality.com</strong>
-              <span>airline / seat / lounge / airport reviews</span>
-              <em>no public API — HTML scrape</em>
-            </div>
-          </div>
+      <div class="pipeline-wrap">
+        <svg
+          id="skytraxPipeline"
+          class="pipeline-svg"
+          viewBox="0 -95 1440 820"
+          preserveAspectRatio="xMidYMid meet"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Skytrax data pipeline: AirlineQuality scrape to S3 to Snowflake dbt to Mode"
+        >
+          <defs>
+            <linearGradient id="pl-orch-grad" gradientUnits="userSpaceOnUse" x1="280" y1="650" x2="1260" y2="650">
+              <stop offset="0%" stop-color="#3db8a8" />
+              <stop offset="100%" stop-color="#7eb6ff" />
+            </linearGradient>
+            <filter id="pl-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2.5" result="b" />
+              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+            <style>
+              .pl-font { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+            </style>
+          </defs>
 
-          <div class="arch-col">
-            <h3>Extract</h3>
-            <div class="arch-box accent">
-              <strong>Python scraper</strong>
-              <span>BeautifulSoup · thread-pool</span>
-              <em>4 types × entity fan-out</em>
-            </div>
-            <div class="arch-box">
-              <strong>Cleaner</strong>
-              <span>snake_case · ISO dates · routes</span>
-            </div>
-          </div>
+          <g class="pl-root">
+            <!-- Column headings -->
+            <text class="pl-label pl-font" x="125" y="42" text-anchor="middle" fill="#6B7280" font-size="13" letter-spacing="2.5">SOURCE</text>
+            <text class="pl-label pl-font" x="390" y="42" text-anchor="middle" fill="#6B7280" font-size="13" letter-spacing="2.5">EXTRACT</text>
+            <text class="pl-label pl-font" x="610" y="42" text-anchor="middle" fill="#6B7280" font-size="13" letter-spacing="2.5">LAKE</text>
+            <text class="pl-label pl-font" x="820" y="42" text-anchor="middle" fill="#6B7280" font-size="13" letter-spacing="2.5">LOAD</text>
+            <text class="pl-label pl-font" x="1055" y="42" text-anchor="middle" fill="#6B7280" font-size="13" letter-spacing="2.5">WAREHOUSE + TRANSFORM</text>
+            <text class="pl-label pl-font" x="1315" y="42" text-anchor="middle" fill="#6B7280" font-size="13" letter-spacing="2.5">CONSUMERS</text>
 
-          <div class="arch-col">
-            <h3>Lake</h3>
-            <div class="arch-box accent">
-              <strong>AWS S3</strong>
-              <span>raw/&lt;type&gt;/YYYY/MM/</span>
-              <span>processed/&lt;type&gt;/YYYY/MM/</span>
-              <em>versioned · AES256 · lifecycle</em>
-            </div>
-            <div class="arch-box">
-              <strong>Quality gate</strong>
-              <span>schema · null-rate · 1–5 ratings</span>
-              <em>reject by date (non-blocking)</em>
-            </div>
-          </div>
+            <!-- Solid edges (scrape → clean is sequential) -->
+            <path class="pl-edge" d="M247,310 C275,310 290,250 310,250" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M413,281 L413,379" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M517,410 C545,410 555,370 575,345" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M725,300 C750,300 760,270 780,270" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M725,360 C750,360 760,400 780,400" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M960,270 C980,270 985,295 993,310" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M960,400 C980,400 985,400 993,400" stroke="#3db8a8" stroke-opacity="0.4" stroke-width="2" />
+            <path class="pl-edge" d="M1217,220 C1230,220 1240,220 1250,220" stroke="#7eb6ff" stroke-opacity="0.45" stroke-width="2" />
+            <path class="pl-edge" d="M1217,340 C1230,340 1240,340 1250,340" stroke="#7eb6ff" stroke-opacity="0.45" stroke-width="2" />
+            <path class="pl-edge" d="M1217,460 C1230,460 1240,460 1250,460" stroke="#7eb6ff" stroke-opacity="0.45" stroke-width="2" />
 
-          <div class="arch-col">
-            <h3>Load</h3>
-            <div class="arch-box accent">
-              <strong>Snowflake COPY INTO</strong>
-              <span>external stage ← S3</span>
-              <em>file-level idempotency</em>
-            </div>
-            <div class="arch-box">
-              <strong>LOAD_AUDIT</strong>
-              <span>rows_parsed vs rows_loaded</span>
-            </div>
-          </div>
+            <!-- Control-plane edges -->
+            <path class="pl-control" d="M700,-20 C740,50 660,140 610,210" stroke="#f0b429" stroke-opacity="0.5" stroke-width="1.75" stroke-dasharray="2 6" />
+            <path class="pl-control" d="M860,-20 C920,50 980,120 1050,145" stroke="#f0b429" stroke-opacity="0.5" stroke-width="1.75" stroke-dasharray="2 6" />
 
-          <div class="arch-col">
-            <h3>Warehouse + Transform</h3>
-            <div class="arch-box blue">
-              <strong>Snowflake</strong>
-              <span>RAW → SOURCE → INTERMEDIATE → MARTS</span>
-              <em>RBAC · masking policies · DEV_*</em>
-            </div>
-            <div class="arch-box gold">
-              <strong>dbt Core</strong>
-              <span>stg → int → dims + incremental fct</span>
-              <em>tests · contracts · snapshots · docs</em>
-            </div>
-          </div>
+            <!-- Control plane -->
+            <g class="pl-node" data-name="control">
+              <rect x="520" y="-90" width="400" height="72" rx="14" fill="none" stroke="#f0b429" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="523" y="-87" width="394" height="66" rx="12" fill="rgba(17, 24, 39, 0.78)" stroke="#f0b429" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/Terraform.svg" x="545" y="-68" width="26" height="26" />
+              <image href="assets/pipeline/Github.svg" x="578" y="-67" width="24" height="24" />
+              <text class="pl-font" x="618" y="-56" text-anchor="start" fill="#e8f1f7" font-size="15">Terraform · GHA · OIDC</text>
+              <text class="pl-font" x="618" y="-36" text-anchor="start" fill="#9bb3c5" font-size="12">control plane · provision + deploy</text>
+            </g>
 
-          <div class="arch-col">
-            <h3>Consumers</h3>
-            <div class="arch-box gold">
-              <strong>Mode</strong>
-              <span>Spirit satisfaction dashboard</span>
-              <em>queries MARTS directly</em>
-            </div>
-            <div class="arch-box">
-              <strong>dbt Docs</strong>
-              <span>CloudFront + S3</span>
-            </div>
-            <div class="arch-box">
-              <strong>Analysts</strong>
-              <span>DEV_* sandboxes · read MARTS</span>
-            </div>
-          </div>
-        </div>
+            <!-- Source -->
+            <g class="pl-node" data-name="src-aq">
+              <rect x="22" y="268" width="228" height="84" rx="14" fill="none" stroke="#3db8a8" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="25" y="271" width="222" height="78" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/api.svg" x="40" y="297" width="26" height="26" />
+              <text class="pl-font" x="78" y="308" text-anchor="start" fill="#e8f1f7" font-size="15">AirlineQuality</text>
+              <text class="pl-font" x="78" y="328" text-anchor="start" fill="#9bb3c5" font-size="12">4 review types · HTML</text>
+            </g>
+            <text class="pl-label pl-font" x="136" y="372" text-anchor="middle" fill="#6B7280" font-size="12" font-style="italic">no public API</text>
 
-        <div class="arch-rail">
-          <div class="label">Orchestration</div>
-          <div class="items">
-            <span class="arch-chip">Airflow (Astronomer)</span>
-            <span class="arch-chip">Dataset: crawl → process → snowflake</span>
-            <span class="arch-chip">cosmos DbtDag (prod transform)</span>
-            <span class="arch-chip">quality checks + load reconcile</span>
-          </div>
-        </div>
+            <!-- Extract: scrape → clean (sequential) -->
+            <g class="pl-node" data-name="ing-scraper">
+              <rect x="307" y="216" width="213" height="68" rx="14" fill="none" stroke="#3db8a8" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="310" y="219" width="207" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/python.svg" x="324" y="237" width="26" height="26" />
+              <text class="pl-font" x="362" y="248" text-anchor="start" fill="#e8f1f7" font-size="15">Python scraper</text>
+              <text class="pl-font" x="362" y="268" text-anchor="start" fill="#9bb3c5" font-size="12">BS4 · thread pool</text>
+            </g>
+            <g class="pl-node" data-name="ing-cleaner">
+              <rect x="307" y="376" width="213" height="68" rx="14" fill="none" stroke="#3db8a8" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="310" y="379" width="207" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/python.svg" x="324" y="397" width="26" height="26" />
+              <text class="pl-font" x="362" y="408" text-anchor="start" fill="#e8f1f7" font-size="15">Python cleaner</text>
+              <text class="pl-font" x="362" y="428" text-anchor="start" fill="#9bb3c5" font-size="12">normalize · ISO dates</text>
+            </g>
 
-        <div class="arch-control">
-          <div class="head">
-            <h3>Control plane · IaC + CI/CD + Auth</h3>
-            <p>provisions infra · ships dbt · no long-lived AWS keys</p>
-          </div>
-          <div class="arch-control-grid">
-            <div class="arch-box">
-              <strong>Terraform</strong>
-              <span>AWS: S3, IAM, CloudFront, OIDC provider</span>
-              <span>Snowflake: DB, schemas, warehouses, users, roles, grants, masking</span>
-            </div>
-            <div class="arch-box">
-              <strong>GitHub Actions CI</strong>
-              <span>PR: SQLFluff · slim build/test</span>
-              <span>state:modified+ · dbt clone · defer</span>
-            </div>
-            <div class="arch-box">
-              <strong>GitHub Actions CD</strong>
-              <span>merge main: defer / favor-state</span>
-              <span>upload manifest + docs · invalidate CDN</span>
-            </div>
-            <div class="arch-box">
-              <strong>OIDC (keyless)</strong>
-              <span>GHA → assume AWS IAM role</span>
-              <span>S3 artifacts R/W · CloudFront invalidate</span>
-            </div>
-          </div>
-        </div>
+            <!-- Lake: S3 -->
+            <g class="pl-node" data-name="s3">
+              <rect x="572" y="200" width="153" height="260" rx="16" fill="none" stroke="#34D399" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="575" y="203" width="147" height="254" rx="13" fill="rgba(17, 24, 39, 0.78)" stroke="#34D399" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/S3.webp" x="624" y="230" width="50" height="50" />
+              <text class="pl-font" x="648" y="312" text-anchor="middle" fill="#34D399" font-size="28" font-weight="700">S3</text>
+              <text class="pl-font" x="648" y="348" text-anchor="middle" fill="#9bb3c5" font-size="13">raw / processed</text>
+              <text class="pl-font" x="648" y="370" text-anchor="middle" fill="#9bb3c5" font-size="13">type · YYYY/MM</text>
+              <text class="pl-font" x="648" y="408" text-anchor="middle" fill="#6B7280" font-size="12" font-style="italic">quality gate</text>
+            </g>
 
-        <div class="arch-legend">
-          <span><i></i> primary data flow (left → right)</span>
-          <span><i class="dash"></i> orchestration spans extract → load → dbt</span>
-          <span><i class="dot"></i> control plane provisions + deploys (Terraform / GHA / OIDC)</span>
+            <!-- Load -->
+            <g class="pl-node" data-name="copy">
+              <rect x="777" y="236" width="183" height="68" rx="14" fill="none" stroke="#3db8a8" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="780" y="239" width="177" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/Snowflake.svg" x="794" y="257" width="26" height="26" />
+              <text class="pl-font" x="832" y="268" text-anchor="start" fill="#e8f1f7" font-size="15">COPY INTO</text>
+              <text class="pl-font" x="832" y="288" text-anchor="start" fill="#9bb3c5" font-size="12">S3 → Snowflake</text>
+            </g>
+            <g class="pl-node" data-name="audit">
+              <rect x="777" y="366" width="183" height="68" rx="14" fill="none" stroke="#3db8a8" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="780" y="369" width="177" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/Snowflake.svg" x="794" y="387" width="26" height="26" />
+              <text class="pl-font" x="832" y="398" text-anchor="start" fill="#e8f1f7" font-size="15">LOAD_AUDIT</text>
+              <text class="pl-font" x="832" y="418" text-anchor="start" fill="#9bb3c5" font-size="12">reconcile rows</text>
+            </g>
+
+            <!-- Warehouse + transform -->
+            <g class="pl-node" data-name="warehouse">
+              <rect x="990" y="140" width="230" height="380" rx="18" fill="none" stroke="#7eb6ff" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="993" y="143" width="224" height="374" rx="15" fill="rgba(126, 182, 255, 0.07)" stroke="#7eb6ff" stroke-opacity="0.55" stroke-width="1.75" />
+              <text class="pl-font" x="1105" y="185" text-anchor="middle" fill="#7eb6ff" font-size="17" font-weight="700">Snowflake + dbt</text>
+              <line x1="1020" y1="205" x2="1190" y2="205" stroke="#7eb6ff" stroke-opacity="0.3" stroke-width="1" />
+
+              <image href="assets/pipeline/Snowflake.svg" x="1024" y="228" width="22" height="22" />
+              <text class="pl-font" x="1056" y="245" text-anchor="start" fill="#e8f1f7" font-size="15">Snowflake</text>
+              <text class="pl-font" x="1024" y="268" text-anchor="start" fill="#9bb3c5" font-size="12">RAW → SOURCE → MARTS</text>
+
+              <line x1="1020" y1="288" x2="1190" y2="288" stroke="#7eb6ff" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="3 5" />
+              <image href="assets/pipeline/dbt.svg" x="1024" y="310" width="22" height="22" />
+              <text class="pl-font" x="1056" y="327" text-anchor="start" fill="#e8f1f7" font-size="15">dbt models</text>
+              <text class="pl-font" x="1024" y="350" text-anchor="start" fill="#9bb3c5" font-size="12">stg → int → dims + fct</text>
+
+              <line x1="1020" y1="370" x2="1190" y2="370" stroke="#7eb6ff" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="3 5" />
+              <image href="assets/pipeline/Github.svg" x="1024" y="392" width="22" height="22" />
+              <text class="pl-font" x="1056" y="409" text-anchor="start" fill="#e8f1f7" font-size="15">dbt CI/CD</text>
+              <text class="pl-font" x="1024" y="432" text-anchor="start" fill="#9bb3c5" font-size="12">slim CI · defer deploy</text>
+
+              <text class="pl-status pl-font" x="1105" y="480" text-anchor="middle" fill="#34D399" font-size="14" opacity="0.55">dbt run ✓</text>
+            </g>
+
+            <!-- Consumers -->
+            <g class="pl-node" data-name="con-mode">
+              <rect x="1247" y="186" width="178" height="68" rx="14" fill="none" stroke="#f0b429" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="1250" y="189" width="172" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#f0b429" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/Mode.svg" x="1264" y="208" width="24" height="24" />
+              <text class="pl-font" x="1298" y="218" text-anchor="start" fill="#e8f1f7" font-size="15">Mode</text>
+              <text class="pl-font" x="1298" y="238" text-anchor="start" fill="#9bb3c5" font-size="12">airline dashboard</text>
+            </g>
+            <g class="pl-node" data-name="con-docs">
+              <rect x="1247" y="306" width="178" height="68" rx="14" fill="none" stroke="#7eb6ff" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="1250" y="309" width="172" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#7eb6ff" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/AWS.svg" x="1264" y="328" width="24" height="24" />
+              <text class="pl-font" x="1298" y="338" text-anchor="start" fill="#e8f1f7" font-size="15">dbt Docs</text>
+              <text class="pl-font" x="1298" y="358" text-anchor="start" fill="#9bb3c5" font-size="12">CloudFront</text>
+            </g>
+            <g class="pl-node" data-name="con-analysts">
+              <rect x="1247" y="426" width="178" height="68" rx="14" fill="none" stroke="#7eb6ff" stroke-opacity="0.14" stroke-width="1.5" />
+              <rect x="1250" y="429" width="172" height="62" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#7eb6ff" stroke-opacity="0.55" stroke-width="1.75" />
+              <image href="assets/pipeline/Snowflake.svg" x="1264" y="448" width="24" height="24" />
+              <text class="pl-font" x="1298" y="458" text-anchor="start" fill="#e8f1f7" font-size="15">Analysts</text>
+              <text class="pl-font" x="1298" y="478" text-anchor="start" fill="#9bb3c5" font-size="12">DEV_* · MARTS</text>
+            </g>
+
+            <!-- Orchestration bar -->
+            <path class="pl-orch-line" d="M280,650 L1260,650" stroke="url(#pl-orch-grad)" stroke-width="5" stroke-linecap="round" />
+            <polygon points="1260,638 1290,650 1260,662" fill="#7eb6ff" />
+            <image href="assets/pipeline/airflow.svg" x="575" y="600" width="30" height="30" />
+            <image href="assets/pipeline/Astronomer.svg" x="610" y="604" width="24" height="24" />
+            <text class="pl-font" x="780" y="622" text-anchor="middle" fill="#3db8a8" font-size="17" font-weight="700">Airflow on Astronomer</text>
+            <text class="pl-label pl-font" x="770" y="688" text-anchor="middle" fill="#9bb3c5" font-size="13">crawl → process → snowflake · cosmos DbtDag · quality + reconcile</text>
+            <text class="pl-label pl-font" x="720" y="712" text-anchor="middle" fill="#4B5563" font-size="12">solid = primary flow · dotted = control plane</text>
+
+            <!-- Data packets -->
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#3db8a8" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#7eb6ff" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#7eb6ff" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#7eb6ff" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#f0b429" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#f0b429" opacity="0" filter="url(#pl-glow)" />
+            <circle class="pl-packet" cx="0" cy="0" r="4" fill="#7eb6ff" opacity="0" filter="url(#pl-glow)" />
+          </g>
+        </svg>
+
+        <div class="pipeline-legend">
+          <span><i></i> primary data flow</span>
+          <span><i class="dot"></i> control plane → S3 + warehouse</span>
           <span>
             Repos:
             <a class="repo-link hub" href="https://github.com/MarkPhamm/skytrax_reviews" target="_blank" rel="noopener noreferrer">umbrella</a> ·
@@ -1964,6 +1889,116 @@
     const slideLabel = document.getElementById("slideLabel");
     let index = 0;
 
+    /* ---- Pipeline diagram animation (Architecture slide) ---- */
+    const pipelineSvg = document.getElementById("skytraxPipeline");
+    let pipelineRaf = null;
+    let pipelineStarted = false;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function pointOnPath(path, t) {
+      const len = path.getTotalLength();
+      return path.getPointAtLength(Math.max(0, Math.min(1, t)) * len);
+    }
+
+    function setPacket(packet, path, t, visible) {
+      if (!packet || !path) return;
+      const p = pointOnPath(path, t);
+      packet.setAttribute("cx", p.x);
+      packet.setAttribute("cy", p.y);
+      packet.setAttribute("opacity", visible ? "1" : "0");
+    }
+
+    function stopPipeline() {
+      if (pipelineRaf) {
+        cancelAnimationFrame(pipelineRaf);
+        pipelineRaf = null;
+      }
+      if (!pipelineSvg) return;
+      pipelineSvg.querySelectorAll(".pl-packet").forEach((c) => c.setAttribute("opacity", "0"));
+    }
+
+    function startPipeline() {
+      if (!pipelineSvg || reduceMotion) {
+        if (pipelineSvg) pipelineSvg.classList.add("is-ready");
+        return;
+      }
+      stopPipeline();
+
+      const edges = Array.from(pipelineSvg.querySelectorAll(".pl-edge"));
+      const control = Array.from(pipelineSvg.querySelectorAll(".pl-control"));
+      const orch = pipelineSvg.querySelector(".pl-orch-line");
+      const packets = Array.from(pipelineSvg.querySelectorAll(".pl-packet"));
+      const status = pipelineSvg.querySelector(".pl-status");
+      const paths = [...edges, ...control, orch].filter(Boolean);
+
+      // Entrance: draw edges once
+      if (!pipelineStarted) {
+        const drawables = [...edges, orch].filter(Boolean);
+        drawables.forEach((edge) => {
+          const len = edge.getTotalLength();
+          edge.style.strokeDasharray = String(len);
+          edge.style.strokeDashoffset = String(len);
+          edge.style.transition = "stroke-dashoffset 0.85s ease";
+        });
+        pipelineSvg.classList.add("is-ready");
+        requestAnimationFrame(() => {
+          drawables.forEach((edge) => {
+            edge.style.strokeDashoffset = "0";
+          });
+        });
+        pipelineStarted = true;
+        setTimeout(() => {
+          drawables.forEach((edge) => {
+            edge.style.strokeDasharray = "";
+            edge.style.strokeDashoffset = "";
+            edge.style.transition = "";
+          });
+        }, 1000);
+      } else {
+        pipelineSvg.classList.add("is-ready");
+      }
+
+      // Loop: packets ride the paths in flow order
+      const schedule = [
+        { path: 0, start: 0.0, dur: 0.85 },  // source → scraper
+        { path: 1, start: 0.9, dur: 0.7 },   // scraper → cleaner
+        { path: 2, start: 1.7, dur: 0.85 },  // cleaner → S3
+        { path: 3, start: 2.7, dur: 0.8 },   // S3 → COPY
+        { path: 4, start: 2.85, dur: 0.8 },  // S3 → audit
+        { path: 5, start: 3.65, dur: 0.8 },  // COPY → warehouse
+        { path: 6, start: 3.8, dur: 0.8 },   // audit → warehouse
+        { path: 7, start: 4.8, dur: 0.9 },   // → Mode
+        { path: 8, start: 4.95, dur: 0.9 },  // → docs
+        { path: 9, start: 5.1, dur: 0.9 },   // → analysts
+        { path: 10, start: 0.4, dur: 1.4 },  // control → S3
+        { path: 11, start: 0.55, dur: 1.4 }, // control → warehouse
+        { path: 12, start: 0.0, dur: 6.4 },  // orch bar
+      ];
+      const cycle = 7.6;
+      const t0 = performance.now();
+
+      function frame(now) {
+        const elapsed = ((now - t0) / 1000) % cycle;
+        schedule.forEach((job, i) => {
+          const packet = packets[i];
+          const path = paths[job.path];
+          if (!packet || !path) return;
+          const local = elapsed - job.start;
+          if (local < 0 || local > job.dur) {
+            packet.setAttribute("opacity", "0");
+            return;
+          }
+          setPacket(packet, path, local / job.dur, true);
+        });
+        if (status) {
+          const pulse = elapsed > 3.9 && elapsed < 4.5;
+          status.setAttribute("opacity", pulse ? "1" : "0.55");
+        }
+        pipelineRaf = requestAnimationFrame(frame);
+      }
+      pipelineRaf = requestAnimationFrame(frame);
+    }
+
     function show(i) {
       index = Math.max(0, Math.min(slides.length - 1, i));
       slides.forEach((s, n) => s.classList.toggle("active", n === index));
@@ -1972,6 +2007,9 @@
       const title = slides[index].dataset.title || "Slide";
       slideLabel.textContent = (index + 1) + " / " + slides.length + " · " + title;
       history.replaceState(null, "", "#" + (index + 1));
+
+      if (slides[index].dataset.title === "Architecture") startPipeline();
+      else stopPipeline();
     }
 
     document.getElementById("prevBtn").addEventListener("click", () => show(index - 1));
