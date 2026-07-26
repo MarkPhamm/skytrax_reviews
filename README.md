@@ -1,6 +1,6 @@
 # Skytrax Reviews Analytics Platform
 
-End-to-end airline review analytics: scrape AirlineQuality.com → stage on S3 → load Snowflake → dbt star schema (medallion) → Mode dashboard.
+End-to-end airline review analytics: scrape AirlineQuality.com → stage on S3 → load Snowflake → dbt star schema (medallion) → Mode dashboards.
 
 This repo is the **umbrella** — project narrative, architecture, and links into the part repos. Implementation lives in the extract-load, transformation, and dashboard repositories below.
 
@@ -18,27 +18,37 @@ This repo is the **umbrella** — project narrative, architecture, and links int
 | --- | --- | --- | --- |
 | 1 · Extract & Load | **[skytrax_reviews_extract_load](https://github.com/MarkPhamm/skytrax_reviews_extract_load)** | MarkPhamm | Scrape 4 review types → S3 (`raw/` / `processed/`) → Snowflake `COPY INTO` + quality gates + Terraform |
 | 2 · Transform & DataOps | **[skytrax_reviews_transformation](https://github.com/MarkPhamm/skytrax_reviews_transformation)** | MarkPhamm | dbt Kimball star schema, incremental fact, slim CI/CD, OIDC, Terraform RBAC, hosted dbt docs |
-| 3 · Insight | **[spirit_airlines_dashboard](https://github.com/MiaTran1112/spirit_airlines_dashboard)** | MiaTran1112 | Mode dashboard — Spirit Airlines satisfaction (queries `MARTS` live) |
+| 3 · Insight · Delta | **[airline_customer_exp_analysis](https://github.com/alyssaqle/airline_customer_exp_analysis)** | alyssaqle | Mode dashboard — Delta cabin-class satisfaction drivers |
+| 3 · Insight · Frontier | **[frontier-reviews-dashboard](https://github.com/gwenniehub/frontier-reviews-dashboard)** | gwenniehub | Mode dashboard — Frontier ULCC peer benchmark |
+| 3 · Insight · Spirit | **[spirit_airlines_dashboard](https://github.com/MiaTran1112/spirit_airlines_dashboard)** | MiaTran1112 | Mode dashboard — Spirit chronic dissatisfaction deep-dive |
 | — | **[Skytrax_Reviews_Dashboard](https://github.com/nguyentienTCU/Skytrax_Reviews_Dashboard)** | nguyentienTCU | Broader Next.js dashboard / explorer (parallel viz surface) |
 
 **Live dbt docs:** [https://d38l3fc9bckvbz.cloudfront.net](https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1)
 
 ---
 
-## North-star metric
+## North-star metrics
 
-**Spirit Airlines average review rating: 1.59 / 5** (2015–2025), with **~88% not recommending**.
+Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `MARTS.FCT_REVIEW` / `FCT_REVIEW_ENRICHED` — three Mode slices, three business levers:
 
-Metric logic is built in dbt (`average_rating`, `rating_band`, `recommended`) on `MARTS.FCT_REVIEW` / `FCT_REVIEW_ENRICHED` and shown in Mode. Weakest services: inflight entertainment (~1.11) and Wi‑Fi (~1.13).
+| Carrier | Reviews | Avg rating | Would recommend | Distinctive signal |
+| --- | --- | --- | --- | --- |
+| **Delta** | 2,853 (2010–2023) | **2.48 / 5** | **28.8%** | Economy vs Premium drivers diverge |
+| **Frontier** | ~3,000 (2015–2025) | ~**1.3** inflight | ~**2%** recent | Lowest ULCC recommendation rate vs peers |
+| **Spirit** | 4,671 (2015–2025) | **1.59 / 5** | **12.1%** | Chronic dissatisfaction; IFE/Wi‑Fi ~1.1 |
 
 ---
 
 ## Architecture
 
+<p align="center">
+  <img src="assets/architecture.png" alt="Skytrax Reviews end-to-end architecture: AirlineQuality → Python scrape/clean → S3 → Snowflake + dbt → Mode / dbt Docs / Analysts, with Terraform·GHA·OIDC control plane and Airflow orchestration" width="100%" />
+</p>
+
 ```text
 Source                 Extract              Lake                 Load                 Warehouse + Transform              Consumers
 ────────               ───────              ────                 ────                 ────────────────────              ─────────
-AirlineQuality.com  →  Python scraper  →   S3 raw/<type>/   →  COPY INTO        →   Snowflake RAW                   →  Mode (Spirit)
+AirlineQuality.com  →  Python scraper  →   S3 raw/<type>/   →  COPY INTO        →   Snowflake RAW                   →  Mode (Delta · Frontier · Spirit)
   airline/seat/        + cleaner            processed/<type>/   + LOAD_AUDIT         SOURCE → INTERMEDIATE → MARTS      dbt Docs (CloudFront)
   lounge/airport       (Airflow tasks)      quality gate                             dbt: stg → int → dims + fct        Analyst DEV_* 
 
@@ -68,8 +78,8 @@ Control plane (provisions + ships)
 | Lake | AWS S3 (type + date partitions) | Replayable, cheap, decoupled from Snowflake |
 | Warehouse | Snowflake | `COPY INTO`, RBAC, tag-based masking, separate compute |
 | Transform | dbt Core (dbt-snowflake), SQLFluff | Tests, contracts, incremental, defer/state, docs |
-| BI | Mode Analytics | Warehouse-direct SQL; Spirit deep-dive dashboard |
-| IaC | Terraform (AWS + Snowflake roots) | S3, IAM, CloudFront, OIDC, schemas, warehouses, roles, masking |
+| BI | Mode Analytics | Warehouse-direct SQL; Delta / Frontier / Spirit Mode slices on the same marts |
+| IaC | Terraform (AWS + Snowflake) | S3, IAM, CloudFront, OIDC, schemas, warehouses, roles, masking |
 | CI/CD | GitHub Actions | Slim CI (`state:modified+`); CD `--defer --favor-state` |
 | Auth | AWS IAM OIDC | Keyless GHA → artifact bucket / CloudFront invalidate |
 
@@ -143,19 +153,43 @@ s3://skytrax-reviews-landing-<account-id>/
 
 ## Part 3 — Insight
 
-**Repo:** [spirit_airlines_dashboard](https://github.com/MiaTran1112/spirit_airlines_dashboard) (Mode)
+Same marts (`FCT_REVIEW_ENRICHED`), three Mode dashboards — each with one distinctive insight and one action.
 
-Queries live warehouse marts (`FCT_REVIEW_ENRICHED`), declared as a dbt exposure.
+### Delta — cabin-class drivers
+
+**Repo:** [airline_customer_exp_analysis](https://github.com/alyssaqle/airline_customer_exp_analysis) (Mode)
 
 | Signal | Value |
 | --- | --- |
-| Reviews (Spirit, 2015–2025) | 4,671 |
+| Reviews (2010–2023) | 2,853 |
+| Average rating | **2.48 / 5** |
+| Would recommend | **28.8%** |
+| Insight | Economy vs Premium satisfaction drivers diverge (Economy → staff / food / value; Premium → seat / dining / value) |
+| Action | Cabin-specific plays: keep staff strength; fix Wi‑Fi; Economy value/pitch; Premium dining/comfort at ATL / JFK / LAX |
+
+### Frontier — ULCC peer gap
+
+**Repo:** [frontier-reviews-dashboard](https://github.com/gwenniehub/frontier-reviews-dashboard) (Mode)
+
+| Signal | Value |
+| --- | --- |
+| Reviews (2015–2025) | ~3,000 |
+| Avg inflight service | ~**1.3** |
+| Would recommend (recent) | ~**2%** |
+| Insight | Among ULCCs, Frontier underperforms peers on recommendation rate (Allegiant > Spirit > Frontier) |
+| Action | Close the ULCC value gap: prioritize Economy entertainment + seat comfort (majority of volume) |
+
+### Spirit — chronic dissatisfaction
+
+**Repo:** [spirit_airlines_dashboard](https://github.com/MiaTran1112/spirit_airlines_dashboard) (Mode)
+
+| Signal | Value |
+| --- | --- |
+| Reviews (2015–2025) | 4,671 |
 | Average rating | **1.59 / 5** |
 | Not recommended | **~87.9%** |
-| Weakest services | IFE ~1.11, Wi‑Fi ~1.13 |
-| Segments | Business cabin / business travellers worst; Economy ≈ 97% of volume |
-
-**Actions implied:** connectivity & IFE SLAs, rebuild Business value prop, airport ops focus (e.g. MIA / MEX / GOT), crew consistency (cabin staff correlates with overall rating).
+| Insight | Chronic dissatisfaction; IFE/Wi‑Fi ~1.1; Business Class the worst segment |
+| Action | Connectivity/IFE SLAs, rebuild Business value prop, airport ops at MIA / MEX / GOT |
 
 ---
 
@@ -194,7 +228,7 @@ Queries live warehouse marts (`FCT_REVIEW_ENRICHED`), declared as a dbt exposure
 1. Expand sources — on-time performance / DOT complaints alongside reviews  
 2. Conformed facts for seat / lounge / airport review types (already in RAW)  
 3. Semantic metrics layer on `average_rating` / recommendation rate  
-4. Peer benchmarking (e.g. Spirit vs Frontier) in Mode  
+4. Allegiant Mode slice (complete the ULCC peer set already used in Frontier’s benchmark)
 
 ---
 

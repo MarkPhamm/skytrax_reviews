@@ -8,7 +8,7 @@ Crib sheet for the live Show → Why → What-if walkthrough. One command (or pa
 | --- | --- | --- |
 | EL | `skytrax_reviews_extract_load` | `README.md`, `dags/`, `terraform/` |
 | Transform / DataOps | `skytrax_reviews_transformation` | `dbt/`, `.github/workflows/`, `docs/cicd.md` |
-| Insight | `spirit_airlines_dashboard` | `sql/`, Mode PDF under `dashboard/` |
+| Insight | `airline_customer_exp_analysis` · `frontier-reviews-dashboard` · `spirit_airlines_dashboard` | Mode PDFs under each repo; same `FCT_REVIEW_ENRICHED` grain |
 | Narrative | `skytrax_reviews` | [Platform walkthrough](https://markphamm.github.io/skytrax_reviews/) |
 
 ---
@@ -93,23 +93,40 @@ Control matrix slide in the deck maps each control → tool → evidence → com
 ## Pillar 4 — Insight
 
 ```bash
-# Mode dashboard (PDF backup in spirit_airlines_dashboard/dashboard/)
-# North-star from warehouse:
-# select avg(average_rating), avg(iff(recommended,1,0))
-# from marts.fct_review_enriched where airline = 'Spirit Airlines';
+# Mode dashboards (PDF backups in each insight repo)
+# Same metric grain — filter by airline:
+# select airline,
+#        count(*) as reviews,
+#        avg(average_rating) as avg_rating,
+#        avg(iff(recommended,1,0)) as pct_recommended
+# from marts.fct_review_enriched
+# where airline in ('Delta Air Lines', 'Frontier Airlines', 'Spirit Airlines')
+# group by 1
+# order by 1;
 
 # Semantic layer
 dbt parse
 mf query --metrics avg_rating,pct_recommended --group-by rating_band
 ```
 
-Spirit review count (refresh deck/READMEs if this drifts):
+Review counts (refresh deck/READMEs if these drift):
 
 ```sql
-select count(*) from marts.fct_review_enriched where airline = 'Spirit Airlines';
--- Expected ~4671 as of last snapshot regen
+select airline, count(*) as reviews
+from marts.fct_review_enriched
+where airline in ('Delta Air Lines', 'Frontier Airlines', 'Spirit Airlines')
+group by 1
+order by 1;
+-- Expected ~2853 Delta · ~3000 Frontier · ~4671 Spirit (last snapshot)
 ```
 
+Distinctive levers to defend live:
+
+| Airline | Insight | Action |
+| --- | --- | --- |
+| Delta | Economy vs Premium drivers diverge | Cabin-specific plays (Wi‑Fi + Economy value + Premium comfort) |
+| Frontier | Lowest ULCC recommend rate vs peers | Close value gap — Economy entertainment + seat comfort |
+| Spirit | Chronic dissatisfaction; Business worst | IFE/Wi‑Fi SLAs + rebuild Business + MIA/MEX/GOT ops |
 ---
 
 ## Pillar 5 — DataOps
