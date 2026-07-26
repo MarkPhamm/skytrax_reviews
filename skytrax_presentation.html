@@ -1069,20 +1069,22 @@
           <h1>Skytrax Reviews Analytics Platform</h1>
           <p class="lead">
             End-to-end airline review analytics: scrape → S3 → Snowflake → dbt star schema → Mode dashboard.
-            One north-star metric, five pillars, Show → Why → What-if.
+            One governed metric grain, three airline levers, five pillars, Show → Why → What-if.
           </p>
           <p class="tagline"><span class="dot"></span> Mark Pham · Analytics Engineering ownership across EL + Transform + DataOps</p>
           <div class="repo-links">
             <a href="https://github.com/MarkPhamm/skytrax_reviews" target="_blank" rel="noopener noreferrer">skytrax_reviews</a>
             <a href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a>
             <a href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a>
+            <a href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta dashboard</a>
+            <a href="https://github.com/gwenniehub/frontier-reviews-dashboard" target="_blank" rel="noopener noreferrer">frontier dashboard</a>
             <a href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit dashboard</a>
           </div>
         </div>
         <div class="hero-media">
           <figure class="cover light">
-            <img src="assets/spirit/spirit_airlines.jpg" alt="Spirit Airlines aircraft" />
-            <figcaption>Insight slice — Spirit Airlines customer satisfaction (Mode dashboard repo)</figcaption>
+            <img src="assets/delta/delta_airlines.jpg" alt="Delta Air Lines aircraft" />
+            <figcaption>Insight layer — Delta · Frontier · Spirit Mode slices on the same marts</figcaption>
           </figure>
         </div>
       </div>
@@ -1126,7 +1128,7 @@
           <span class="t">50–65</span>
           <span>
             <span class="pillar">4 · Insight</span>
-            <span class="hint">Mode dashboard, Spirit metric, SQL grain</span>
+            <span class="hint">Delta · Frontier · Spirit — one lever each</span>
           </span>
         </button>
         <button type="button" class="agenda-row" data-go="14">
@@ -1188,8 +1190,14 @@
         <div class="flow-step">
           <div class="n">05</div>
           <h3>Insight</h3>
-          <p>Mode dashboard on Spirit satisfaction — KPIs, segments, airports — from warehouse marts.</p>
-          <a class="repo bi repo-link" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit_airlines_dashboard</a>
+          <p>Three Mode slices on the same marts — Delta cabin drivers, Frontier ULCC gap, Spirit chronic pain.</p>
+          <span class="repo bi">
+            <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta</a>
+            ·
+            <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard" target="_blank" rel="noopener noreferrer">frontier</a>
+            ·
+            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit</a>
+          </span>
         </div>
       </div>
       <div class="img-grid-2">
@@ -1403,7 +1411,9 @@
             <a class="repo-link hub" href="https://github.com/MarkPhamm/skytrax_reviews" target="_blank" rel="noopener noreferrer">umbrella</a> ·
             <a class="repo-link el" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a> ·
             <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a> ·
-            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit dashboard</a>
+            <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta</a> ·
+            <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard" target="_blank" rel="noopener noreferrer">frontier</a> ·
+            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit</a>
           </span>
         </div>
       </div>
@@ -1450,7 +1460,7 @@
           <tr>
             <td>BI</td>
             <td><strong>Mode Analytics</strong></td>
-            <td>Warehouse-direct, SQL-first — every chart is a defensible query; Spirit dashboard from analyst partner.</td>
+            <td>Warehouse-direct, SQL-first — every chart is a defensible query; Delta / Frontier / Spirit Mode slices from analyst partners.</td>
           </tr>
           <tr>
             <td>Orchestration</td>
@@ -1776,102 +1786,116 @@
     <!-- 12 -->
     <section class="slide" data-title="Insight overview">
       <p class="eyebrow">Pillar 4 · Data Insight</p>
-      <h2>Mode dashboard — metric to business impact</h2>
-      <div class="kpi-row">
-        <div class="kpi"><div class="n">4,671</div><div class="l">Spirit reviews (2015–2025)</div></div>
-        <div class="kpi"><div class="n">1.59</div><div class="l">Average rating</div></div>
-        <div class="kpi"><div class="n">80.6%</div><div class="l">Bad rating band</div></div>
-        <div class="kpi"><div class="n">12.1%</div><div class="l">Would recommend</div></div>
+      <h2>Same marts, three Mode slices</h2>
+      <p class="lead" style="margin-top:0.4rem;">
+        Governed <span class="inline-code">average_rating</span> / <span class="inline-code">recommended</span> on
+        <span class="inline-code">FCT_REVIEW_ENRICHED</span> — each airline filter surfaces a different lever.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Delta</h3>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
+            <div class="kpi"><div class="n">2.48</div><div class="l">Avg rating / 5</div></div>
+            <div class="kpi"><div class="n">28.8%</div><div class="l">Would recommend</div></div>
+            <div class="kpi"><div class="n">2,853</div><div class="l">Reviews (2010–2023)</div></div>
+            <div class="kpi"><div class="n">Cabin</div><div class="l">Economy ≠ Premium drivers</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Frontier</h3>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
+            <div class="kpi"><div class="n">~1.3</div><div class="l">Avg inflight</div></div>
+            <div class="kpi"><div class="n">~2%</div><div class="l">Recommend (recent)</div></div>
+            <div class="kpi"><div class="n">~3k</div><div class="l">Reviews (2015–2025)</div></div>
+            <div class="kpi"><div class="n">ULCC</div><div class="l">Lowest peer recommend rate</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Spirit</h3>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
+            <div class="kpi"><div class="n">1.59</div><div class="l">Avg rating / 5</div></div>
+            <div class="kpi"><div class="n">12.1%</div><div class="l">Would recommend</div></div>
+            <div class="kpi"><div class="n">4,671</div><div class="l">Reviews (2015–2025)</div></div>
+            <div class="kpi"><div class="n">~1.1</div><div class="l">IFE / Wi‑Fi weakest</div></div>
+          </div>
+        </div>
       </div>
-      <div class="img-grid-2">
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-title="Airline insights">
+      <p class="eyebrow">Pillar 4 · Data Insight</p>
+      <h2>One insight, one action — per airline</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Delta</h3>
+          <p class="small" style="margin:0.35rem 0 0.55rem;">
+            <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis/blob/main/reports/delta-satisfaction-dashboard.pdf" target="_blank" rel="noopener noreferrer">Dashboard PDF →</a>
+          </p>
+          <ul>
+            <li><strong>Pain points:</strong> Economy and Premium care about different things (staff/food/value vs seat/dining); Wi‑Fi lags.</li>
+            <li><strong>Suggestion:</strong> Fix by cabin — Wi‑Fi fleet-wide, Economy value/pitch, Premium dining/comfort at ATL / JFK / LAX.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Frontier</h3>
+          <p class="small" style="margin:0.35rem 0 0.55rem;">
+            <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard/blob/main/reports/frontier_dashboard.pdf" target="_blank" rel="noopener noreferrer">Dashboard PDF →</a>
+          </p>
+          <ul>
+            <li><strong>Pain points:</strong> Weakest ULCC on recommendation (~2%); Allegiant and Spirit beat it on the same fare tier.</li>
+            <li><strong>Suggestion:</strong> Close the value gap — prioritize Economy entertainment and seat comfort.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Spirit</h3>
+          <p class="small" style="margin:0.35rem 0 0.55rem;">
+            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard/blob/main/dashboard/Mia_Tran_Spirit_Airlines_Dashboard_20250929.pdf" target="_blank" rel="noopener noreferrer">Dashboard PDF →</a>
+          </p>
+          <ul>
+            <li><strong>Pain points:</strong> Chronic low scores (1.59); IFE/Wi‑Fi ~1.1; Business travellers the most unhappy.</li>
+            <li><strong>Suggestion:</strong> Connectivity/IFE SLAs, rebuild Business offering, fix ops at MIA / MEX / GOT.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="img-grid-3" style="margin-top:0.85rem;">
         <figure class="light">
-          <img src="assets/spirit/year_overall.png" alt="Average rating vs review count by year" />
-          <figcaption>Avg rating vs volume — chronically &lt; 2.0; 2022 volume peak with weak scores</figcaption>
+          <img src="assets/delta/correlation_heatmap.png" alt="Delta Economy vs Premium correlation heatmap" />
+          <figcaption>Delta — Economy vs Premium driver correlations</figcaption>
         </figure>
         <figure class="light">
-          <img src="assets/spirit/seat_type.png" alt="Satisfaction by seat type" />
-          <figcaption>Seat-type segments — Business worst; Economy is ~97% of volume</figcaption>
+          <img src="assets/frontier/ulcc_comparison.png" alt="ULCC recommendation rate comparison" />
+          <figcaption>Frontier — ULCC recommendation peer gap</figcaption>
+        </figure>
+        <figure class="light">
+          <img src="assets/spirit/traveller_type.png" alt="Spirit satisfaction by traveller type" />
+          <figcaption>Spirit — Business travellers lowest</figcaption>
         </figure>
       </div>
     </section>
 
     <!-- 13 -->
-    <section class="slide" data-title="Spirit metric">
-      <p class="eyebrow">Pillar 4 · Data Insight</p>
-      <h2>One business problem, one metric</h2>
+    <section class="slide" data-title="MetricFlow demo">
+      <p class="eyebrow">Pillar 4 · Semantic layer</p>
+      <h2>MetricFlow — ask for a metric, not a join</h2>
       <div class="shot-row">
         <div class="card">
-          <h3>Problem → metric</h3>
-          <p>
-            Skytrax feedback is messy HTML — not warehouse-ready or decision-ready.
-            We turn it into a repeatable ELT + star schema so analysts can track satisfaction.
-          </p>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.85rem;">
-            <div class="kpi"><div class="n">1.59</div><div class="l">Avg rating / 5</div></div>
-            <div class="kpi"><div class="n">87.9%</div><div class="l">Not recommended</div></div>
-            <div class="kpi"><div class="n">1.11</div><div class="l">IFE (weakest)</div></div>
-            <div class="kpi"><div class="n">1.13</div><div class="l">Wi‑Fi (weakest)</div></div>
-          </div>
-          <p style="margin-top:0.85rem;">
-            Logic in dbt (<span class="inline-code">average_rating</span>, <span class="inline-code">rating_band</span>,
-            <span class="inline-code">recommended</span>) → Mode on <span class="inline-code">FCT_REVIEW_ENRICHED</span>.
+          <h3>Business names → warehouse SQL</h3>
+          <ul>
+            <li>Defined in <span class="inline-code">fct_review_semantic.yml</span> on <span class="inline-code">fct_review</span></li>
+            <li>Metrics: <span class="inline-code">avg_rating</span> · <span class="inline-code">pct_recommended</span></li>
+            <li>Dimensions: <span class="inline-code">rating_band</span>, seat type, traveller type</li>
+            <li>Same grain Mode already queries — now reusable from CLI</li>
+          </ul>
+          <p class="code" style="margin-top:0.85rem;">mf query --metrics avg_rating \
+  --group-by review__rating_band</p>
+          <p class="small" style="margin-top:0.65rem;">
+            No hand-written joins — MetricFlow compiles the SQL from the semantic model.
           </p>
         </div>
         <figure class="light">
-          <img src="assets/spirit/traveller_type.png" alt="Satisfaction by traveller type" />
-          <figcaption>Spirit deep-dive — traveller segments (Business travellers lowest)</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- 14 -->
-    <section class="slide" data-title="Insight SWY">
-      <p class="eyebrow">Pillar 4 · Show → Why → What-if</p>
-      <h2>Data Insight</h2>
-      <div class="swy">
-        <div class="card show">
-          <span class="pill show">Show</span>
-          <h3>Where it lives</h3>
-          <ul>
-            <li><span class="inline-code">spirit_airlines_dashboard</span> + Mode</li>
-            <li><span class="inline-code">MARTS.FCT_REVIEW_ENRICHED</span></li>
-            <li>dbt exposure in <span class="inline-code">exposures.yml</span></li>
-            <li>Semantic layer: <span class="inline-code">avg_rating</span> / <span class="inline-code">pct_recommended</span></li>
-            <li>Defend: filter Spirit → AVG / recommended share</li>
-          </ul>
-        </div>
-        <div class="card why">
-          <span class="pill why">Why</span>
-          <h3>Trade-offs</h3>
-          <ul>
-            <li>Enriched view keeps fact lean</li>
-            <li>Mode = warehouse-direct + SQL clear</li>
-            <li>Spirit depth &gt; shallow all-airlines</li>
-            <li>Call out bias & tiny-N aircraft</li>
-          </ul>
-        </div>
-        <div class="card whatif">
-          <span class="pill whatif">What-if</span>
-          <h3>Live adaptations</h3>
-          <ul>
-            <li>Benchmark Frontier — same metric, multi-airline</li>
-            <li>NPS-like from <span class="inline-code">recommended</span></li>
-            <li><span class="inline-code">mf query --metrics avg_rating --group-by rating_band</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="img-grid-3">
-        <figure class="light">
-          <img src="assets/spirit/year_services.png" alt="Service ratings over time" />
-          <figcaption>Service trends — Wi‑Fi / IFE stuck ~1.1</figcaption>
-        </figure>
-        <figure class="light">
-          <img src="assets/spirit/correlation_heatmap.png" alt="Correlation heatmap of ratings" />
-          <figcaption>Drivers — VFM + cabin staff ↔ overall</figcaption>
-        </figure>
-        <figure class="light">
-          <img src="assets/spirit/airport_10_lowest.png" alt="Lowest rated airports" />
-          <figcaption>Airports — MIA / MEX / GOT pain points</figcaption>
+          <img src="assets/insight/metricflow_demo.png" alt="MetricFlow CLI: avg_rating grouped by rating_band" />
+          <figcaption>Live demo — <span class="inline-code">avg_rating</span> by <span class="inline-code">rating_band</span> (good 4.57 · medium 2.84 · bad 1.26)</figcaption>
         </figure>
       </div>
     </section>
@@ -2072,11 +2096,17 @@
           </ul>
         </div>
         <div class="card">
-          <h3 style="color:var(--repo-bi)">Partner — Insight</h3>
-          <p><a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit_airlines_dashboard</a> (Mia Tran)</p>
+          <h3 style="color:var(--repo-bi)">Partners — Insight</h3>
+          <p>
+            <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta</a>
+            ·
+            <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard" target="_blank" rel="noopener noreferrer">frontier</a>
+            ·
+            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit</a>
+          </p>
           <ul>
-            <li>Mode dashboard & analysis</li>
-            <li>I expose marts + document exposure</li>
+            <li>Three Mode dashboards &amp; analyses</li>
+            <li>I expose marts + document exposures</li>
             <li>I can still defend SQL/metric grain</li>
           </ul>
         </div>
@@ -2092,7 +2122,7 @@
         <li>Repos tree navigable (EL + transformation + dashboard README)</li>
         <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review</span> / <span class="inline-code">dbt test --select fct_review</span></li>
         <li>Snowflake: ANALYST vs TRANSFORMER on masked <span class="inline-code">dim_customer</span></li>
-        <li>Mode Spirit dashboard open (or PDF backup)</li>
+        <li>Mode Delta / Frontier / Spirit dashboards open (or PDF backups)</li>
         <li>GitHub Actions recent CI/CD run + <span class="inline-code">docs/cicd.md</span></li>
         <li><a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">dbt docs lineage</a> (CloudFront)</li>
         <li>ERD image + architecture diagram from READMEs</li>
@@ -2132,7 +2162,7 @@
           <h1>Show it. Justify it. Bend it.</h1>
           <p class="lead">
             Skytrax is a full AE story: dimensional medallion model, incremental dbt, governed PII,
-            a Mode metric that hurts (1.59), and DataOps that only rebuilds what changed.
+            three Mode levers (Delta cabin · Frontier ULCC · Spirit chronic), and DataOps that only rebuilds what changed.
           </p>
           <p class="tagline"><span class="dot"></span> Questions welcome — pick an area and we’ll go deeper.</p>
         </div>
@@ -2141,7 +2171,7 @@
           <p class="sub" style="margin-top:0;">
             <strong style="color:var(--text)">EL repo</strong> → land & load<br />
             <strong style="color:var(--text)">Transform repo</strong> → dims/facts + CI/CD<br />
-            <strong style="color:var(--text)">Dashboard repo</strong> → business metric<br /><br />
+            <strong style="color:var(--text)">Dashboard repos</strong> → airline levers<br /><br />
             Every answer: <span style="color:var(--show)">Show</span> ·
             <span style="color:var(--why)">Why</span> ·
             <span style="color:var(--whatif)">What-if</span>
