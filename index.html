@@ -1121,24 +1121,24 @@
           <span class="t">35–50</span>
           <span>
             <span class="pillar">3 · Governance</span>
-            <span class="hint">Quality gates, PII masking, control matrix</span>
+            <span class="hint">Quality, PII, Elementary observability</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="12">
+        <button type="button" class="agenda-row" data-go="13">
           <span class="t">50–65</span>
           <span>
             <span class="pillar">4 · Insight</span>
             <span class="hint">Delta · Frontier · Spirit — one lever each</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="15">
+        <button type="button" class="agenda-row" data-go="16">
           <span class="t">65–80</span>
           <span>
             <span class="pillar">5 · DataOps</span>
             <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
           </span>
         </button>
-        <button type="button" class="agenda-row qa" data-go="20">
+        <button type="button" class="agenda-row qa" data-go="21">
           <span class="t">80–90</span>
           <span>
             <span class="pillar">Live demo · Q&amp;A</span>
@@ -1758,18 +1758,18 @@ select … from {{ ref('agg_airlines_review') }}
     <!-- 10 -->
     <section class="slide" data-title="Governance overview">
       <p class="eyebrow">Pillar 3 · Data Governance</p>
-      <h2>Quality checks + sensitive data handling</h2>
+      <h2>Quality · observability · sensitive data</h2>
       <div class="shot-row">
         <div class="grid-2" style="margin-top:0;">
           <div class="card">
-            <h3>Quality</h3>
+            <h3>Quality + observability</h3>
             <ul>
               <li>EL: schema / null-rate / rating-range; reject by date</li>
               <li>EL: <span class="inline-code">COPY INTO</span> → <span class="inline-code">LOAD_AUDIT</span></li>
               <li>dbt: unique / not_null / relationships / accepted_values</li>
               <li>dbt_expectations + unit + singular + Spirit fleet plausibility (warn)</li>
               <li>Freshness: warn 3d / error 7d (daily-when-laptop-runs loads)</li>
-              <li>Elementary volume anomaly on <span class="inline-code">fct_review</span> (warn)</li>
+              <li><strong style="color:var(--text)">Elementary</strong> — warehouse test results, run artifacts, volume anomaly on <span class="inline-code">fct_review</span></li>
               <li>Resource monitors + query tags + statement timeouts</li>
             </ul>
           </div>
@@ -1780,7 +1780,7 @@ select … from {{ ref('agg_airlines_review') }}
               <li><span class="inline-code">PII_HASH_MASK</span> on <span class="inline-code">dim_customer</span></li>
               <li>ANALYST sees hash; TRANSFORMER sees clear</li>
               <li>RBAC + DEV_* schemas; key-pair path for service users</li>
-              <li>Failure alerting on EL + cosmos DAGs</li>
+              <li>Failure alerting on EL + cosmos DAGs + CD email</li>
             </ul>
           </div>
         </div>
@@ -1792,6 +1792,58 @@ select … from {{ ref('agg_airlines_review') }}
     </section>
 
     <!-- 11 -->
+    <section class="slide" data-title="Elementary observability">
+      <p class="eyebrow">Pillar 3 · Observability</p>
+      <h2>Elementary — warehouse-side monitoring</h2>
+      <div class="two-col">
+        <div>
+          <div class="card">
+            <h3>How it works</h3>
+            <ul>
+              <li>Package: <span class="inline-code">elementary-data/elementary</span> 0.19.4</li>
+              <li>Models land in schema <span class="inline-code">elementary</span> (own blast radius)</li>
+              <li>Package hooks upload run artifacts + test results on every dbt run</li>
+              <li>Snowflake test materialization override via <span class="inline-code">macros/elementary_materialization.sql</span></li>
+              <li>Separate Airflow DAG: <span class="inline-code">skytrax_elementary</span> (<span class="inline-code">package:elementary</span> only)</li>
+              <li>Main transform DAG excludes Elementary so the business graph stays readable</li>
+            </ul>
+          </div>
+          <div class="fact-callout">
+            <h3>docs/observability.md</h3>
+            <p>
+              Bootstrap once: <span class="inline-code">dbt deps</span> → <span class="inline-code">dbt run --select elementary</span>.
+              Then render: <span class="inline-code">edr report</span> from the warehouse Elementary tables.
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3>What we watch</h3>
+            <ul>
+              <li><span class="inline-code">fct_review</span>: <span class="inline-code">elementary.volume_anomalies</span></li>
+              <li>Bucketed by day on <span class="inline-code">source_updated_at</span></li>
+              <li>Severity <strong style="color:var(--text)">warn</strong> — baseline builds without blocking CD</li>
+              <li>Catches silent volume drops / spikes after scrape or load drift</li>
+              <li>CLI: <span class="inline-code">edr report</span> → HTML from Elementary schema</li>
+              <li>Live: <span class="inline-code">dbt test -s fct_review,tag:elementary</span> · <span class="inline-code">edr report</span></li>
+            </ul>
+          </div>
+          <div class="code"># marts_schema.yml on fct_review
+tests:
+  - elementary.volume_anomalies:
+      arguments:
+        timestamp_column: source_updated_at
+        time_bucket: { period: day, count: 1 }
+      config:
+        severity: warn
+
+# Airflow: skytrax_elementary @ Tue 20:00 UTC
+# (1h after skytrax_dbt_transformation)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
     <section class="slide" data-title="Governance SWY">
       <p class="eyebrow">Pillar 3 · Show → Why → What-if</p>
       <h2>Data Governance</h2>
@@ -1801,8 +1853,10 @@ select … from {{ ref('agg_airlines_review') }}
           <h3>Where it lives</h3>
           <ul>
             <li><span class="inline-code">quality.py</span> + <span class="inline-code">LOAD_AUDIT</span></li>
-            <li>Masking Terraform + dbt tests</li>
-            <li>Live: <span class="inline-code">dbt test</span> + ANALYST vs TRANSFORMER</li>
+            <li>Masking Terraform + dbt tests / contracts</li>
+            <li><span class="inline-code">docs/observability.md</span> · <span class="inline-code">skytrax_elementary</span> DAG</li>
+            <li><span class="inline-code">elementary.volume_anomalies</span> on <span class="inline-code">fct_review</span></li>
+            <li>Live: <span class="inline-code">dbt test</span> · <span class="inline-code">edr report</span> · ANALYST vs TRANSFORMER</li>
           </ul>
         </div>
         <div class="card why">
@@ -1812,6 +1866,8 @@ select … from {{ ref('agg_airlines_review') }}
             <li>Non-blocking quality (quarantine by date)</li>
             <li>Hash mask keeps joins usable</li>
             <li>Policy at warehouse read-time</li>
+            <li><strong>Elementary in warehouse</strong> — anomalies + test history survive beyond GHA logs</li>
+            <li><strong>Warn first</strong> — volume baseline needs history; don’t fail deploys while learning</li>
           </ul>
         </div>
         <div class="card whatif">
@@ -1819,8 +1875,9 @@ select … from {{ ref('agg_airlines_review') }}
           <h3>Live adaptations</h3>
           <ul>
             <li>Fail the DAG if &gt;5% of dates quarantine</li>
-            <li>Row access policy by airline partner</li>
-            <li>Time-travel / zero-copy clone rollback after a bad load</li>
+            <li>“Volume cliff overnight” → Elementary warn → promote to error after baseline is trusted</li>
+            <li>Publish <span class="inline-code">edr report</span> beside CloudFront dbt docs</li>
+            <li>Row access policy by airline partner · time-travel rollback after a bad load</li>
           </ul>
         </div>
       </div>
@@ -2114,8 +2171,8 @@ select … from {{ ref('agg_airlines_review') }}
           <tr>
             <td>Freshness + anomalies</td>
             <td>dbt freshness · Elementary</td>
-            <td><span class="inline-code">stg__skytrax_source.yml</span> · edr schema</td>
-            <td><span class="inline-code">dbt source freshness</span> · <span class="inline-code">edr report</span></td>
+            <td><span class="inline-code">stg__skytrax_source.yml</span> · schema <span class="inline-code">elementary</span> · <span class="inline-code">docs/observability.md</span></td>
+            <td><span class="inline-code">dbt source freshness</span> · <span class="inline-code">dbt run -s elementary</span> · <span class="inline-code">edr report</span></td>
           </tr>
           <tr>
             <td>GDPR erase</td>
@@ -2176,6 +2233,7 @@ select … from {{ ref('agg_airlines_review') }}
       <ul class="checklist">
         <li>Repos tree navigable (EL + transformation + dashboard README)</li>
         <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review agg_airlines_review</span> / <span class="inline-code">dbt snapshot</span></li>
+        <li>Elementary: <span class="inline-code">dbt run -s elementary</span> · <span class="inline-code">edr report</span> · <span class="inline-code">docs/observability.md</span></li>
         <li>Snowflake: ANALYST vs TRANSFORMER on masked <span class="inline-code">dim_customer</span></li>
         <li>Mode Delta / Frontier / Spirit dashboards open (or PDF backups)</li>
         <li>GitHub Actions recent CI/CD run + <span class="inline-code">docs/cicd.md</span></li>
@@ -2203,6 +2261,7 @@ select … from {{ ref('agg_airlines_review') }}
           <h3>Governance / Insight / Ops</h3>
           <ul>
             <li>Shipped: Spirit fleet plausibility test (warn)</li>
+            <li>Shipped: Elementary volume anomaly on <span class="inline-code">fct_review</span> + <span class="inline-code">skytrax_elementary</span> DAG</li>
             <li>Shipped: MetricFlow <span class="inline-code">avg_rating</span> / <span class="inline-code">pct_recommended</span></li>
             <li>CI too slow → tighten selector, warehouse XS, parallel jobs, clone over rebuild</li>
           </ul>
