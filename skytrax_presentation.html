@@ -1114,31 +1114,31 @@
           <span class="t">20–35</span>
           <span>
             <span class="pillar">2 · Transformation</span>
-            <span class="hint">Incremental fact, contracts, ELT practices</span>
+            <span class="hint">Incremental fact, airline agg + snapshots</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="9">
+        <button type="button" class="agenda-row" data-go="10">
           <span class="t">35–50</span>
           <span>
             <span class="pillar">3 · Governance</span>
             <span class="hint">Quality gates, PII masking, control matrix</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="11">
+        <button type="button" class="agenda-row" data-go="12">
           <span class="t">50–65</span>
           <span>
             <span class="pillar">4 · Insight</span>
             <span class="hint">Delta · Frontier · Spirit — one lever each</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="14">
+        <button type="button" class="agenda-row" data-go="15">
           <span class="t">65–80</span>
           <span>
             <span class="pillar">5 · DataOps</span>
             <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
           </span>
         </button>
-        <button type="button" class="agenda-row qa" data-go="19">
+        <button type="button" class="agenda-row qa" data-go="20">
           <span class="t">80–90</span>
           <span>
             <span class="pillar">Live demo · Q&amp;A</span>
@@ -1174,7 +1174,7 @@
         <div class="flow-step">
           <div class="n">03</div>
           <h3>Transform</h3>
-          <p>Medallion layers → Kimball star: staging → intermediate → marts (dims + incremental fact).</p>
+          <p>Medallion layers → Kimball star: staging → intermediate → marts (dims + incremental fact + airline agg) + snapshots.</p>
           <a class="repo tf repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">skytrax_reviews_transformation</a>
         </div>
         <div class="flow-step">
@@ -1550,6 +1550,7 @@
               <ul>
                 <li>5 dims + incremental fact</li>
                 <li><span class="inline-code">fct_review_enriched</span></li>
+                <li><span class="inline-code">agg_airlines_review</span> + snap</li>
               </ul>
             </div>
           </div>
@@ -1609,7 +1610,8 @@
             <h3>Live adaptations</h3>
             <ul>
               <li>Second fact for seat reviews — share dims</li>
-              <li>SCD2 aircraft → snapshot / type-2</li>
+              <li>Shipped: <span class="inline-code">snap_agg_airlines_review</span> SCD2 score drift</li>
+              <li>SCD2 aircraft → same snapshot / type-2 pattern</li>
               <li>3NF reshape only marts — layers protect</li>
             </ul>
           </div>
@@ -1640,7 +1642,8 @@
               <li>Intermediate: clean / normalize</li>
               <li><strong style="color:var(--text)">Incremental</strong> <span class="inline-code">fct_review</span> merge on <span class="inline-code">review_key</span></li>
               <li>HWM + lookback (<span class="inline-code">incremental_lookback_days</span>=3)</li>
-              <li>Contract + snapshot + macros</li>
+              <li>Airline agg table + check-strategy snapshot</li>
+              <li>Contract + macros (<span class="inline-code">gdpr_erase</span>)</li>
             </ul>
           </div>
           <div class="code">{{ config(
@@ -1665,6 +1668,56 @@
     </section>
 
     <!-- 9 -->
+    <section class="slide" data-title="Agg + snapshots">
+      <p class="eyebrow">Pillar 2 · Aggregates &amp; history</p>
+      <h2>Airline scorecards + SCD2 score drift</h2>
+      <div class="two-col">
+        <div>
+          <div class="card">
+            <h3><span class="inline-code">agg_airlines_review</span></h3>
+            <ul>
+              <li>Grain: <strong style="color:var(--text)">one row per airline</strong> with ≥1 fact review</li>
+              <li>Rollup from <span class="inline-code">fct_review</span> + <span class="inline-code">dim_airline</span></li>
+              <li>Volume: review / verified / recommended / layover counts</li>
+              <li>Quality: <span class="inline-code">avg_rating</span> + 7 service averages</li>
+              <li>Bands: good / medium / bad / unknown counts</li>
+              <li>Rates: <span class="inline-code">pct_recommended</span>, <span class="inline-code">pct_verified</span></li>
+              <li>Contract enforced — scorecard-safe for Mode</li>
+            </ul>
+          </div>
+          <div class="fact-callout">
+            <h3>Why not query the fact every time?</h3>
+            <p>
+              Pre-aggregated airline grain for ranking &amp; peer compare — Mode and analysts
+              hit a stable scorecard table instead of re-rolling 160K+ fact rows.
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h3><span class="inline-code">snap_agg_airlines_review</span></h3>
+            <ul>
+              <li>Schema: <span class="inline-code">SNAPSHOTS</span> · unique key <span class="inline-code">airline_id</span></li>
+              <li><strong style="color:var(--text)">check</strong> strategy on metric columns</li>
+              <li>New SCD2 version when counts / avgs / rates change</li>
+              <li><span class="inline-code">dbt_loaded_at</span> excluded — no-op rebuild ≠ false change</li>
+              <li>Also: <span class="inline-code">snap_skytrax_reviews</span> (timestamp) audits review edits upstream</li>
+            </ul>
+          </div>
+          <div class="code">{% snapshot snap_agg_airlines_review %}
+{{ config(
+    schema='SNAPSHOTS',
+    unique_key='airline_id',
+    strategy='check',
+    check_cols=[…metrics…],  -- not dbt_loaded_at
+) }}
+select … from {{ ref('agg_airlines_review') }}
+{% endsnapshot %}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
     <section class="slide" data-title="Transformation SWY">
       <p class="eyebrow">Pillar 2 · Show → Why → What-if</p>
       <h2>Data Transformation</h2>
@@ -1673,11 +1726,11 @@
           <span class="pill show">Show</span>
           <h3>Where it lives</h3>
           <ul>
-            <li><span class="inline-code">dbt/models/marts/fct_review.sql</span> — incremental merge</li>
-            <li><span class="inline-code">stg__skytrax_reviews</span> — dedup + hash key</li>
-            <li>Unit test: <span class="inline-code">test_fct_review_rating_enrichment</span></li>
-            <li>Singular: one row per <span class="inline-code">review_id</span></li>
-            <li>Live: <span class="inline-code">dbt run -s fct_review</span> / <span class="inline-code">dbt test</span></li>
+            <li><span class="inline-code">marts/fct_review.sql</span> — incremental merge</li>
+            <li><span class="inline-code">marts/aggregated/agg_airlines_review.sql</span></li>
+            <li><span class="inline-code">snapshots/snap_agg_airlines_review.sql</span> (check)</li>
+            <li><span class="inline-code">snapshots/snap_skytrax_reviews.sql</span> (timestamp)</li>
+            <li>Live: <span class="inline-code">dbt run -s agg_airlines_review</span> · <span class="inline-code">dbt snapshot</span></li>
           </ul>
         </div>
         <div class="card why">
@@ -1686,17 +1739,17 @@
           <ul>
             <li><strong>Incremental merge</strong> — 160K+ history; don’t rebuild full fact daily.</li>
             <li><strong>Lookback window</strong> — late-arriving updates / clock skew without full refresh.</li>
-            <li><strong>Dedup in staging</strong> — protect grain before dims/facts fan out.</li>
-            <li><strong>Contract</strong> — catch breaking column/type changes before BI breaks.</li>
+            <li><strong>Airline agg</strong> — scorecard grain; contract keeps BI columns stable.</li>
+            <li><strong>Check snapshot</strong> — track score drift; exclude load timestamps so rebuilds don’t invent versions.</li>
           </ul>
         </div>
         <div class="card whatif">
           <span class="pill whatif">What-if</span>
           <h3>Live adaptations</h3>
           <ul>
-            <li>“New service score column” → contract + <span class="inline-code">on_schema_change='fail'</span> blocks drift; extend average formula + unit test, then full-refresh.</li>
-            <li>“Delete / GDPR erase a reviewer” → <span class="inline-code">dbt run-operation gdpr_erase</span> deletes fact/snapshot rows + logs exclusion seed (merge alone can’t delete).</li>
-            <li>“Lookback too small” → bump <span class="inline-code">incremental_lookback_days</span> var or full-refresh once.</li>
+            <li>“New service score column” → contract + extend avg formula + unit test; add col to <span class="inline-code">check_cols</span>; full-refresh fact + snapshot.</li>
+            <li>“How did Delta’s avg move?” → query <span class="inline-code">snap_agg_airlines_review</span> by <span class="inline-code">dbt_valid_from</span> / <span class="inline-code">dbt_valid_to</span>.</li>
+            <li>“Delete / GDPR erase” → <span class="inline-code">dbt run-operation gdpr_erase</span> clears fact + snapshot rows + exclusion seed.</li>
           </ul>
         </div>
       </div>
@@ -1912,6 +1965,7 @@
               <li>Feature branch → PR → slim CI → merge <span class="inline-code">main</span> → CD</li>
               <li>CI: merge-base → SQLFluff → <span class="inline-code">dbt clone</span> → <span class="inline-code">state:modified+</span></li>
               <li>CD: OIDC → <span class="inline-code">--defer --favor-state</span> → docs to CloudFront</li>
+              <li>CD emails me on success <strong style="color:var(--text)">or failure</strong> (Gmail SMTP, <span class="inline-code">if: always()</span>)</li>
               <li>Breaking type change → one-time prod <span class="inline-code">--full-refresh</span></li>
             </ul>
           </div>
@@ -1964,6 +2018,7 @@
             <li><strong style="color:var(--text)">CI (PR):</strong> merge-base → <strong style="color:var(--text)">SQLFluff</strong> → clone prod → build/test <span class="inline-code">state:modified+</span></li>
             <li><strong style="color:var(--text)">CD (main):</strong> download prod manifest → <span class="inline-code">dbt build --defer --favor-state</span></li>
             <li>Publish docs → S3 → CloudFront invalidate</li>
+            <li><strong style="color:var(--text)">Email alert:</strong> CD always notifies me — failure lands in inbox with run link</li>
             <li>Airflow/cosmos schedules ongoing prod dbt; GHA ships code</li>
           </ul>
         </div>
@@ -1994,7 +2049,7 @@
           <h3>Where it lives</h3>
           <ul>
             <li><span class="inline-code">.github/workflows/pr_checks.yml</span></li>
-            <li><span class="inline-code">.github/workflows/deploy_main.yml</span></li>
+            <li><span class="inline-code">.github/workflows/deploy_main.yml</span> — email on fail/success</li>
             <li>Terraform AWS OIDC + S3 artifacts + CloudFront</li>
             <li>GitHub Actions badges / recent run logs</li>
             <li>Docs: <span class="inline-code">docs/cicd.md</span></li>
@@ -2008,7 +2063,7 @@
             <li><strong>Slim CI</strong> — full project build on every PR is slow/expensive.</li>
             <li><strong>Trailing <span class="inline-code">+</span></strong> — rebuild downstream after <span class="inline-code">dbt clone</span> so types don’t silently stale.</li>
             <li><strong>Defer/favor-state</strong> — prod only rebuilds blast radius.</li>
-            <li><strong>OIDC</strong> — no long-lived AWS keys in GitHub.</li>
+            <li><strong>CD email</strong> — don’t rely on checking Actions; failure hits my inbox with the run link.</li>
           </ul>
         </div>
         <div class="card whatif">
@@ -2120,7 +2175,7 @@
       <h2>Live demo menu — pick any box, we open it now</h2>
       <ul class="checklist">
         <li>Repos tree navigable (EL + transformation + dashboard README)</li>
-        <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review</span> / <span class="inline-code">dbt test --select fct_review</span></li>
+        <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review agg_airlines_review</span> / <span class="inline-code">dbt snapshot</span></li>
         <li>Snowflake: ANALYST vs TRANSFORMER on masked <span class="inline-code">dim_customer</span></li>
         <li>Mode Delta / Frontier / Spirit dashboards open (or PDF backups)</li>
         <li>GitHub Actions recent CI/CD run + <span class="inline-code">docs/cicd.md</span></li>
@@ -2140,6 +2195,7 @@
           <ul>
             <li>New review type → new RAW table + staging + optional fact; share dims</li>
             <li>Change grain to “per leg” → explode routes; new surrogate; full-refresh fact</li>
+            <li>Shipped: <span class="inline-code">agg_airlines_review</span> + <span class="inline-code">snap_agg_airlines_review</span> (check SCD2)</li>
             <li>Shipped: <span class="inline-code">gdpr_erase</span> run-operation + exclusion seed</li>
           </ul>
         </div>
