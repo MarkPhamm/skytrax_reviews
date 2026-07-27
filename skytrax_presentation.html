@@ -1162,25 +1162,25 @@
         <div class="flow-step">
           <div class="n">01</div>
           <h3>Extract</h3>
-          <p>Scrape AirlineQuality.com (4 types × entity parallelism). Land date-partitioned CSVs.</p>
+          <p>Scrape 4 review types in parallel → date-partitioned CSVs.</p>
           <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
         </div>
         <div class="flow-step">
           <div class="n">02</div>
           <h3>Stage + Load</h3>
-          <p>Clean → S3 <span class="inline-code">processed/</span> → quality gates → <span class="inline-code">COPY INTO</span> Snowflake RAW + LOAD_AUDIT.</p>
+          <p>Clean → S3 → quality gates → <span class="inline-code">COPY INTO</span> RAW.</p>
           <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
         </div>
         <div class="flow-step">
           <div class="n">03</div>
           <h3>Transform</h3>
-          <p>Medallion layers → Kimball star: staging → intermediate → marts (dims + incremental fact + airline agg) + snapshots.</p>
+          <p>Medallion → star: dims, incremental fact, airline agg + snapshots.</p>
           <a class="repo tf repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">skytrax_reviews_transformation</a>
         </div>
         <div class="flow-step">
           <div class="n">04</div>
           <h3>Orchestrate / Ops</h3>
-          <p>Airflow Datasets + cosmos DbtDag; slim CI + defer/favor-state CD; Terraform IaC.</p>
+          <p>Airflow + cosmos · slim CI/CD · Terraform · email on fail.</p>
           <span class="repo tf">
             <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a>
             +
@@ -1190,7 +1190,7 @@
         <div class="flow-step">
           <div class="n">05</div>
           <h3>Insight</h3>
-          <p>Three Mode slices on the same marts — Delta cabin drivers, Frontier ULCC gap, Spirit chronic pain.</p>
+          <p>Same marts → Mode: Delta · Frontier · Spirit.</p>
           <span class="repo bi">
             <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta</a>
             ·
