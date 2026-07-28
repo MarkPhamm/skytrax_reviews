@@ -697,6 +697,89 @@
       margin-top: 0.25rem;
     }
 
+    .slide[data-title="Insight overview"] {
+      padding-top: 0.7rem;
+      padding-bottom: 3.5rem;
+      gap: 0.35rem;
+    }
+
+    .slide[data-title="Insight overview"] h2 {
+      font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+      margin-bottom: 0.15rem;
+    }
+
+    .slide[data-title="Insight overview"] .lead {
+      margin-top: 0.15rem;
+      font-size: 0.95rem;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+      flex: 1;
+      min-height: 0;
+      align-content: stretch;
+    }
+
+    @media (max-width: 1000px) {
+      .slide[data-title="Insight overview"] .insight-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .card {
+      padding: 0.55rem 0.7rem 0.65rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .card .small {
+      font-size: 0.72rem;
+      line-height: 1.3;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .kpi-row {
+      margin-top: 0.4rem;
+      gap: 0.35rem;
+      flex: 1;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .kpi {
+      padding: 0.4rem 0.5rem;
+      border-radius: 8px;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .kpi .n {
+      font-size: 1.25rem;
+      line-height: 1.1;
+    }
+
+    .slide[data-title="Insight overview"] .insight-grid .kpi .l {
+      font-size: 0.68rem;
+      margin-top: 0.12rem;
+      line-height: 1.25;
+    }
+
+    .slide[data-title="Insight overview"] .card.industry {
+      border: 1px solid rgba(61, 184, 168, 0.55);
+      background: linear-gradient(160deg, rgba(61, 184, 168, 0.18), var(--panel));
+      box-shadow: 0 0 0 1px rgba(61, 184, 168, 0.12);
+    }
+
+    .slide[data-title="Insight overview"] .card.industry h3 {
+      color: var(--accent);
+    }
+
+    .slide[data-title="Insight overview"] .card.industry .kpi .n {
+      color: var(--accent);
+    }
+
     .timing {
       display: grid;
       grid-template-columns: 120px 1fr;
@@ -1840,37 +1923,70 @@ select … from {{ ref('agg_airlines_review') }}
     <!-- 12 -->
     <section class="slide" data-title="Insight overview">
       <p class="eyebrow">Pillar 4 · Data Insight</p>
-      <h2>Same marts, three Mode slices</h2>
-      <p class="lead" style="margin-top:0.4rem;">
-        From <span class="inline-code">agg_airlines_review</span> (rollup of
-        <span class="inline-code">fct_review</span>) — same grain KPIs, three Mode levers.
+      <h2>Industry bar vs Mode focus airlines</h2>
+      <p class="lead">
+        Same KPIs from <span class="inline-code">fct_review</span> — teal card is the industry baseline (553 airlines).
       </p>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Delta</h3>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
-            <div class="kpi"><div class="n">2.49</div><div class="l">Avg rating / 5</div></div>
-            <div class="kpi"><div class="n">29.0%</div><div class="l">Would recommend</div></div>
-            <div class="kpi"><div class="n">2,912</div><div class="l">Reviews (2015–2026)</div></div>
-            <div class="kpi"><div class="n">Cabin</div><div class="l">Economy ≠ Premium drivers</div></div>
+
+      <div class="insight-grid">
+        <div class="card industry">
+          <h3>Industry</h3>
+          <p class="small" style="margin:0.15rem 0 0;">Baseline · 553 airlines · min 1 / max 5</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+            <div class="kpi"><div class="n">2.48</div><div class="l">Avg</div></div>
+            <div class="kpi"><div class="n">2.00</div><div class="l">Median</div></div>
+            <div class="kpi"><div class="n">33.6%</div><div class="l">Recommend</div></div>
+            <div class="kpi"><div class="n">117k</div><div class="l">Reviews</div></div>
           </div>
         </div>
         <div class="card">
-          <h3>Frontier</h3>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
-            <div class="kpi"><div class="n">1.43</div><div class="l">Avg rating / 5</div></div>
-            <div class="kpi"><div class="n">5.8%</div><div class="l">Would recommend</div></div>
-            <div class="kpi"><div class="n">3,532</div><div class="l">Reviews (2015–2026)</div></div>
-            <div class="kpi"><div class="n">1.09</div><div class="l">Avg IFE (ULCC gap)</div></div>
+          <h3>Delta</h3>
+          <p class="small" style="margin:0.15rem 0 0;">~industry avg · below on recommend</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+            <div class="kpi"><div class="n">2.49</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
+            <div class="kpi"><div class="n">2.17</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
+            <div class="kpi"><div class="n">29.0%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">2,912</div><div class="l">Reviews</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>United</h3>
+          <p class="small" style="margin:0.15rem 0 0;">Legacy peer · below industry on all scores</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+            <div class="kpi"><div class="n">2.04</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
+            <div class="kpi"><div class="n">1.57</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
+            <div class="kpi"><div class="n">18.2%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">4,617</div><div class="l">Reviews</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Allegiant</h3>
+          <p class="small" style="margin:0.15rem 0 0;">ULCC peer · beats Frontier / Spirit on recommend</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+            <div class="kpi"><div class="n">1.81</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
+            <div class="kpi"><div class="n">1.29</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
+            <div class="kpi"><div class="n">15.1%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">1,674</div><div class="l">Reviews</div></div>
           </div>
         </div>
         <div class="card">
           <h3>Spirit</h3>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
-            <div class="kpi"><div class="n">1.59</div><div class="l">Avg rating / 5</div></div>
-            <div class="kpi"><div class="n">12.1%</div><div class="l">Would recommend</div></div>
-            <div class="kpi"><div class="n">4,698</div><div class="l">Reviews (2015–2026)</div></div>
-            <div class="kpi"><div class="n">1.11</div><div class="l">Avg IFE / Wi‑Fi ~1.13</div></div>
+          <p class="small" style="margin:0.15rem 0 0;">Chronic lows · Mode deep-dive</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+            <div class="kpi"><div class="n">1.59</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
+            <div class="kpi"><div class="n">1.00</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
+            <div class="kpi"><div class="n">12.1%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">4,698</div><div class="l">Reviews</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Frontier</h3>
+          <p class="small" style="margin:0.15rem 0 0;">Weakest of set · Mode ULCC gap</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
+            <div class="kpi"><div class="n">1.43</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
+            <div class="kpi"><div class="n">1.00</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
+            <div class="kpi"><div class="n">5.7%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">3,533</div><div class="l">Reviews</div></div>
           </div>
         </div>
       </div>
@@ -1933,19 +2049,39 @@ select … from {{ ref('agg_airlines_review') }}
       <p class="eyebrow">Pillar 4 · Semantic layer</p>
       <h2>MetricFlow — ask for a metric, not a join</h2>
       <div class="shot-row">
-        <div class="card">
-          <h3>Business names → warehouse SQL</h3>
-          <ul>
-            <li>Defined in <span class="inline-code">fct_review_semantic.yml</span> on <span class="inline-code">fct_review</span></li>
-            <li>Metrics: <span class="inline-code">avg_rating</span> · <span class="inline-code">pct_recommended</span></li>
-            <li>Dimensions: <span class="inline-code">rating_band</span>, seat type, traveller type</li>
-            <li>Same grain Mode already queries — now reusable from CLI</li>
-          </ul>
-          <p class="code" style="margin-top:0.85rem;">mf query --metrics avg_rating \
+        <div>
+          <div class="fact-callout" style="margin-top:0;">
+            <h3>What is a semantic layer?</h3>
+            <p>
+              A governed translation layer between <strong style="color:var(--text)">business language</strong>
+              (“average rating by band”) and <strong style="color:var(--text)">warehouse SQL</strong>
+              (tables, joins, grain, aggregations). One definition of each metric —
+              Mode, CLI, and future tools all consume the same logic.
+            </p>
+          </div>
+          <div class="card" style="margin-top:0.55rem;">
+            <h3>Why it matters</h3>
+            <ul>
+              <li><strong style="color:var(--text)">One source of truth</strong> — stop copy-pasting KPI SQL across dashboards</li>
+              <li><strong style="color:var(--text)">Grain-safe</strong> — metrics know the fact grain; less accidental double-count</li>
+              <li><strong style="color:var(--text)">Self-serve</strong> — ask for metrics + dimensions; engine compiles joins</li>
+              <li><strong style="color:var(--text)">Versioned in git</strong> — metric changes review like model code</li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top:0.55rem;">
+            <h3>What we defined (dbt MetricFlow)</h3>
+            <ul>
+              <li><span class="inline-code">fct_review_semantic.yml</span> on <span class="inline-code">fct_review</span></li>
+              <li><strong style="color:var(--text)">Metrics:</strong> <span class="inline-code">avg_rating</span> · <span class="inline-code">pct_recommended</span> · <span class="inline-code">review_count</span></li>
+              <li><strong style="color:var(--text)">Dimensions:</strong> <span class="inline-code">rating_band</span> · seat type · traveller type · submitted date</li>
+              <li>Same grain Mode already queries — now reusable from CLI</li>
+            </ul>
+            <p class="code" style="margin-top:0.65rem;">mf query --metrics avg_rating \
   --group-by review__rating_band</p>
-          <p class="small" style="margin-top:0.65rem;">
-            No hand-written joins — MetricFlow compiles the SQL from the semantic model.
-          </p>
+            <p class="small" style="margin-top:0.5rem;">
+              No hand-written joins — MetricFlow compiles SQL from the semantic model.
+            </p>
+          </div>
         </div>
         <figure class="light">
           <img src="assets/insight/metricflow_demo.png" alt="MetricFlow CLI: avg_rating grouped by rating_band" />
