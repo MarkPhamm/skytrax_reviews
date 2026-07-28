@@ -1957,27 +1957,29 @@ select … from {{ ref('agg_airlines_review') }}
       <p class="eyebrow">Pillar 4 · Data Insight</p>
       <h2>Industry bar vs Mode focus airlines</h2>
       <p class="lead">
-        Same KPIs from <span class="inline-code">fct_review</span> — teal card is the industry baseline (553 airlines).
+        Same grain as Mode — unweighted airline avgs from <span class="inline-code">agg_airlines_review</span> (553 airlines · 117k reviews).
       </p>
 
       <div class="insight-grid">
         <div class="card industry">
           <h3>Industry</h3>
-          <p class="small" style="margin:0.15rem 0 0;">Baseline · 553 airlines · min 1 / max 5</p>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
-            <div class="kpi"><div class="n">2.48</div><div class="l">Avg</div></div>
-            <div class="kpi"><div class="n">2.00</div><div class="l">Median</div></div>
-            <div class="kpi"><div class="n">33.6%</div><div class="l">Recommend</div></div>
-            <div class="kpi"><div class="n">117k</div><div class="l">Reviews</div></div>
+          <p class="small" style="margin:0.15rem 0 0;">Mode baseline · avg across airlines</p>
+          <div class="kpi-row" style="grid-template-columns:1fr 1fr 1fr;">
+            <div class="kpi"><div class="n">2.59</div><div class="l">Avg rating</div></div>
+            <div class="kpi"><div class="n">2.63</div><div class="l">Value for money</div></div>
+            <div class="kpi"><div class="n">2.62</div><div class="l">Food &amp; beverage</div></div>
+            <div class="kpi"><div class="n">3.02</div><div class="l">Cabin staff</div></div>
+            <div class="kpi"><div class="n">1.62</div><div class="l">Wi‑Fi</div></div>
+            <div class="kpi"><div class="n">2.7</div><div class="l">Seat comfort</div></div>
           </div>
         </div>
         <div class="card">
           <h3>Delta</h3>
-          <p class="small" style="margin:0.15rem 0 0;">~industry avg · below on recommend</p>
+          <p class="small" style="margin:0.15rem 0 0;">Below industry avg · below on recommend</p>
           <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
-            <div class="kpi"><div class="n">2.49</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
-            <div class="kpi"><div class="n">2.17</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
-            <div class="kpi"><div class="n">29.0%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">2.49</div><div class="l">Avg <span style="opacity:0.75;">vs 2.59</span></div></div>
+            <div class="kpi"><div class="n">2.17</div><div class="l">Median</div></div>
+            <div class="kpi"><div class="n">29.0%</div><div class="l">Recommend <span style="opacity:0.75;">vs 40%</span></div></div>
             <div class="kpi"><div class="n">2,912</div><div class="l">Reviews</div></div>
           </div>
         </div>
@@ -1985,9 +1987,9 @@ select … from {{ ref('agg_airlines_review') }}
           <h3>Spirit</h3>
           <p class="small" style="margin:0.15rem 0 0;">Chronic lows · Mode deep-dive</p>
           <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
-            <div class="kpi"><div class="n">1.59</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
-            <div class="kpi"><div class="n">1.00</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
-            <div class="kpi"><div class="n">12.1%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">1.59</div><div class="l">Avg <span style="opacity:0.75;">vs 2.59</span></div></div>
+            <div class="kpi"><div class="n">1.00</div><div class="l">Median</div></div>
+            <div class="kpi"><div class="n">12.1%</div><div class="l">Recommend <span style="opacity:0.75;">vs 40%</span></div></div>
             <div class="kpi"><div class="n">4,698</div><div class="l">Reviews</div></div>
           </div>
         </div>
@@ -1995,9 +1997,9 @@ select … from {{ ref('agg_airlines_review') }}
           <h3>Frontier</h3>
           <p class="small" style="margin:0.15rem 0 0;">Weakest of set · Mode ULCC gap</p>
           <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
-            <div class="kpi"><div class="n">1.43</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
-            <div class="kpi"><div class="n">1.00</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
-            <div class="kpi"><div class="n">5.7%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
+            <div class="kpi"><div class="n">1.43</div><div class="l">Avg <span style="opacity:0.75;">vs 2.59</span></div></div>
+            <div class="kpi"><div class="n">1.00</div><div class="l">Median</div></div>
+            <div class="kpi"><div class="n">5.7%</div><div class="l">Recommend <span style="opacity:0.75;">vs 40%</span></div></div>
             <div class="kpi"><div class="n">3,533</div><div class="l">Reviews</div></div>
           </div>
         </div>
@@ -2025,7 +2027,7 @@ select … from {{ ref('agg_airlines_review') }}
             <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard/blob/main/reports/frontier_dashboard.pdf" target="_blank" rel="noopener noreferrer">Dashboard PDF →</a>
           </p>
           <ul>
-            <li><strong>Pain points:</strong> Weakest of the three on recommendation (5.8%); IFE 1.09 — Allegiant and Spirit beat it on the same fare tier.</li>
+            <li><strong>Pain points:</strong> Weakest of the three on recommendation (5.7%); IFE 1.09 — Allegiant and Spirit beat it on the same fare tier.</li>
             <li><strong>Suggestion:</strong> Close the value gap — prioritize Economy entertainment and seat comfort.</li>
           </ul>
         </div>

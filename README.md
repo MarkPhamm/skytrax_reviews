@@ -31,13 +31,14 @@ This repo is the **umbrella** — project narrative, architecture, and links int
 
 ## North-star metrics
 
-Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `MARTS.FCT_REVIEW` / `FCT_REVIEW_ENRICHED` — three Mode slices, three business levers:
+Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `MARTS.AGG_AIRLINES_REVIEW` (Mode grain: unweighted avg across airlines) — industry bar + three Mode slices:
 
 | Carrier | Reviews | Avg rating | Would recommend | Distinctive signal |
-| --- | --- | --- | --- | --- |
-| **Delta** | 2,853 (2010–2023) | **2.48 / 5** | **28.8%** | Economy vs Premium drivers diverge |
-| **Frontier** | ~3,000 (2015–2025) | ~**1.3** inflight | ~**2%** recent | Lowest ULCC recommendation rate vs peers |
-| **Spirit** | 4,671 (2015–2025) | **1.59 / 5** | **12.1%** | Chronic dissatisfaction; IFE/Wi‑Fi ~1.1 |
+| --- | ---: | ---: | ---: | --- |
+| **Industry** (553 airlines) | 117k | **2.59** | **40%** | Mode baseline · VFM 2.63 · food 2.62 · cabin 3.02 · Wi‑Fi 1.62 · seat 2.7 |
+| **Delta** | 2,912 | **2.49** (vs 2.59) | **29.0%** (vs 40%) | Below industry · Economy vs Premium drivers diverge |
+| **Spirit** | 4,698 | **1.59** (vs 2.59) | **12.1%** (vs 40%) | Chronic lows; IFE/Wi‑Fi ~1.1 |
+| **Frontier** | 3,533 | **1.43** (vs 2.59) | **5.7%** (vs 40%) | Weakest of set · ULCC peer gap |
 
 ---
 
@@ -67,7 +68,7 @@ Control plane (provisions + ships)
 | --- | --- | --- |
 | Bronze | S3 + `RAW` | Landed files + warehouse raw tables (`AIRLINE_REVIEWS`, …, `LOAD_AUDIT`) |
 | Silver | `SOURCE` → `INTERMEDIATE` | Staging views (dedup, hash keys) + cleaned business logic |
-| Gold | `MARTS` | Star schema dims + incremental `fct_review` + `fct_review_enriched` for BI |
+| Gold | `MARTS` | Star schema dims + incremental `fct_review` for BI |
 
 ---
 
@@ -155,7 +156,7 @@ s3://skytrax-reviews-landing-<account-id>/
 
 ## Part 3 — Insight
 
-Same marts (`FCT_REVIEW_ENRICHED`), three Mode dashboards — each with one distinctive insight and one action.
+Same mart (`AGG_AIRLINES_REVIEW` / `FCT_REVIEW`), three Mode dashboards — each with one distinctive insight and one action. KPIs match the Mode industry baseline above (avg rating **2.59**, recommend **40%**).
 
 ### Delta — cabin-class drivers
 
@@ -163,9 +164,10 @@ Same marts (`FCT_REVIEW_ENRICHED`), three Mode dashboards — each with one dist
 
 | Signal | Value |
 | --- | --- |
-| Reviews (2010–2023) | 2,853 |
-| Average rating | **2.48 / 5** |
-| Would recommend | **28.8%** |
+| Reviews | 2,912 |
+| Average rating | **2.49** (vs industry 2.59) |
+| Median | **2.17** |
+| Would recommend | **29.0%** (vs 40%) |
 | Insight | Economy vs Premium satisfaction drivers diverge (Economy → staff / food / value; Premium → seat / dining / value) |
 | Action | Cabin-specific plays: keep staff strength; fix Wi‑Fi; Economy value/pitch; Premium dining/comfort at ATL / JFK / LAX |
 
@@ -175,9 +177,10 @@ Same marts (`FCT_REVIEW_ENRICHED`), three Mode dashboards — each with one dist
 
 | Signal | Value |
 | --- | --- |
-| Reviews (2015–2025) | ~3,000 |
-| Avg inflight service | ~**1.3** |
-| Would recommend (recent) | ~**2%** |
+| Reviews | 3,533 |
+| Average rating | **1.43** (vs industry 2.59) |
+| Median | **1.00** |
+| Would recommend | **5.7%** (vs 40%) |
 | Insight | Among ULCCs, Frontier underperforms peers on recommendation rate (Allegiant > Spirit > Frontier) |
 | Action | Close the ULCC value gap: prioritize Economy entertainment + seat comfort (majority of volume) |
 
@@ -187,9 +190,10 @@ Same marts (`FCT_REVIEW_ENRICHED`), three Mode dashboards — each with one dist
 
 | Signal | Value |
 | --- | --- |
-| Reviews (2015–2025) | 4,671 |
-| Average rating | **1.59 / 5** |
-| Not recommended | **~87.9%** |
+| Reviews | 4,698 |
+| Average rating | **1.59** (vs industry 2.59) |
+| Median | **1.00** |
+| Would recommend | **12.1%** (vs 40%) · not recommended **~87.9%** |
 | Insight | Chronic dissatisfaction; IFE/Wi‑Fi ~1.1; Business Class the worst segment |
 | Action | Connectivity/IFE SLAs, rebuild Business value prop, airport ops at MIA / MEX / GOT |
 

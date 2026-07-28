@@ -8,7 +8,7 @@ Crib sheet for the live Show → Why → What-if walkthrough. One command (or pa
 | --- | --- | --- |
 | EL | `skytrax_reviews_extract_load` | `README.md`, `dags/`, `terraform/` |
 | Transform / DataOps | `skytrax_reviews_transformation` | `dbt/`, `.github/workflows/`, `docs/cicd.md` |
-| Insight | `airline_customer_exp_analysis` · `frontier-reviews-dashboard` · `spirit_airlines_dashboard` | Mode PDFs under each repo; same `FCT_REVIEW_ENRICHED` grain |
+| Insight | `airline_customer_exp_analysis` · `frontier-reviews-dashboard` · `spirit_airlines_dashboard` | Mode PDFs under each repo; same `FCT_REVIEW` grain |
 | Narrative | `skytrax_reviews` | [Platform walkthrough](https://markphamm.github.io/skytrax_reviews/) |
 
 ---
@@ -117,7 +117,7 @@ from marts.fct_review_enriched
 where airline in ('Delta Air Lines', 'Frontier Airlines', 'Spirit Airlines')
 group by 1
 order by 1;
--- Expected ~2853 Delta · ~3000 Frontier · ~4671 Spirit (last snapshot)
+-- Expected ~2912 Delta · ~3533 Frontier · ~4698 Spirit (fct_review snapshot)
 ```
 
 Distinctive levers to defend live:
