@@ -715,53 +715,49 @@
 
     .slide[data-title="Insight overview"] .insight-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-top: 0.4rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-top: 0.45rem;
       flex: 1;
       min-height: 0;
       align-content: stretch;
     }
 
-    @media (max-width: 1000px) {
-      .slide[data-title="Insight overview"] .insight-grid { grid-template-columns: 1fr 1fr; }
-    }
-
     .slide[data-title="Insight overview"] .insight-grid .card {
-      padding: 0.55rem 0.7rem 0.65rem;
+      padding: 0.7rem 0.85rem 0.8rem;
       display: flex;
       flex-direction: column;
       min-height: 0;
     }
 
     .slide[data-title="Insight overview"] .insight-grid .card h3 {
-      font-size: 1rem;
+      font-size: 1.15rem;
       margin-bottom: 0.1rem;
     }
 
     .slide[data-title="Insight overview"] .insight-grid .card .small {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       line-height: 1.3;
     }
 
     .slide[data-title="Insight overview"] .insight-grid .kpi-row {
-      margin-top: 0.4rem;
-      gap: 0.35rem;
+      margin-top: 0.5rem;
+      gap: 0.4rem;
       flex: 1;
     }
 
     .slide[data-title="Insight overview"] .insight-grid .kpi {
-      padding: 0.4rem 0.5rem;
+      padding: 0.5rem 0.55rem;
       border-radius: 8px;
     }
 
     .slide[data-title="Insight overview"] .insight-grid .kpi .n {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       line-height: 1.1;
     }
 
     .slide[data-title="Insight overview"] .insight-grid .kpi .l {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       margin-top: 0.12rem;
       line-height: 1.25;
     }
@@ -778,6 +774,36 @@
 
     .slide[data-title="Insight overview"] .card.industry .kpi .n {
       color: var(--accent);
+    }
+
+    .slide[data-title="MetricFlow demo"] .shot-row {
+      grid-template-columns: 0.95fr 1.15fr;
+      gap: 0.75rem;
+      align-items: stretch;
+    }
+
+    .slide[data-title="MetricFlow demo"] .mf-shots {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+      min-height: 0;
+    }
+
+    .slide[data-title="MetricFlow demo"] .mf-shots figure {
+      margin: 0;
+      min-height: 0;
+    }
+
+    .slide[data-title="MetricFlow demo"] .mf-shots img {
+      max-height: 16vh;
+      width: 100%;
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    .slide[data-title="MetricFlow demo"] .mf-shots figcaption {
+      margin-top: 0.25rem;
+      font-size: 0.72rem;
     }
 
     .timing {
@@ -1950,26 +1976,6 @@ select … from {{ ref('agg_airlines_review') }}
           </div>
         </div>
         <div class="card">
-          <h3>United</h3>
-          <p class="small" style="margin:0.15rem 0 0;">Legacy peer · below industry on all scores</p>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
-            <div class="kpi"><div class="n">2.04</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
-            <div class="kpi"><div class="n">1.57</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
-            <div class="kpi"><div class="n">18.2%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
-            <div class="kpi"><div class="n">4,617</div><div class="l">Reviews</div></div>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Allegiant</h3>
-          <p class="small" style="margin:0.15rem 0 0;">ULCC peer · beats Frontier / Spirit on recommend</p>
-          <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
-            <div class="kpi"><div class="n">1.81</div><div class="l">Avg <span style="opacity:0.75;">vs 2.48</span></div></div>
-            <div class="kpi"><div class="n">1.29</div><div class="l">Median <span style="opacity:0.75;">vs 2.00</span></div></div>
-            <div class="kpi"><div class="n">15.1%</div><div class="l">Recommend <span style="opacity:0.75;">vs 33.6%</span></div></div>
-            <div class="kpi"><div class="n">1,674</div><div class="l">Reviews</div></div>
-          </div>
-        </div>
-        <div class="card">
           <h3>Spirit</h3>
           <p class="small" style="margin:0.15rem 0 0;">Chronic lows · Mode deep-dive</p>
           <div class="kpi-row" style="grid-template-columns:1fr 1fr;">
@@ -2064,29 +2070,37 @@ select … from {{ ref('agg_airlines_review') }}
             <ul>
               <li><strong style="color:var(--text)">One source of truth</strong> — stop copy-pasting KPI SQL across dashboards</li>
               <li><strong style="color:var(--text)">Grain-safe</strong> — metrics know the fact grain; less accidental double-count</li>
-              <li><strong style="color:var(--text)">Self-serve</strong> — ask for metrics + dimensions; engine compiles joins</li>
+              <li><strong style="color:var(--text)">Self-serve</strong> — discover metrics + dimensions; engine compiles joins</li>
               <li><strong style="color:var(--text)">Versioned in git</strong> — metric changes review like model code</li>
             </ul>
           </div>
           <div class="card" style="margin-top:0.55rem;">
             <h3>What we defined (dbt MetricFlow)</h3>
             <ul>
-              <li><span class="inline-code">fct_review_semantic.yml</span> on <span class="inline-code">fct_review</span></li>
-              <li><strong style="color:var(--text)">Metrics:</strong> <span class="inline-code">avg_rating</span> · <span class="inline-code">pct_recommended</span> · <span class="inline-code">review_count</span></li>
-              <li><strong style="color:var(--text)">Dimensions:</strong> <span class="inline-code">rating_band</span> · seat type · traveller type · submitted date</li>
-              <li>Same grain Mode already queries — now reusable from CLI</li>
+              <li><span class="inline-code">fct_review_semantic.yml</span> + airline agg semantic model</li>
+              <li><strong style="color:var(--text)">23 metrics</strong> — <span class="inline-code">avg_rating</span>, <span class="inline-code">pct_recommended</span>, airline avgs…</li>
+              <li><strong style="color:var(--text)">Dimensions:</strong> rating band · seat type · traveller · airline name · time</li>
+              <li>List → slice → validate against the warehouse — all from CLI</li>
             </ul>
-            <p class="code" style="margin-top:0.65rem;">mf query --metrics avg_rating \
-  --group-by review__rating_band</p>
-            <p class="small" style="margin-top:0.5rem;">
-              No hand-written joins — MetricFlow compiles SQL from the semantic model.
-            </p>
+            <p class="code" style="margin-top:0.55rem;">mf list metrics
+mf list dimensions --metrics avg_rating
+mf validate-configs</p>
           </div>
         </div>
-        <figure class="light">
-          <img src="assets/insight/metricflow_demo.png" alt="MetricFlow CLI: avg_rating grouped by rating_band" />
-          <figcaption>Live demo — <span class="inline-code">avg_rating</span> by <span class="inline-code">rating_band</span> (good 4.57 · medium 2.84 · bad 1.26)</figcaption>
-        </figure>
+        <div class="mf-shots">
+          <figure class="light">
+            <img src="assets/insight/metricflow_demo.png" alt="mf list metrics — 23 metrics found" />
+            <figcaption><span class="inline-code">mf list metrics</span> — 23 governed metrics</figcaption>
+          </figure>
+          <figure class="light">
+            <img src="assets/insight/metricflow_demo2.png" alt="mf list dimensions for avg_rating" />
+            <figcaption><span class="inline-code">mf list dimensions</span> — 8 dims for <span class="inline-code">avg_rating</span></figcaption>
+          </figure>
+          <figure class="light">
+            <img src="assets/insight/metricflow_demo3.png" alt="mf validate-configs all checks pass" />
+            <figcaption><span class="inline-code">mf validate-configs</span> — 0 errors vs warehouse</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
