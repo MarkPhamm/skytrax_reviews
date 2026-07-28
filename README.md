@@ -2,6 +2,8 @@
 
 End-to-end airline review analytics: scrape AirlineQuality.com → stage on S3 → load Snowflake → dbt star schema (medallion) → Mode dashboards.
 
+> **Source status:** [AirlineQuality.com](https://www.airlinequality.com/) (Skytrax) is **permanently closed**. This platform was built from historical scrapes collected while the site was live; the EL path is a replayable S3/Snowflake archive, not an ongoing feed from that domain.
+
 This repo is the **umbrella** — project narrative, architecture, and links into the part repos. Implementation lives in the extract-load, transformation, and dashboard repositories below.
 
 **[Platform walkthrough](https://markphamm.github.io/skytrax_reviews/)** — Show → Why → What-if deck (`index.html`) covering modeling, transformation, governance, insight, and DataOps.
@@ -42,15 +44,15 @@ Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `
 ## Architecture
 
 <p align="center">
-  <img src="assets/architecture.png" alt="Skytrax Reviews end-to-end architecture: AirlineQuality → Python scrape/clean → S3 → Snowflake + dbt → Mode / dbt Docs / Analysts, with Terraform·GHA·OIDC control plane and Airflow orchestration" width="100%" />
+  <img src="assets/architecture.png" alt="Skytrax Reviews end-to-end architecture: AirlineQuality (permanently closed; historical scrape) → Python scrape/clean → S3 → Snowflake + dbt → Mode / dbt Docs / Analysts, with Terraform·GHA·OIDC control plane and Airflow orchestration" width="100%" />
 </p>
 
 ```text
 Source                 Extract              Lake                 Load                 Warehouse + Transform              Consumers
 ────────               ───────              ────                 ────                 ────────────────────              ─────────
 AirlineQuality.com  →  Python scraper  →   S3 raw/<type>/   →  COPY INTO        →   Snowflake RAW                   →  Mode (Delta · Frontier · Spirit)
-  airline/seat/        + cleaner            processed/<type>/   + LOAD_AUDIT         SOURCE → INTERMEDIATE → MARTS      dbt Docs (CloudFront)
-  lounge/airport       (Airflow tasks)      quality gate                             dbt: stg → int → dims + fct        Analyst DEV_* 
+  (site closed;          + cleaner            processed/<type>/   + LOAD_AUDIT         SOURCE → INTERMEDIATE → MARTS      dbt Docs (CloudFront)
+   historical HTML)      (Airflow tasks)      quality gate                             dbt: stg → int → dims + fct        Analyst DEV_* 
 
 Orchestration (spans extract → load → transform)
   Airflow (Astronomer) · Dataset-chained crawl → process → snowflake · cosmos DbtDag
@@ -73,7 +75,7 @@ Control plane (provisions + ships)
 
 | Layer | Technology | Why |
 | --- | --- | --- |
-| Extract | Python 3.12, BeautifulSoup, pandas | No public API — custom scrape of AirlineQuality.com |
+| Extract | Python 3.12, BeautifulSoup, pandas | No public API — custom scrape of AirlineQuality.com (site now permanently closed; historical archive) |
 | Orchestration | Apache Airflow (Astronomer) + Datasets + cosmos | Event-driven DAG chaining; dbt as first-class tasks |
 | Lake | AWS S3 (type + date partitions) | Replayable, cheap, decoupled from Snowflake |
 | Warehouse | Snowflake | `COPY INTO`, RBAC, tag-based masking, separate compute |

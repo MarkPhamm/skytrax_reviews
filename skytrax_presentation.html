@@ -1251,6 +1251,8 @@
           <p class="lead">
             End-to-end airline review analytics: scrape → S3 → Snowflake → dbt star schema → Mode dashboard.
             One governed metric grain, three airline levers, five pillars, Show → Why → What-if.
+            Source was AirlineQuality.com (Skytrax) — <strong style="color:var(--text)">the site is permanently closed</strong>;
+            the platform runs on historical scrapes landed while it was live.
           </p>
           <p class="tagline"><span class="dot"></span> Mark Pham · Analytics Engineering ownership across EL + Transform + DataOps</p>
           <div class="repo-links">
@@ -1339,6 +1341,10 @@
     <section class="slide" data-title="Architecture">
       <p class="eyebrow">End-to-end · how the data flows</p>
       <h2>Architecture at a glance</h2>
+      <p class="lead" style="margin-top:0.25rem; margin-bottom:0;">
+        Source: AirlineQuality.com (Skytrax) — <strong style="color:var(--text)">permanently closed</strong>.
+        Pipeline keeps a replayable historical archive on S3; no new fetches from that site.
+      </p>
       <div class="pipeline-wrap">
         <svg
           id="skytraxPipeline"
@@ -1348,7 +1354,7 @@
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           role="img"
-          aria-label="Skytrax data pipeline: AirlineQuality scrape to S3 to Snowflake dbt to Mode"
+          aria-label="Skytrax data pipeline: historical AirlineQuality scrape (site now closed) to S3 to Snowflake dbt to Mode"
         >
           <defs>
             <linearGradient id="pl-orch-grad" gradientUnits="userSpaceOnUse" x1="280" y1="650" x2="1260" y2="650">
@@ -1405,9 +1411,9 @@
               <rect x="25" y="271" width="222" height="78" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
               <image href="assets/pipeline/api.svg" x="40" y="297" width="26" height="26" />
               <text class="pl-font" x="78" y="308" text-anchor="start" fill="#e8f1f7" font-size="15">AirlineQuality</text>
-              <text class="pl-font" x="78" y="328" text-anchor="start" fill="#9bb3c5" font-size="12">4 review types · HTML</text>
+              <text class="pl-font" x="78" y="328" text-anchor="start" fill="#9bb3c5" font-size="12">closed · historical HTML</text>
             </g>
-            <text class="pl-label pl-font" x="136" y="372" text-anchor="middle" fill="#6B7280" font-size="12" font-style="italic">no public API</text>
+            <text class="pl-label pl-font" x="136" y="372" text-anchor="middle" fill="#6B7280" font-size="12" font-style="italic">site shut down permanently</text>
 
             <!-- Extract: scrape → clean (sequential) -->
             <g class="pl-node" data-name="ing-scraper">
@@ -1651,7 +1657,7 @@
           <tr>
             <td>Ingestion</td>
             <td><strong>Custom Python scraper</strong></td>
-            <td>Skytrax has no public API — Fivetran/Airbyte can’t land HTML reviews; polite crawl + parse into replayable files instead.</td>
+            <td>AirlineQuality.com had no public API (and is now permanently closed) — Fivetran/Airbyte couldn’t land HTML reviews; polite crawl + parse into a replayable S3 archive instead.</td>
           </tr>
           <tr>
             <td>Landing</td>
@@ -1681,7 +1687,7 @@
         <div class="kimball-step">
           <div class="n">1</div>
           <h3>Business process</h3>
-          <p class="answer">Customer review submissions on AirlineQuality.com.</p>
+          <p class="answer">Customer review submissions on AirlineQuality.com (site now permanently closed — historical scrape).</p>
         </div>
         <div class="kimball-step critical">
           <div class="n">2</div>
