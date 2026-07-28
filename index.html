@@ -431,154 +431,226 @@
     .slide[data-title="Modeling overview"] {
       padding-left: clamp(0.85rem, 2vw, 1.75rem);
       padding-right: clamp(0.85rem, 2vw, 1.75rem);
-      padding-top: 0.85rem;
+      padding-top: 0.75rem;
       padding-bottom: 3.75rem;
+      gap: 0.55rem;
     }
 
     .slide[data-title="Modeling overview"] h2 {
-      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
-      margin-bottom: 0.3rem;
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      margin-bottom: 0.15rem;
     }
 
-    .slide[data-title="Modeling overview"] .shot-row {
-      margin-top: 0.5rem;
-      flex: 1;
-      min-height: 0;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 0.75rem;
-      align-items: stretch;
+    .slide[data-title="Modeling overview"] .kimball {
+      margin-top: 0.25rem;
+      gap: 0.45rem;
     }
 
-    .slide[data-title="Modeling overview"] .shot-row > div {
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      min-height: 0;
-      height: 100%;
+    .slide[data-title="Modeling overview"] .kimball-step {
+      padding: 0.5rem 0.65rem;
     }
 
-    .slide[data-title="Modeling overview"] .layers {
-      margin-top: 0;
-      flex: 1;
-      gap: 0.55rem;
-      align-items: stretch;
+    .slide[data-title="Modeling overview"] .kimball-step .prompt {
+      display: none;
     }
 
-    .slide[data-title="Modeling overview"] .layer {
-      padding: 0.7rem 0.8rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .slide[data-title="Modeling overview"] .layer h3 {
-      font-size: 0.95rem;
+    .slide[data-title="Modeling overview"] .kimball-step h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 600;
       margin-bottom: 0.25rem;
     }
 
-    .slide[data-title="Modeling overview"] .layer ul {
+    .slide[data-title="Modeling overview"] .kimball-step .answer {
       font-size: 0.8rem;
-      margin-top: 0.35rem;
+      line-height: 1.35;
     }
 
-    .slide[data-title="Modeling overview"] .grid-2 {
-      margin-top: 0;
-      gap: 0.55rem;
+    .slide[data-title="Modeling overview"] .kimball-step .n {
+      font-size: 1.05rem;
+      margin-bottom: 0.1rem;
     }
 
-    .slide[data-title="Modeling overview"] .fact-callout {
-      margin-top: auto;
-    }
-
-    .slide[data-title="Modeling overview"] .shot-row figure {
-      margin: 0;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-    }
-
-    .slide[data-title="Modeling overview"] .shot-row figure img {
-      flex: 1;
-      width: 100%;
-      max-height: none;
-      height: 100%;
-      object-fit: contain;
-      object-position: left center;
-    }
-
-    .slide[data-title="Modeling SWY"] {
-      padding-left: clamp(0.85rem, 2vw, 1.75rem);
-      padding-right: clamp(0.85rem, 2vw, 1.75rem);
-      padding-top: 0.85rem;
-      padding-bottom: 3.75rem;
-    }
-
-    .slide[data-title="Modeling SWY"] h2 {
-      font-size: clamp(1.35rem, 2.6vw, 1.9rem);
-      margin-bottom: 0.35rem;
-    }
-
-    .slide[data-title="Modeling SWY"] .lineage-row {
+    .slide[data-title="Modeling overview"] .model-body {
       display: grid;
-      grid-template-columns: 0.9fr 1.3fr;
+      grid-template-columns: 1fr 1.45fr;
       gap: 0.75rem;
-      margin-top: 0.4rem;
       flex: 1;
       min-height: 0;
+      margin-top: 0.35rem;
       align-items: stretch;
     }
 
     @media (max-width: 1000px) {
-      .slide[data-title="Modeling SWY"] .lineage-row { grid-template-columns: 1fr; }
+      .slide[data-title="Modeling overview"] .model-body { grid-template-columns: 1fr; }
     }
 
-    .slide[data-title="Modeling SWY"] .lineage-row .swy {
+    .slide[data-title="Modeling overview"] .model-side {
       display: flex;
       flex-direction: column;
-      grid-template-columns: none;
+      gap: 0.5rem;
+      min-height: 0;
+    }
+
+    .slide[data-title="Modeling overview"] .layers {
       margin-top: 0;
-      gap: 0.55rem;
-      height: 100%;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
       flex: 1;
     }
 
-    .slide[data-title="Modeling SWY"] .lineage-row .swy .card {
-      flex: 1;
-      padding: 0.75rem 0.9rem;
-      min-height: 0;
+    .slide[data-title="Modeling overview"] .layer {
+      padding: 0.55rem 0.7rem;
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      gap: 0.65rem;
+      align-items: center;
     }
 
-    .slide[data-title="Modeling SWY"] .lineage-row .swy .card h3 {
-      font-size: 0.95rem;
-      margin-bottom: 0.3rem;
+    .slide[data-title="Modeling overview"] .layer .tag {
+      margin: 0 0 0.15rem;
+      font-size: 0.65rem;
     }
 
-    .slide[data-title="Modeling SWY"] .lineage-row .swy .card li {
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-
-    .slide[data-title="Modeling SWY"] .lineage-row figure {
+    .slide[data-title="Modeling overview"] .layer h3 {
+      font-size: 0.85rem;
       margin: 0;
+    }
+
+    .slide[data-title="Modeling overview"] .layer ul {
+      margin: 0;
+      padding-left: 0.95rem;
+      font-size: 0.74rem;
+      line-height: 1.35;
+    }
+
+    .slide[data-title="Modeling overview"] .model-meta {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+
+    .slide[data-title="Modeling overview"] .model-meta .card {
+      padding: 0.55rem 0.7rem;
+    }
+
+    .slide[data-title="Modeling overview"] .model-meta h3 {
+      font-size: 0.78rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .slide[data-title="Modeling overview"] .model-meta p {
+      font-size: 0.74rem;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .slide[data-title="Modeling overview"] .fact-callout {
+      margin-top: 0;
+      padding: 0.5rem 0.7rem;
+    }
+
+    .slide[data-title="Modeling overview"] .fact-callout h3 {
+      font-size: 0.75rem;
+    }
+
+    .slide[data-title="Modeling overview"] .fact-callout p {
+      font-size: 0.74rem;
+    }
+
+    .slide[data-title="Modeling overview"] .model-erd {
+      margin: 0;
+      min-height: 0;
       height: 100%;
       display: flex;
       flex-direction: column;
-      min-height: 0;
+      background: #f4f7fa;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.45rem 0.55rem 0.35rem;
+      overflow: hidden;
     }
 
-    .slide[data-title="Modeling SWY"] .lineage-row figure a {
+    .slide[data-title="Modeling overview"] .model-erd img {
       flex: 1;
-      min-height: 0;
-      display: flex;
-    }
-
-    .slide[data-title="Modeling SWY"] .lineage-row figure img {
       width: 100%;
       height: 100%;
       max-height: none;
       object-fit: contain;
-      object-position: left center;
+      object-position: center;
+      border-radius: 6px;
+    }
+
+    .slide[data-title="Modeling overview"] .model-erd figcaption {
+      margin-top: 0.3rem;
+      font-size: 0.68rem;
+    }
+
+    .slide[data-title="Modeling SWY"] {
+      padding-left: clamp(0.75rem, 1.8vw, 1.5rem);
+      padding-right: clamp(0.75rem, 1.8vw, 1.5rem);
+      padding-top: 0.65rem;
+      padding-bottom: 3.5rem;
+      gap: 0.4rem;
+    }
+
+    .slide[data-title="Modeling SWY"] .eyebrow {
+      margin-bottom: 0.1rem;
+    }
+
+    .slide[data-title="Modeling SWY"] h2 {
+      font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+      margin-bottom: 0.1rem;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      flex: 1;
+      min-height: 0;
+      margin-top: 0.25rem;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-stack figure {
+      margin: 0;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-stack figure a {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #0f1c2a;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-stack figure img {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center center;
+    }
+
+    .slide[data-title="Modeling SWY"] .lineage-stack figure figcaption {
+      margin-top: 0.25rem;
+      flex: 0 0 auto;
+      font-size: 0.66rem;
+      line-height: 1.25;
     }
 
     .code {
@@ -1100,7 +1172,7 @@
           <span class="t">0–5</span>
           <span>
             <span class="pillar">Open</span>
-            <span class="hint">Repos, architecture, stack</span>
+            <span class="hint">Architecture, repos, stack</span>
           </span>
         </button>
         <button type="button" class="agenda-row" data-go="5">
@@ -1121,24 +1193,24 @@
           <span class="t">35–50</span>
           <span>
             <span class="pillar">3 · Governance</span>
-            <span class="hint">Quality, PII, Elementary observability</span>
+            <span class="hint">Quality gates, PII masking, control matrix</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="13">
+        <button type="button" class="agenda-row" data-go="12">
           <span class="t">50–65</span>
           <span>
             <span class="pillar">4 · Insight</span>
             <span class="hint">Delta · Frontier · Spirit — one lever each</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="16">
+        <button type="button" class="agenda-row" data-go="15">
           <span class="t">65–80</span>
           <span>
             <span class="pillar">5 · DataOps</span>
             <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
           </span>
         </button>
-        <button type="button" class="agenda-row qa" data-go="21">
+        <button type="button" class="agenda-row qa" data-go="20">
           <span class="t">80–90</span>
           <span>
             <span class="pillar">Live demo · Q&amp;A</span>
@@ -1155,64 +1227,6 @@
     </section>
 
     <!-- 2 -->
-    <section class="slide" data-title="Repos = stages">
-      <p class="eyebrow">System map</p>
-      <h2>Each repo is one part of the pipeline</h2>
-      <div class="flow">
-        <div class="flow-step">
-          <div class="n">01</div>
-          <h3>Extract</h3>
-          <p>Scrape 4 review types in parallel → date-partitioned CSVs.</p>
-          <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
-        </div>
-        <div class="flow-step">
-          <div class="n">02</div>
-          <h3>Stage + Load</h3>
-          <p>Clean → S3 → quality gates → <span class="inline-code">COPY INTO</span> RAW.</p>
-          <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
-        </div>
-        <div class="flow-step">
-          <div class="n">03</div>
-          <h3>Transform</h3>
-          <p>Medallion → star: dims, incremental fact, airline agg + snapshots.</p>
-          <a class="repo tf repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">skytrax_reviews_transformation</a>
-        </div>
-        <div class="flow-step">
-          <div class="n">04</div>
-          <h3>Orchestrate / Ops</h3>
-          <p>Airflow + cosmos · slim CI/CD · Terraform · email on fail.</p>
-          <span class="repo tf">
-            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a>
-            +
-            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a>
-          </span>
-        </div>
-        <div class="flow-step">
-          <div class="n">05</div>
-          <h3>Insight</h3>
-          <p>Same marts → Mode: Delta · Frontier · Spirit.</p>
-          <span class="repo bi">
-            <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta</a>
-            ·
-            <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard" target="_blank" rel="noopener noreferrer">frontier</a>
-            ·
-            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit</a>
-          </span>
-        </div>
-      </div>
-      <div class="img-grid-2">
-        <figure>
-          <img src="assets/el/airflow/dags.png" alt="Airflow DAGs list for skytrax crawl process snowflake" />
-          <figcaption>EL repo — Dataset-chained Airflow DAGs (crawl → process → snowflake)</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/el/aws/s3_dir.png" alt="S3 landing bucket raw and processed folders" />
-          <figcaption>EL repo — S3 landing zone <span class="inline-code">raw/</span> + <span class="inline-code">processed/</span></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- 4 -->
     <section class="slide" data-title="Architecture">
       <p class="eyebrow">End-to-end · how the data flows</p>
       <h2>Architecture at a glance</h2>
@@ -1419,6 +1433,64 @@
       </div>
     </section>
 
+    <!-- 3 -->
+    <section class="slide" data-title="Repos = stages">
+      <p class="eyebrow">System map</p>
+      <h2>Each repo is one part of the pipeline</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="n">01</div>
+          <h3>Extract</h3>
+          <p>Scrape 4 review types in parallel → date-partitioned CSVs.</p>
+          <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
+        </div>
+        <div class="flow-step">
+          <div class="n">02</div>
+          <h3>Stage + Load</h3>
+          <p>Clean → S3 → quality gates → <span class="inline-code">COPY INTO</span> RAW.</p>
+          <a class="repo el repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">skytrax_reviews_extract_load</a>
+        </div>
+        <div class="flow-step">
+          <div class="n">03</div>
+          <h3>Transform</h3>
+          <p>Medallion → star: dims, incremental fact, airline agg + snapshots.</p>
+          <a class="repo tf repo-link" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">skytrax_reviews_transformation</a>
+        </div>
+        <div class="flow-step">
+          <div class="n">04</div>
+          <h3>Orchestrate / Ops</h3>
+          <p>Airflow + cosmos · slim CI/CD · Terraform · email on fail.</p>
+          <span class="repo tf">
+            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_extract_load" target="_blank" rel="noopener noreferrer">extract_load</a>
+            +
+            <a class="repo-link tf" href="https://github.com/MarkPhamm/skytrax_reviews_transformation" target="_blank" rel="noopener noreferrer">transformation</a>
+          </span>
+        </div>
+        <div class="flow-step">
+          <div class="n">05</div>
+          <h3>Insight</h3>
+          <p>Same marts → Mode: Delta · Frontier · Spirit.</p>
+          <span class="repo bi">
+            <a class="repo-link bi" href="https://github.com/alyssaqle/airline_customer_exp_analysis" target="_blank" rel="noopener noreferrer">delta</a>
+            ·
+            <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard" target="_blank" rel="noopener noreferrer">frontier</a>
+            ·
+            <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard" target="_blank" rel="noopener noreferrer">spirit</a>
+          </span>
+        </div>
+      </div>
+      <div class="img-grid-2">
+        <figure>
+          <img src="assets/el/airflow/dags.png" alt="Airflow DAGs list for skytrax crawl process snowflake" />
+          <figcaption>EL repo — Dataset-chained Airflow DAGs (crawl → process → snowflake)</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/el/aws/s3_dir.png" alt="S3 landing bucket raw and processed folders" />
+          <figcaption>EL repo — S3 landing zone <span class="inline-code">raw/</span> + <span class="inline-code">processed/</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- 4 -->
     <section class="slide" data-title="Tech stack">
       <p class="eyebrow">Required stack + extras</p>
@@ -1499,131 +1571,94 @@
       <div class="kimball">
         <div class="kimball-step">
           <div class="n">1</div>
-          <h3>Choose the business process</h3>
-          <p class="prompt">What business event are we modeling?</p>
-          <p class="answer">Airline customer review submissions on AirlineQuality.com.</p>
+          <h3>Business process</h3>
+          <p class="answer">Customer review submissions on AirlineQuality.com.</p>
         </div>
         <div class="kimball-step critical">
           <div class="n">2</div>
-          <h3>Declare the grain</h3>
-          <p class="badge">Most important</p>
-          <p class="prompt">What does one row represent?</p>
-          <p class="answer">One row per review submission in <span class="inline-code">fct_review</span>.</p>
+          <h3>Grain <span class="badge">Most important</span></h3>
+          <p class="answer">One row per review in <span class="inline-code">fct_review</span>.</p>
         </div>
         <div class="kimball-step">
           <div class="n">3</div>
-          <h3>Identify the key dimensions</h3>
-          <p class="prompt">What does the user want to slice by?</p>
+          <h3>Dimensions</h3>
           <p class="answer">Customer · Airline · Aircraft · Location · Date.</p>
         </div>
         <div class="kimball-step">
           <div class="n">4</div>
-          <h3>Identify the facts</h3>
-          <p class="prompt">What numbers are we measuring?</p>
-          <p class="answer">Service ratings + overall — derived <span class="inline-code">average_rating</span> / <span class="inline-code">recommended</span>.</p>
+          <h3>Facts</h3>
+          <p class="answer">Service ratings → <span class="inline-code">average_rating</span> / <span class="inline-code">recommended</span>.</p>
         </div>
       </div>
 
-      <div class="shot-row">
-        <div>
+      <div class="model-body">
+        <div class="model-side">
           <div class="layers">
             <div class="layer bronze">
-              <div class="tag">Bronze</div>
-              <h3>RAW / S3</h3>
+              <div>
+                <div class="tag">Bronze</div>
+                <h3>RAW / S3</h3>
+              </div>
               <ul>
-                <li>S3 raw + processed</li>
-                <li><span class="inline-code">RAW.AIRLINE_REVIEWS</span></li>
-                <li><span class="inline-code">LOAD_AUDIT</span></li>
+                <li>S3 <span class="inline-code">raw/</span> + <span class="inline-code">processed/</span></li>
+                <li><span class="inline-code">RAW.AIRLINE_REVIEWS</span> · <span class="inline-code">LOAD_AUDIT</span></li>
               </ul>
             </div>
             <div class="layer silver">
-              <div class="tag">Silver</div>
-              <h3>SOURCE → INT</h3>
+              <div>
+                <div class="tag">Silver</div>
+                <h3>SOURCE → INT</h3>
+              </div>
               <ul>
                 <li><span class="inline-code">stg__skytrax_reviews</span></li>
                 <li><span class="inline-code">int_reviews_cleaned</span></li>
               </ul>
             </div>
             <div class="layer gold">
-              <div class="tag">Gold</div>
-              <h3>MARTS</h3>
+              <div>
+                <div class="tag">Gold</div>
+                <h3>MARTS</h3>
+              </div>
               <ul>
-                <li>5 dims + incremental fact</li>
-                <li><span class="inline-code">fct_review_enriched</span></li>
-                <li><span class="inline-code">agg_airlines_review</span> + snap</li>
+                <li>5 dims + incremental <span class="inline-code">fct_review</span></li>
+                <li><span class="inline-code">fct_review_enriched</span> · <span class="inline-code">agg_airlines_review</span> + snap</li>
               </ul>
             </div>
           </div>
-          <div class="grid-2">
-            <div class="card" style="padding:0.75rem 0.9rem;">
-              <h3 style="font-size:0.95rem;">Grain</h3>
-              <p style="font-size:0.82rem;">One row per review submission in <span class="inline-code">fct_review</span>.</p>
+          <div class="model-meta">
+            <div class="card">
+              <h3>Keys</h3>
+              <p>Deterministic surrogates · role-playing date + location (origin / dest / transit).</p>
             </div>
-            <div class="card" style="padding:0.75rem 0.9rem;">
-              <h3 style="font-size:0.95rem;">Keys</h3>
-              <p style="font-size:0.82rem;">Deterministic surrogates; role-playing date + location.</p>
+            <div class="fact-callout">
+              <h3>Transaction fact</h3>
+              <p>
+                One event row per review in <span class="inline-code">fct_review</span> —
+                not periodic snapshot / accumulating.
+              </p>
             </div>
-          </div>
-          <div class="fact-callout">
-            <h3>Transaction fact table</h3>
-            <p>
-              Each business event is a customer review — one grain row per event in
-              <span class="inline-code">fct_review</span> (not periodic snapshot / accumulating).
-            </p>
           </div>
         </div>
-        <figure class="light">
+        <figure class="model-erd">
           <img src="assets/tf/data_model/schema.png" alt="Star schema ERD fct_review and dimensions" />
-          <figcaption>Show — ERD <span class="inline-code">data_model/schema.png</span> (star: 5 dims + fact)</figcaption>
+          <figcaption>Show — star ERD · 5 dims + <span class="inline-code">fct_review</span></figcaption>
         </figure>
       </div>
     </section>
 
     <!-- 7 -->
     <section class="slide" data-title="Modeling SWY">
-      <p class="eyebrow">Pillar 1 · Show → Why → What-if</p>
-      <h2>Data Modeling & Architecture</h2>
-      <div class="lineage-row">
-        <div class="swy">
-          <div class="card show">
-            <span class="pill show">Show</span>
-            <h3>Where it lives</h3>
-            <ul>
-              <li>ERD + CloudFront dbt docs lineage</li>
-              <li><span class="inline-code">dbt/models/{staging,intermediate,marts}</span></li>
-              <li>Schemas: SOURCE / INTERMEDIATE / MARTS</li>
-              <li>Dims: customer, airline, aircraft, location, date</li>
-            </ul>
-          </div>
-          <div class="card why">
-            <span class="pill why">Why</span>
-            <h3>Trade-offs</h3>
-            <ul>
-              <li><strong>Kimball &gt; Data Vault</strong> — analyst-friendly for Mode</li>
-              <li><strong>Medallion + star</strong> — replay / clean / consume</li>
-              <li><strong>Views early, tables in marts</strong></li>
-              <li><strong>Conformed + role-playing dims</strong></li>
-            </ul>
-          </div>
-          <div class="card whatif">
-            <span class="pill whatif">What-if</span>
-            <h3>Live adaptations</h3>
-            <ul>
-              <li>Second fact for seat reviews — share dims</li>
-              <li>Shipped: <span class="inline-code">snap_agg_airlines_review</span> SCD2 score drift</li>
-              <li>SCD2 aircraft → same snapshot / type-2 pattern</li>
-              <li>3NF reshape only marts — layers protect</li>
-            </ul>
-          </div>
-        </div>
+      <p class="eyebrow">Pillar 1 · Show</p>
+      <h2>dbt lineage — staging → dims → fact → exposure</h2>
+      <div class="lineage-stack">
         <figure>
           <a href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">
-            <img src="assets/tf/dbt/dbt_docs_lineage.png" alt="dbt lineage graph" />
+            <img src="assets/tf/dbt/lineage.png" alt="dbt lineage graph including agg_airlines_review and snapshots" />
           </a>
           <figcaption>
             Show —
             <a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">live dbt docs lineage</a>
-            · exposure: airline dashboard
+            · source → stg → dims / fact → agg + snap · exposure
           </figcaption>
         </figure>
       </div>
@@ -1759,91 +1794,38 @@ select … from {{ ref('agg_airlines_review') }}
     <section class="slide" data-title="Governance overview">
       <p class="eyebrow">Pillar 3 · Data Governance</p>
       <h2>Quality · observability · sensitive data</h2>
-      <div class="shot-row">
-        <div class="grid-2" style="margin-top:0;">
-          <div class="card">
-            <h3>Quality + observability</h3>
-            <ul>
-              <li>EL: schema / null-rate / rating-range; reject by date</li>
-              <li>EL: <span class="inline-code">COPY INTO</span> → <span class="inline-code">LOAD_AUDIT</span></li>
-              <li>dbt: unique / not_null / relationships / accepted_values</li>
-              <li>dbt_expectations + unit + singular + Spirit fleet plausibility (warn)</li>
-              <li>Freshness: warn 3d / error 7d (daily-when-laptop-runs loads)</li>
-              <li><strong style="color:var(--text)">Elementary</strong> — warehouse test results, run artifacts, volume anomaly on <span class="inline-code">fct_review</span></li>
-              <li>Resource monitors + query tags + statement timeouts</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>Security & PII</h3>
-            <ul>
-              <li>Tag masking on name / nationality (RAW)</li>
-              <li><span class="inline-code">PII_HASH_MASK</span> on <span class="inline-code">dim_customer</span></li>
-              <li>ANALYST sees hash; TRANSFORMER sees clear</li>
-              <li>RBAC + DEV_* schemas; key-pair path for service users</li>
-              <li>Failure alerting on EL + cosmos DAGs + CD email</li>
-            </ul>
-          </div>
+      <div class="grid-2" style="margin-top:0.45rem;">
+        <div class="card">
+          <h3>Quality + observability</h3>
+          <ul>
+            <li>EL: schema / null-rate / rating-range; reject by date</li>
+            <li>EL: <span class="inline-code">COPY INTO</span> → <span class="inline-code">LOAD_AUDIT</span></li>
+            <li>dbt: unique / not_null / relationships / accepted_values</li>
+            <li>dbt_expectations + unit + singular + Spirit fleet plausibility (warn)</li>
+            <li>Freshness: warn 3d / error 7d · Elementary volume anomaly on <span class="inline-code">fct_review</span></li>
+          </ul>
         </div>
-        <figure>
-          <img src="assets/tf/snowflake/snowflake_users.png" alt="Snowflake RBAC users and medallion schemas" />
-          <figcaption>Show — Snowflake schemas (RAW→MARTS) + users (PROD_DBT, DBT_CICD, analysts)</figcaption>
-        </figure>
+        <div class="card">
+          <h3>Security & PII</h3>
+          <ul>
+            <li>Tag masking on name / nationality (RAW)</li>
+            <li><span class="inline-code">PII_HASH_MASK</span> on <span class="inline-code">dim_customer</span></li>
+            <li><strong style="color:var(--text)">ANALYST</strong> sees hash; <strong style="color:var(--text)">TRANSFORMER</strong> sees clear</li>
+            <li>RBAC + DEV_* schemas; failure alerts on EL + CD email</li>
+          </ul>
+        </div>
       </div>
+      <figure class="light" style="margin-top:0.55rem; flex:1; min-height:0; display:flex; flex-direction:column;">
+        <img src="assets/tf/snowflake/masking_demo.png" alt="Snowflake ANALYST role select from dim_customer with hashed customer_name and nationality" style="flex:1; width:100%; max-height:none; height:100%; object-fit:contain; object-position:center top;" />
+        <figcaption>
+          Show — <span class="inline-code">USE ROLE SKYTRAX_ANALYST</span> ·
+          <span class="inline-code">SELECT * FROM MARTS.DIM_CUSTOMER</span> —
+          <span class="inline-code">CUSTOMER_NAME</span> / <span class="inline-code">NATIONALITY</span> hashed
+        </figcaption>
+      </figure>
     </section>
 
     <!-- 11 -->
-    <section class="slide" data-title="Elementary observability">
-      <p class="eyebrow">Pillar 3 · Observability</p>
-      <h2>Elementary — warehouse-side monitoring</h2>
-      <div class="two-col">
-        <div>
-          <div class="card">
-            <h3>How it works</h3>
-            <ul>
-              <li>Package: <span class="inline-code">elementary-data/elementary</span> 0.19.4</li>
-              <li>Models land in schema <span class="inline-code">elementary</span> (own blast radius)</li>
-              <li>Package hooks upload run artifacts + test results on every dbt run</li>
-              <li>Snowflake test materialization override via <span class="inline-code">macros/elementary_materialization.sql</span></li>
-              <li>Separate Airflow DAG: <span class="inline-code">skytrax_elementary</span> (<span class="inline-code">package:elementary</span> only)</li>
-              <li>Main transform DAG excludes Elementary so the business graph stays readable</li>
-            </ul>
-          </div>
-          <div class="fact-callout">
-            <h3>docs/observability.md</h3>
-            <p>
-              Bootstrap once: <span class="inline-code">dbt deps</span> → <span class="inline-code">dbt run --select elementary</span>.
-              Then render: <span class="inline-code">edr report</span> from the warehouse Elementary tables.
-            </p>
-          </div>
-        </div>
-        <div>
-          <div class="card">
-            <h3>What we watch</h3>
-            <ul>
-              <li><span class="inline-code">fct_review</span>: <span class="inline-code">elementary.volume_anomalies</span></li>
-              <li>Bucketed by day on <span class="inline-code">source_updated_at</span></li>
-              <li>Severity <strong style="color:var(--text)">warn</strong> — baseline builds without blocking CD</li>
-              <li>Catches silent volume drops / spikes after scrape or load drift</li>
-              <li>CLI: <span class="inline-code">edr report</span> → HTML from Elementary schema</li>
-              <li>Live: <span class="inline-code">dbt test -s fct_review,tag:elementary</span> · <span class="inline-code">edr report</span></li>
-            </ul>
-          </div>
-          <div class="code"># marts_schema.yml on fct_review
-tests:
-  - elementary.volume_anomalies:
-      arguments:
-        timestamp_column: source_updated_at
-        time_bucket: { period: day, count: 1 }
-      config:
-        severity: warn
-
-# Airflow: skytrax_elementary @ Tue 20:00 UTC
-# (1h after skytrax_dbt_transformation)</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 12 -->
     <section class="slide" data-title="Governance SWY">
       <p class="eyebrow">Pillar 3 · Show → Why → What-if</p>
       <h2>Data Governance</h2>
@@ -1853,10 +1835,10 @@ tests:
           <h3>Where it lives</h3>
           <ul>
             <li><span class="inline-code">quality.py</span> + <span class="inline-code">LOAD_AUDIT</span></li>
-            <li>Masking Terraform + dbt tests / contracts</li>
-            <li><span class="inline-code">docs/observability.md</span> · <span class="inline-code">skytrax_elementary</span> DAG</li>
-            <li><span class="inline-code">elementary.volume_anomalies</span> on <span class="inline-code">fct_review</span></li>
-            <li>Live: <span class="inline-code">dbt test</span> · <span class="inline-code">edr report</span> · ANALYST vs TRANSFORMER</li>
+            <li>Masking Terraform + <span class="inline-code">PII_HASH_MASK</span> on <span class="inline-code">dim_customer</span></li>
+            <li>Live: <span class="inline-code">USE ROLE SKYTRAX_ANALYST</span> → hashed name / nationality</li>
+            <li>Live: <span class="inline-code">USE ROLE SKYTRAX_TRANSFORMER</span> → clear text</li>
+            <li><span class="inline-code">dbt test</span> · <span class="inline-code">LOAD_AUDIT</span> · Elementary volume warn</li>
           </ul>
         </div>
         <div class="card why">
@@ -1882,13 +1864,13 @@ tests:
         </div>
       </div>
       <div class="img-grid-2">
-        <figure>
-          <img src="assets/el/aws/s3_processed.png" alt="S3 processed clean CSVs" />
-          <figcaption>EL quality gate — validated files in <span class="inline-code">processed/</span> (rejects skipped at load)</figcaption>
+        <figure class="light">
+          <img src="assets/tf/snowflake/masking_demo.png" alt="ANALYST role dim_customer with hashed PII columns" />
+          <figcaption>Show — ANALYST: <span class="inline-code">dim_customer</span> name / nationality hashed</figcaption>
         </figure>
         <figure>
-          <img src="assets/tf/cicd/ci.png" alt="dbt tests passing in CI" />
-          <figcaption>Transform quality — CI runs relationship / accepted_values / expectations</figcaption>
+          <img src="assets/tf/snowflake/snowflake_users.png" alt="Snowflake RBAC users and medallion schemas" />
+          <figcaption>Show — RBAC + schemas (RAW→MARTS); TRANSFORMER sees clear</figcaption>
         </figure>
       </div>
     </section>
@@ -1898,26 +1880,26 @@ tests:
       <p class="eyebrow">Pillar 4 · Data Insight</p>
       <h2>Same marts, three Mode slices</h2>
       <p class="lead" style="margin-top:0.4rem;">
-        Governed <span class="inline-code">average_rating</span> / <span class="inline-code">recommended</span> on
-        <span class="inline-code">FCT_REVIEW_ENRICHED</span> — each airline filter surfaces a different lever.
+        From <span class="inline-code">agg_airlines_review</span> (rollup of
+        <span class="inline-code">fct_review</span>) — same grain KPIs, three Mode levers.
       </p>
       <div class="grid-3">
         <div class="card">
           <h3>Delta</h3>
           <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
-            <div class="kpi"><div class="n">2.48</div><div class="l">Avg rating / 5</div></div>
-            <div class="kpi"><div class="n">28.8%</div><div class="l">Would recommend</div></div>
-            <div class="kpi"><div class="n">2,853</div><div class="l">Reviews (2010–2023)</div></div>
+            <div class="kpi"><div class="n">2.49</div><div class="l">Avg rating / 5</div></div>
+            <div class="kpi"><div class="n">29.0%</div><div class="l">Would recommend</div></div>
+            <div class="kpi"><div class="n">2,912</div><div class="l">Reviews (2015–2026)</div></div>
             <div class="kpi"><div class="n">Cabin</div><div class="l">Economy ≠ Premium drivers</div></div>
           </div>
         </div>
         <div class="card">
           <h3>Frontier</h3>
           <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
-            <div class="kpi"><div class="n">~1.3</div><div class="l">Avg inflight</div></div>
-            <div class="kpi"><div class="n">~2%</div><div class="l">Recommend (recent)</div></div>
-            <div class="kpi"><div class="n">~3k</div><div class="l">Reviews (2015–2025)</div></div>
-            <div class="kpi"><div class="n">ULCC</div><div class="l">Lowest peer recommend rate</div></div>
+            <div class="kpi"><div class="n">1.43</div><div class="l">Avg rating / 5</div></div>
+            <div class="kpi"><div class="n">5.8%</div><div class="l">Would recommend</div></div>
+            <div class="kpi"><div class="n">3,532</div><div class="l">Reviews (2015–2026)</div></div>
+            <div class="kpi"><div class="n">1.09</div><div class="l">Avg IFE (ULCC gap)</div></div>
           </div>
         </div>
         <div class="card">
@@ -1925,8 +1907,8 @@ tests:
           <div class="kpi-row" style="grid-template-columns:1fr 1fr; margin-top:0.65rem;">
             <div class="kpi"><div class="n">1.59</div><div class="l">Avg rating / 5</div></div>
             <div class="kpi"><div class="n">12.1%</div><div class="l">Would recommend</div></div>
-            <div class="kpi"><div class="n">4,671</div><div class="l">Reviews (2015–2025)</div></div>
-            <div class="kpi"><div class="n">~1.1</div><div class="l">IFE / Wi‑Fi weakest</div></div>
+            <div class="kpi"><div class="n">4,698</div><div class="l">Reviews (2015–2026)</div></div>
+            <div class="kpi"><div class="n">1.11</div><div class="l">Avg IFE / Wi‑Fi ~1.13</div></div>
           </div>
         </div>
       </div>
@@ -1953,7 +1935,7 @@ tests:
             <a class="repo-link bi" href="https://github.com/gwenniehub/frontier-reviews-dashboard/blob/main/reports/frontier_dashboard.pdf" target="_blank" rel="noopener noreferrer">Dashboard PDF →</a>
           </p>
           <ul>
-            <li><strong>Pain points:</strong> Weakest ULCC on recommendation (~2%); Allegiant and Spirit beat it on the same fare tier.</li>
+            <li><strong>Pain points:</strong> Weakest of the three on recommendation (5.8%); IFE 1.09 — Allegiant and Spirit beat it on the same fare tier.</li>
             <li><strong>Suggestion:</strong> Close the value gap — prioritize Economy entertainment and seat comfort.</li>
           </ul>
         </div>
@@ -1963,7 +1945,7 @@ tests:
             <a class="repo-link bi" href="https://github.com/MiaTran1112/spirit_airlines_dashboard/blob/main/dashboard/Mia_Tran_Spirit_Airlines_Dashboard_20250929.pdf" target="_blank" rel="noopener noreferrer">Dashboard PDF →</a>
           </p>
           <ul>
-            <li><strong>Pain points:</strong> Chronic low scores (1.59); IFE/Wi‑Fi ~1.1; Business travellers the most unhappy.</li>
+            <li><strong>Pain points:</strong> Chronic low scores (1.59); IFE 1.11 / Wi‑Fi 1.13; Business travellers the most unhappy.</li>
             <li><strong>Suggestion:</strong> Connectivity/IFE SLAs, rebuild Business offering, fix ops at MIA / MEX / GOT.</li>
           </ul>
         </div>
@@ -2234,7 +2216,7 @@ tests:
         <li>Repos tree navigable (EL + transformation + dashboard README)</li>
         <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review agg_airlines_review</span> / <span class="inline-code">dbt snapshot</span></li>
         <li>Elementary: <span class="inline-code">dbt run -s elementary</span> · <span class="inline-code">edr report</span> · <span class="inline-code">docs/observability.md</span></li>
-        <li>Snowflake: ANALYST vs TRANSFORMER on masked <span class="inline-code">dim_customer</span></li>
+        <li>Masking demo: <span class="inline-code">USE ROLE SKYTRAX_ANALYST</span> → <span class="inline-code">SELECT * FROM MARTS.DIM_CUSTOMER LIMIT 5</span> (name / nationality hashed)</li>
         <li>Mode Delta / Frontier / Spirit dashboards open (or PDF backups)</li>
         <li>GitHub Actions recent CI/CD run + <span class="inline-code">docs/cicd.md</span></li>
         <li><a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">dbt docs lineage</a> (CloudFront)</li>
