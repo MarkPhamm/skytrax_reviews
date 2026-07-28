@@ -1189,32 +1189,32 @@
             <span class="hint">Incremental fact, airline agg + snapshots</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="10">
+        <button type="button" class="agenda-row" data-go="9">
           <span class="t">35–50</span>
           <span>
             <span class="pillar">3 · Governance</span>
             <span class="hint">Quality gates, PII masking, control matrix</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="12">
+        <button type="button" class="agenda-row" data-go="11">
           <span class="t">50–65</span>
           <span>
             <span class="pillar">4 · Insight</span>
             <span class="hint">Delta · Frontier · Spirit — one lever each</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="15">
+        <button type="button" class="agenda-row" data-go="14">
           <span class="t">65–80</span>
           <span>
             <span class="pillar">5 · DataOps</span>
             <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
           </span>
         </button>
-        <button type="button" class="agenda-row qa" data-go="20">
+        <button type="button" class="agenda-row qa" data-go="17">
           <span class="t">80–90</span>
           <span>
             <span class="pillar">Live demo · Q&amp;A</span>
-            <span class="hint">Pick any box from the demo menu</span>
+            <span class="hint">Questions — pick any area to go deeper</span>
           </span>
         </button>
       </div>
@@ -1752,45 +1752,7 @@ select … from {{ ref('agg_airlines_review') }}
       </div>
     </section>
 
-    <!-- 10 -->
-    <section class="slide" data-title="Transformation SWY">
-      <p class="eyebrow">Pillar 2 · Show → Why → What-if</p>
-      <h2>Data Transformation</h2>
-      <div class="swy">
-        <div class="card show">
-          <span class="pill show">Show</span>
-          <h3>Where it lives</h3>
-          <ul>
-            <li><span class="inline-code">marts/fct_review.sql</span> — incremental merge</li>
-            <li><span class="inline-code">marts/aggregated/agg_airlines_review.sql</span></li>
-            <li><span class="inline-code">snapshots/snap_agg_airlines_review.sql</span> (check)</li>
-            <li><span class="inline-code">snapshots/snap_skytrax_reviews.sql</span> (timestamp)</li>
-            <li>Live: <span class="inline-code">dbt run -s agg_airlines_review</span> · <span class="inline-code">dbt snapshot</span></li>
-          </ul>
-        </div>
-        <div class="card why">
-          <span class="pill why">Why</span>
-          <h3>Trade-offs</h3>
-          <ul>
-            <li><strong>Incremental merge</strong> — 160K+ history; don’t rebuild full fact daily.</li>
-            <li><strong>Lookback window</strong> — late-arriving updates / clock skew without full refresh.</li>
-            <li><strong>Airline agg</strong> — scorecard grain; contract keeps BI columns stable.</li>
-            <li><strong>Check snapshot</strong> — track score drift; exclude load timestamps so rebuilds don’t invent versions.</li>
-          </ul>
-        </div>
-        <div class="card whatif">
-          <span class="pill whatif">What-if</span>
-          <h3>Live adaptations</h3>
-          <ul>
-            <li>“New service score column” → contract + extend avg formula + unit test; add col to <span class="inline-code">check_cols</span>; full-refresh fact + snapshot.</li>
-            <li>“How did Delta’s avg move?” → query <span class="inline-code">snap_agg_airlines_review</span> by <span class="inline-code">dbt_valid_from</span> / <span class="inline-code">dbt_valid_to</span>.</li>
-            <li>“Delete / GDPR erase” → <span class="inline-code">dbt run-operation gdpr_erase</span> clears fact + snapshot rows + exclusion seed.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 -->
+    <!-- 9 -->
     <section class="slide" data-title="Governance overview">
       <p class="eyebrow">Pillar 3 · Data Governance</p>
       <h2>Quality · observability · sensitive data</h2>
@@ -2079,94 +2041,6 @@ select … from {{ ref('agg_airlines_review') }}
     </section>
 
     <!-- 16 -->
-    <section class="slide" data-title="DataOps SWY">
-      <p class="eyebrow">Pillar 5 · Show → Why → What-if</p>
-      <h2>DataOps</h2>
-      <div class="swy">
-        <div class="card show">
-          <span class="pill show">Show</span>
-          <h3>Where it lives</h3>
-          <ul>
-            <li><span class="inline-code">.github/workflows/pr_checks.yml</span></li>
-            <li><span class="inline-code">.github/workflows/deploy_main.yml</span> — email on fail/success</li>
-            <li>Terraform AWS OIDC + S3 artifacts + CloudFront</li>
-            <li>GitHub Actions badges / recent run logs</li>
-            <li>Docs: <span class="inline-code">docs/cicd.md</span></li>
-          </ul>
-        </div>
-        <div class="card why">
-          <span class="pill why">Why</span>
-          <h3>Trade-offs</h3>
-          <ul>
-            <li><strong>SQLFluff in CI</strong> — style/syntax gate before warehouse compute.</li>
-            <li><strong>Slim CI</strong> — full project build on every PR is slow/expensive.</li>
-            <li><strong>Trailing <span class="inline-code">+</span></strong> — rebuild downstream after <span class="inline-code">dbt clone</span> so types don’t silently stale.</li>
-            <li><strong>Defer/favor-state</strong> — prod only rebuilds blast radius.</li>
-            <li><strong>CD email</strong> — don’t rely on checking Actions; failure hits my inbox with the run link.</li>
-          </ul>
-        </div>
-        <div class="card whatif">
-          <span class="pill whatif">What-if</span>
-          <h3>Live adaptations</h3>
-          <ul>
-            <li>“Block merge if freshness fails” → add <span class="inline-code">dbt source freshness</span> step in PR or nightly.</li>
-            <li>“Blue/green schemas” → deploy to <span class="inline-code">MARTS_NEXT</span>, swap grants after tests.</li>
-            <li>“Multi-dev conflict” → already isolated <span class="inline-code">DEV_*</span>; show clone-from-prod pattern.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 15b -->
-    <section class="slide" data-title="Governance matrix">
-      <p class="eyebrow">Pillar 3 · Control matrix</p>
-      <h2>Control → tool → evidence → live verify</h2>
-      <table class="stack-table">
-        <thead>
-          <tr><th>Control</th><th>Tool</th><th>Evidence path</th><th>Live verify</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>File quality gate</td>
-            <td>Airflow + <span class="inline-code">quality.py</span></td>
-            <td><span class="inline-code">quarantine/&lt;type&gt;/</span> + Airflow Variable</td>
-            <td>Reject a fixture file → lands in quarantine, skipped by COPY</td>
-          </tr>
-          <tr>
-            <td>Load reconciliation</td>
-            <td>Snowflake <span class="inline-code">LOAD_AUDIT</span></td>
-            <td>EL <span class="inline-code">snowflake_load.py</span></td>
-            <td><span class="inline-code">select * from raw.load_audit order by loaded_at desc limit 5</span></td>
-          </tr>
-          <tr>
-            <td>Model tests + contracts</td>
-            <td>dbt</td>
-            <td><span class="inline-code">marts_schema.yml</span>, slim CI</td>
-            <td><span class="inline-code">dbt test -s fct_review</span> · branch <span class="inline-code">demo/contract-break</span></td>
-          </tr>
-          <tr>
-            <td>PII masking</td>
-            <td>Snowflake tags + <span class="inline-code">PII_HASH_MASK</span></td>
-            <td>EL <span class="inline-code">masking.tf</span> · TF <span class="inline-code">apply_pii_mask</span></td>
-            <td>ANALYST vs TRANSFORMER on <span class="inline-code">dim_customer</span></td>
-          </tr>
-          <tr>
-            <td>Freshness + anomalies</td>
-            <td>dbt freshness · Elementary</td>
-            <td><span class="inline-code">stg__skytrax_source.yml</span> · schema <span class="inline-code">elementary</span> · <span class="inline-code">docs/observability.md</span></td>
-            <td><span class="inline-code">dbt source freshness</span> · <span class="inline-code">dbt run -s elementary</span> · <span class="inline-code">edr report</span></td>
-          </tr>
-          <tr>
-            <td>GDPR erase</td>
-            <td>dbt macro</td>
-            <td><span class="inline-code">macros/gdpr_erase.sql</span></td>
-            <td><span class="inline-code">dbt run-operation gdpr_erase --args '{review_id: …}'</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- 16 -->
     <section class="slide" data-title="Ownership">
       <p class="eyebrow">Team & ownership</p>
       <h2>What I own vs partner work</h2>
@@ -2209,49 +2083,6 @@ select … from {{ ref('agg_airlines_review') }}
     </section>
 
     <!-- 17 -->
-    <section class="slide" data-title="Demo checklist">
-      <p class="eyebrow">Practical checklist</p>
-      <h2>Live demo menu — pick any box, we open it now</h2>
-      <ul class="checklist">
-        <li>Repos tree navigable (EL + transformation + dashboard README)</li>
-        <li><span class="inline-code">dbt debug</span> / <span class="inline-code">dbt run -s fct_review agg_airlines_review</span> / <span class="inline-code">dbt snapshot</span></li>
-        <li>Elementary: <span class="inline-code">dbt run -s elementary</span> · <span class="inline-code">edr report</span> · <span class="inline-code">docs/observability.md</span></li>
-        <li>Masking demo: <span class="inline-code">USE ROLE SKYTRAX_ANALYST</span> → <span class="inline-code">SELECT * FROM MARTS.DIM_CUSTOMER LIMIT 5</span> (name / nationality hashed)</li>
-        <li>Mode Delta / Frontier / Spirit dashboards open (or PDF backups)</li>
-        <li>GitHub Actions recent CI/CD run + <span class="inline-code">docs/cicd.md</span></li>
-        <li><a class="repo-link tf" href="https://d38l3fc9bckvbz.cloudfront.net/#!/overview/ba_transformation?g_v=1" target="_blank" rel="noopener noreferrer">dbt docs lineage</a> (CloudFront)</li>
-        <li>ERD image + architecture diagram from READMEs</li>
-        <li>Sanitized profiles — no passwords/tokens on screen</li>
-      </ul>
-    </section>
-
-    <!-- 18 -->
-    <section class="slide" data-title="What-if bank">
-      <p class="eyebrow">Design extensions</p>
-      <h2>What-if scenarios — already thought through</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h3>Modeling / Transform</h3>
-          <ul>
-            <li>New review type → new RAW table + staging + optional fact; share dims</li>
-            <li>Change grain to “per leg” → explode routes; new surrogate; full-refresh fact</li>
-            <li>Shipped: <span class="inline-code">agg_airlines_review</span> + <span class="inline-code">snap_agg_airlines_review</span> (check SCD2)</li>
-            <li>Shipped: <span class="inline-code">gdpr_erase</span> run-operation + exclusion seed</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Governance / Insight / Ops</h3>
-          <ul>
-            <li>Shipped: Spirit fleet plausibility test (warn)</li>
-            <li>Shipped: Elementary volume anomaly on <span class="inline-code">fct_review</span> + <span class="inline-code">skytrax_elementary</span> DAG</li>
-            <li>Shipped: MetricFlow <span class="inline-code">avg_rating</span> / <span class="inline-code">pct_recommended</span></li>
-            <li>CI too slow → tighten selector, warehouse XS, parallel jobs, clone over rebuild</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 19 -->
     <section class="slide" data-title="Close">
       <div class="hero">
         <div>
