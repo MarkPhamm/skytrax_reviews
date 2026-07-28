@@ -1791,9 +1791,9 @@
               <li>Staging: dedup + deterministic <span class="inline-code">review_id</span></li>
               <li>Intermediate: clean / normalize</li>
               <li><strong style="color:var(--text)">Incremental</strong> <span class="inline-code">fct_review</span> merge on <span class="inline-code">review_key</span></li>
-              <li>HWM + lookback (<span class="inline-code">incremental_lookback_days</span>=3)</li>
+              <li>HWM (high-water mark) + lookback (<span class="inline-code">incremental_lookback_days</span>=3)</li>
               <li>Airline agg table + check-strategy snapshot</li>
-              <li>Contract + macros (<span class="inline-code">gdpr_erase</span>)</li>
+              <li>Contract + macros (<span class="inline-code">clean_airline_name</span>, <span class="inline-code">apply_pii_mask</span>)</li>
             </ul>
           </div>
           <div class="code">{{ config(

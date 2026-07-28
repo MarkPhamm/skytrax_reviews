@@ -43,13 +43,6 @@ git checkout demo/contract-break   # column type drift → contract fails / slim
 git checkout demo/bad-data         # rating=7 → range / accepted_values catch
 ```
 
-GDPR erase (merge can’t delete — this can):
-
-```bash
-dbt seed -s gdpr_erased_reviews
-dbt run-operation gdpr_erase --args '{review_id: "<id>"}'
-```
-
 ---
 
 ## Pillar 3 — Governance
