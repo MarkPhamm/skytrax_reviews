@@ -1227,6 +1227,111 @@
       line-height: 1.35;
     }
 
+    /* OIDC deep-dive — same compact pattern as PII slide */
+    .slide[data-title="OIDC auth"] {
+      gap: 0.4rem;
+      overflow: hidden;
+    }
+
+    .slide[data-title="OIDC auth"] h2 {
+      margin-bottom: 0.35rem;
+      font-size: clamp(1.45rem, 2.8vw, 2.1rem);
+    }
+
+    .slide[data-title="OIDC auth"] .lead {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+    }
+
+    .slide[data-title="OIDC auth"] .grid-2 {
+      margin-top: 0.35rem;
+      gap: 0.75rem;
+      flex: 0 0 auto;
+      align-items: stretch;
+    }
+
+    .slide[data-title="OIDC auth"] .card {
+      padding: 0.85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .slide[data-title="OIDC auth"] .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .slide[data-title="OIDC auth"] .card .small {
+      margin-top: 0;
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .slide[data-title="OIDC auth"] .card .code {
+      margin-top: 0.45rem;
+      font-size: 0.68rem;
+      line-height: 1.4;
+      padding: 0.55rem 0.7rem;
+      flex: 1;
+    }
+
+    .slide[data-title="OIDC auth"] .oidc-flow {
+      margin-top: 0.35rem;
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
+      align-items: stretch;
+    }
+
+    @media (max-width: 1000px) {
+      .slide[data-title="OIDC auth"] .oidc-flow {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .slide[data-title="OIDC auth"] .oidc-step {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.7rem 0.85rem;
+      min-width: 0;
+      position: relative;
+    }
+
+    .slide[data-title="OIDC auth"] .oidc-step .n {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .slide[data-title="OIDC auth"] .oidc-step .lbl {
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .slide[data-title="OIDC auth"] .oidc-step .val {
+      color: var(--text);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .slide[data-title="OIDC auth"] .footnote {
+      margin-top: 0.35rem;
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
     figure {
       margin: 0;
       background: var(--bg-elev);
@@ -1497,7 +1602,7 @@
             <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
           </span>
         </button>
-        <button type="button" class="agenda-row qa" data-go="18">
+        <button type="button" class="agenda-row qa" data-go="19">
           <span class="t">80–90</span>
           <span>
             <span class="pillar">Live demo · Q&amp;A</span>
@@ -1517,10 +1622,6 @@
     <section class="slide" data-title="Architecture">
       <p class="eyebrow">End-to-end · how the data flows</p>
       <h2>Architecture at a glance</h2>
-      <p class="lead" style="margin-top:0.25rem; margin-bottom:0;">
-        Source: AirlineQuality.com (Skytrax) — <strong style="color:var(--text)">permanently closed</strong>.
-        Pipeline keeps a replayable historical archive on S3; no new fetches from that site.
-      </p>
       <div class="pipeline-wrap">
         <svg
           id="skytraxPipeline"
@@ -1587,7 +1688,7 @@
               <rect x="25" y="271" width="222" height="78" rx="11" fill="rgba(17, 24, 39, 0.78)" stroke="#3db8a8" stroke-opacity="0.55" stroke-width="1.75" />
               <image href="assets/pipeline/api.svg" x="40" y="297" width="26" height="26" />
               <text class="pl-font" x="78" y="308" text-anchor="start" fill="#e8f1f7" font-size="15">AirlineQuality</text>
-              <text class="pl-font" x="78" y="328" text-anchor="start" fill="#9bb3c5" font-size="12">closed · historical HTML</text>
+              <text class="pl-font" x="78" y="328" text-anchor="start" fill="#9bb3c5" font-size="12">closed</text>
             </g>
             <text class="pl-label pl-font" x="136" y="372" text-anchor="middle" fill="#6B7280" font-size="12" font-style="italic">site shut down permanently</text>
 
@@ -2452,6 +2553,77 @@ mf validate-configs</p>
     </section>
 
     <!-- 16 -->
+    <section class="slide" data-title="OIDC auth">
+      <p class="eyebrow">Pillar 5 · Keyless AWS auth</p>
+      <h2>How OIDC works</h2>
+      <p class="lead">
+        GitHub Actions gets short-lived AWS creds — no static access keys in secrets.
+        Only <span class="inline-code">AWS_ROLE_ARN</span> is stored.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>1. Terraform creates trust</h3>
+          <p class="small">
+            <span class="inline-code">terraform/aws/iam.tf</span> —
+            OIDC provider + IAM role scoped to this repo.
+          </p>
+          <pre class="code"># OIDC provider
+url = "https://token.actions.githubusercontent.com"
+client_id_list = ["sts.amazonaws.com"]
+
+# Role trust (AssumeRoleWithWebIdentity)
+aud = "sts.amazonaws.com"
+sub = "repo:MarkPhamm/skytrax_reviews_transformation:*"
+# * covers main (CD) + pull/*/merge (CI)</pre>
+        </div>
+
+        <div class="card">
+          <h3>2. Workflow assumes the role</h3>
+          <p class="small">
+            <span class="inline-code">deploy_main.yml</span> /
+            <span class="inline-code">pr_checks.yml</span> —
+            one step, temporary creds (~15 min).
+          </p>
+          <pre class="code">- uses: aws-actions/configure-aws-credentials@v4
+  with:
+    role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+    aws-region: us-east-1
+
+# Role can: S3 dbt artifacts R/W + CloudFront invalidate
+# Snowflake still uses DBT_CICD / PROD_DBT secrets</pre>
+        </div>
+      </div>
+
+      <div class="oidc-flow">
+        <div class="oidc-step">
+          <div class="n">1</div>
+          <div class="lbl">GHA job</div>
+          <div class="val">Requests OIDC JWT from GitHub (repo, ref, aud)</div>
+        </div>
+        <div class="oidc-step">
+          <div class="n">2</div>
+          <div class="lbl">STS</div>
+          <div class="val">configure-aws-credentials sends token + role ARN</div>
+        </div>
+        <div class="oidc-step">
+          <div class="n">3</div>
+          <div class="lbl">Validate</div>
+          <div class="val">AWS checks OIDC provider + trust policy (aud / sub)</div>
+        </div>
+        <div class="oidc-step">
+          <div class="n">4</div>
+          <div class="lbl">Creds</div>
+          <div class="val">Short-lived keys → S3 artifacts + CloudFront</div>
+        </div>
+      </div>
+
+      <p class="footnote">
+        Why: no long-lived cloud keys to rotate or leak. Scoped to one repo; expires with the run.
+      </p>
+    </section>
+
+    <!-- 17 -->
     <section class="slide" data-title="Ownership">
       <p class="eyebrow">Team & ownership</p>
       <h2>What I own vs partner work</h2>
@@ -2493,7 +2665,7 @@ mf validate-configs</p>
       <p class="small">Team project, honestly framed: I led extract–load, transformation, and DataOps end-to-end; analyst partners own the Mode insight layer — and every metric's SQL and grain is mine to defend.</p>
     </section>
 
-    <!-- 17 -->
+    <!-- 18 -->
     <section class="slide" data-title="Close">
       <div class="hero">
         <div>
