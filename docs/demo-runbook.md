@@ -58,7 +58,10 @@ dbt test -s fct_review --target prod
 # Spirit fleet plausibility (warn — free-text aircraft noise)
 dbt test -s assert_spirit_aircraft_airbus --target prod
 
-# Masking A/B
+# Masking A/B — two policies (don't conflate live):
+#   RAW (EL Terraform): MASK_PII_STRING + PII tag → ***MASKED*** unless PII_READER/ACCOUNTADMIN
+#   MARTS (TF + dbt post-hook): PII_HASH_MASK → SHA-256 unless SKYTRAX_ADMIN/TRANSFORMER
+# Live demo MARTS only:
 # Snowflake: use role SKYTRAX_ANALYST  → hashed name / nationality
 #            use role SKYTRAX_TRANSFORMER → clear text
 # review_text stays readable for BI (not hashed)
@@ -88,12 +91,13 @@ Control matrix slide in the deck maps each control → tool → evidence → com
 ```bash
 # Mode dashboards (PDF backups in each insight repo)
 # Same metric grain — filter by airline:
-# select airline,
+# select a.airline_name as airline,
 #        count(*) as reviews,
-#        avg(average_rating) as avg_rating,
-#        avg(iff(recommended,1,0)) as pct_recommended
-# from marts.fct_review_enriched
-# where airline in ('Delta Air Lines', 'Frontier Airlines', 'Spirit Airlines')
+#        avg(f.average_rating) as avg_rating,
+#        avg(iff(f.recommended,1,0)) as pct_recommended
+# from marts.fct_review f
+# join marts.dim_airline a on f.airline_id = a.airline_id
+# where a.airline_name in ('delta air lines', 'frontier airlines', 'spirit airlines')
 # group by 1
 # order by 1;
 
@@ -105,12 +109,14 @@ mf query --metrics avg_rating,pct_recommended --group-by rating_band
 Review counts (refresh deck/READMEs if these drift):
 
 ```sql
-select airline, count(*) as reviews
-from marts.fct_review_enriched
-where airline in ('Delta Air Lines', 'Frontier Airlines', 'Spirit Airlines')
+select a.airline_name as airline, count(*) as reviews
+from marts.fct_review f
+join marts.dim_airline a on f.airline_id = a.airline_id
+where a.airline_name in ('delta air lines', 'frontier airlines', 'spirit airlines')
 group by 1
 order by 1;
--- Expected ~2912 Delta · ~3533 Frontier · ~4698 Spirit (fct_review snapshot)
+-- Snapshot 2026-07-30 (umbrella/deck): ~2912 Delta · ~3533 Frontier · ~4698 Spirit
+-- Names in marts are lowercased via clean_airline_name()
 ```
 
 Distinctive levers to defend live:

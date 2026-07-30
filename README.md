@@ -31,7 +31,9 @@ This repo is the **umbrella** — project narrative, architecture, and links int
 
 ## North-star metrics
 
-Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `MARTS.AGG_AIRLINES_REVIEW` (Mode grain: unweighted avg across airlines) — industry bar + three Mode slices:
+Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `MARTS.AGG_AIRLINES_REVIEW` (Mode grain: unweighted avg across airlines) — industry bar + three Mode slices.
+
+**KPI snapshot (2026-07-30):** deck / Mode baseline numbers below. Re-verify live with the SQL in [`docs/demo-runbook.md`](docs/demo-runbook.md) before the interview if the warehouse has moved.
 
 | Carrier | Reviews | Avg rating | Would recommend | Distinctive signal |
 | --- | ---: | ---: | ---: | --- |
@@ -39,6 +41,8 @@ Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `
 | **Delta** | 2,912 | **2.49** (vs 2.59) | **29.0%** (vs 40%) | Below industry · Economy vs Premium drivers diverge |
 | **Spirit** | 4,698 | **1.59** (vs 2.59) | **12.1%** (vs 40%) | Chronic lows; IFE/Wi‑Fi ~1.1 |
 | **Frontier** | 3,533 | **1.43** (vs 2.59) | **5.7%** (vs 40%) | Weakest of set · ULCC peer gap |
+
+> Volume note: Part 1 lands **~160k+ rows across four review types** (airline / seat / lounge / airport). The **~117k** figure is the **airline-review** grain in marts / Mode industry bar — not the full scrape.
 
 ---
 
@@ -123,12 +127,11 @@ s3://skytrax-reviews-landing-<account-id>/
 
 ### Star schema (Kimball)
 
-**Grain:** one row per customer review submission.
+**Grain:** one row per `review_id` (one customer review submission).
 
 | Model | Type | Description |
 | --- | --- | --- |
-| `fct_review` | Fact (incremental merge) | Ratings, `average_rating`, `rating_band`, FKs to dims |
-| `fct_review_enriched` | BI view | Denormalized labels for Mode |
+| `fct_review` | Fact (incremental merge) | Ratings, `average_rating`, `rating_band`, FKs to dims (Mode joins dims for labels) |
 | `dim_customer` | Dimension | Reviewer (+ PII hash mask for analysts) |
 | `dim_airline` | Dimension | Airline |
 | `dim_aircraft` | Dimension | Model, manufacturer, capacity |
@@ -233,8 +236,9 @@ Same mart (`AGG_AIRLINES_REVIEW` / `FCT_REVIEW`), three Mode dashboards — each
 
 1. Expand sources — on-time performance / DOT complaints alongside reviews  
 2. Conformed facts for seat / lounge / airport review types (already in RAW)  
-3. Semantic metrics layer on `average_rating` / recommendation rate  
-4. Allegiant Mode slice (complete the ULCC peer set already used in Frontier’s benchmark)
+3. Allegiant Mode slice (complete the ULCC peer set already used in Frontier’s benchmark)
+
+Done (no longer “next”): MetricFlow semantic layer on `avg_rating` / `pct_recommended` (and airline-prefixed agg metrics) — see Insight / MetricFlow slides and `dbt/models/marts/*_semantic.yml`.
 
 ---
 
