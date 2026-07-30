@@ -1314,14 +1314,14 @@
             <span class="hint">Delta · Frontier · Spirit — one lever each</span>
           </span>
         </button>
-        <button type="button" class="agenda-row" data-go="14">
+        <button type="button" class="agenda-row" data-go="15">
           <span class="t">65–80</span>
           <span>
             <span class="pillar">5 · DataOps</span>
             <span class="hint">Slim CI, defer/favor-state CD, OIDC</span>
           </span>
         </button>
-        <button type="button" class="agenda-row qa" data-go="17">
+        <button type="button" class="agenda-row qa" data-go="18">
           <span class="t">80–90</span>
           <span>
             <span class="pillar">Live demo · Q&amp;A</span>
@@ -2121,6 +2121,53 @@ mf validate-configs</p>
     </section>
 
     <!-- 14 -->
+    <section class="slide" data-title="MetricFlow queries">
+      <p class="eyebrow">Pillar 4 · Semantic layer</p>
+      <h2>Demo MetricFlow — query the metrics</h2>
+      <p class="lead" style="margin-top:0; margin-bottom:0.75rem;">
+        After <span class="inline-code">dbt parse</span>, ask for metrics by name. MetricFlow compiles the SQL.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Review grain · <span class="inline-code">fct_review_semantic.yml</span></h3>
+          <div class="code"># overall
+mf query --metrics review_count,avg_rating,pct_recommended
+
+# by rating band
+mf query --metrics avg_rating,review_count \
+  --group-by rating_band
+
+# by traveller type
+mf query --metrics pct_recommended,review_count \
+  --group-by type_of_traveller
+
+# over time
+mf query --metrics review_count,avg_rating \
+  --group-by metric_time__month \
+  --start-time 2024-01-01 \
+  --end-time 2025-12-31</div>
+        </div>
+        <div class="card">
+          <h3>Airline rollup · <span class="inline-code">agg_airlines_review_semantic.yml</span></h3>
+          <div class="code"># average rating by airline
+mf query --metrics airline_avg_rating \
+  --group-by airline_entity__airline_name
+
+# top recommenders (at least 100 reviews)
+mf query --metrics airline_pct_recommended \
+  --group-by airline_entity__airline_name \
+  --where "{{ Metric('airline_review_count', group_by=['airline_entity']) }} >= 100" \
+  --order -airline_pct_recommended \
+  --limit 10</div>
+          <p class="small" style="margin-top:0.75rem;">
+            <span class="inline-code">pct_recommended</span> is a ratio metric —
+            MetricFlow builds <span class="inline-code">recommended / reviews</span> for you.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 -->
     <section class="slide" data-title="DataOps overview">
       <p class="eyebrow">Pillar 5 · DataOps</p>
       <h2>Branching, CI/CD, release</h2>
