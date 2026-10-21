@@ -6,16 +6,14 @@ End-to-end airline review analytics: scrape AirlineQuality.com → stage on S3 �
 
 This repo is the **umbrella** — project narrative, architecture, and links into the part repos. Implementation lives in the extract-load, transformation, and dashboard repositories below.
 
-<p align="center">
-  <img src="assets/platform-overview.gif" alt="21-second platform overview: a counter runs to 117,000 airline reviews, the pipeline assembles (Python scrape - S3 - Snowflake - dbt - Mode), the star schema resolves to one row per review_id, and Delta / Spirit / Frontier score 2.49 / 1.59 / 1.43 against a 2.59 industry baseline" width="100%" />
-</p>
-
-<p align="center"><sub><em>The platform in 21 seconds — scale, governance, verdict. Silent by format; the full walkthrough is the deck linked below.</em></sub></p>
+<img
+  width="100%"
+  alt="Skytrax Reviews Platform — sketch film"
+  src="https://github.com/user-attachments/assets/768fb3a6-8269-44da-a648-21621c22cd8e"
+/>
 
 **[Platform walkthrough](https://markphamm.github.io/skytrax_reviews/)** — Show → Why → What-if deck (`index.html`) covering modeling, transformation, governance, insight, and DataOps.
-
 **[Demo runbook](docs/demo-runbook.md)** — live commands per pillar (including break-it-live branches `demo/contract-break` and `demo/bad-data` on the transformation repo).
-
 > **Self-selection bias:** Skytrax reviews are self-reported. Passengers with extreme experiences are more likely to post, so KPIs are *directional*, not population-level.
 
 ---
