@@ -55,7 +55,7 @@ Same governed logic in dbt (`average_rating`, `rating_band`, `recommended`) on `
 ## Architecture
 
 <p align="center">
-  <img src="assets/architecture.png" alt="Skytrax Reviews end-to-end architecture: AirlineQuality (permanently closed; historical scrape) → Python scrape/clean → S3 → Snowflake + dbt → Mode / dbt Docs / Analysts, with Terraform·GHA·OIDC control plane and Airflow orchestration" width="100%" />
+ <img width="2000" height="1200" alt="image" src="https://github.com/user-attachments/assets/dc3d091e-3b44-4272-9cd6-82dc05e22d04" />
 </p>
 
 ```text
